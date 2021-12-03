@@ -169,13 +169,7 @@ if [ "${sudo_1}" = "rts" ]; then
    echo "[*] User Privs look good, continuing."
    if [ "${sudo_2}" = "/home/rts/rts" ]; then
       echo "[*] Build path looks good, continuing with the build."
-      echo "[*] Cloning Reconmap from git..."
-      git clone https://github.com/reconmap/reconmap.git
-      cp ./environment.js ./reconmap/
-      cp ./config.json ./reconmap/
-      echo "[*] Building the software!"
-      sudo -u rts docker-compose build
-   else 
+   else
         echo "[!!!] Something is wrong and we are not in the right path. Exiting."
         exit
    fi
@@ -183,6 +177,13 @@ else
    echo "[!!!] Something is wrong and we are not the right user. Exiting."
    exit
 fi
+echo
+echo "[*] Cloning Reconmap..."
+if [ git clone https://github.com/reconmap/reconmap.git /home/rts/rts -ne 0]; then 
+  echo "[!!!] Clone failed, exiting. Check your internet connectivity or github access."
+else echo "[**] Clone successful"
+fi
+echo
 
 echo "[*] Starting Docker Compose service installation."
 
