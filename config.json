@@ -1,0 +1,30 @@
+{
+    "jwt": {
+        "issuer": "reconmap.org",
+        "audience": "reconmap.com",
+        "key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "cors": {
+        "allowedOrigins": [
+            "http://rts.lan:80",
+            "http://rts.lan",
+            "http://reconmap.rts.lan:80",
+            "http://reconmap.rts.lan"
+        ]
+    },
+    "database": {
+        "host": "rmap-mysql",
+        "username": "reconmapper",
+        "password": "reconmapped",
+        "name": "reconmap"
+    },
+    "smtp": {
+        "host": "",
+        "port": 587,
+        "username": "",
+        "password": "",
+        "fromEmail": "no-reply@reconmap.org",
+        "fromName": "Reconmap"
+    },
+    "integrations": {}
+}
