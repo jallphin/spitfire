@@ -15,8 +15,8 @@ gitea_db_host=gitea-db
 gitea_db_type=postgres
 gitea_db_user=gitea
 gitea_db_pass=gitea
-
-
+initial_working_dir=$(pwd)
+initial_user=$(whoami)
 
 echo "Starting sanity checks and initial setup"
 
@@ -105,9 +105,14 @@ echo
 echo "[*] Checking to see if rts user exists..."
 getent passwd rts > /dev/null
 if [ $? -eq 0 ]; then
-    echo "[*] 'rts' user  exists"
+    echo "[**] 'rts' user  exists"
 else
     echo "[***] 'rts' user does not exist, creating.."
+    echo "[*] The 'rts' user will be the primary *SHARED* account that your team uses to access this instance of kali. Make sure you use a generic team password."
+    read -ps "[*] What password would you like for the 'rts' account? ->" rtspassword
+    useradd rts -s /bin/bash -m -g adm -G rts,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,bluetooth,wireshark,scanner,kaboxer,docker
+    echo "rts:$rtspassword" | chpasswd
+    echp "[**] User created."
 fi
 
 
@@ -117,7 +122,7 @@ echo "[*] Checking root and rts user permissions for docker..."
 check_USER="root"
 check_GROUP="docker"
 if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
-    echo "[*] $check_USER belongs to $check_GROUP"
+    echo "[**] $check_USER belongs to $check_GROUP"
 else
     echo "[***] $check_USER does not belong to $check_GROUP, adding."
     usermod –aG $check_GROUP $check_USER
@@ -126,10 +131,59 @@ fi
 
 check_USER="rts"
 if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
-    echo "[*] $check_USER belongs to $check_GROUP"
+    echo "[**] $check_USER belongs to $check_GROUP"
 else
     echo "[***] $check_USER does not belong to $check_GROUP, adding."
     usermod -aG $check_GROUP $check_USER
     echo "[*] $check_USER added to $check_GROUP group."
 fi
+echo
+# If script was run by non-rts user in non /home/rts/rts/ directory this is a problem that we will now fix"
+if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "/home/rts/rts" ]; then
+	echo "[*] Copying files from current location to /home/rts/rts"
+        cp -R $initial_working_dir /home/rts/
+        echo "[*] Changing working directory to /home/rts/rts"
+        cd /home/rts/rts/
+        pwd
+        echo "[**] Assuming rts user level."
+else echo "[**] User and path look good to go."
+fi
+echo
+
+#lets start crack-a-lackin
+
+#check for internet access
+echo "[*] Checking for Internet access"
+if nc -zw1 google.com 443; then
+  echo "[**] Internet Connectivity checks successful."
+else echo "[!!!] Internet connectivity is *REQUIRED* to build RTS. Fix, and restart script."
+fi
+echo
+
+sudo_1=$(sudo -u rts whoami)
+sudo_2=$(sudo -u rts pwd)
+#echo "sudo_1 test = $sudo_1"
+#echo "sudo_2 test = $sudo_2"
+echo "[*] Dropping priveleges down to rts user account."
+if [ "${sudo_1}" = "rts" ]; then
+   echo "[*] User Privs look good, continuing."
+   if [ "${sudo_2}" = "/home/rts/rts" ]; then
+      echo "[*] Build path looks good, continuing with the build."
+      echo "[*] Cloning Reconmap from git..."
+      git clone https://github.com/reconmap/reconmap.git
+      cp ./environment.js ./reconmap/
+      cp ./config.json ./reconmap/
+      echo "[*] Building the software!"
+      sudo -u rts docker-compose build
+   else 
+        echo "[!!!] Something is wrong and we are not in the right path. Exiting."
+        exit
+   fi
+else
+   echo "[!!!] Something is wrong and we are not the right user. Exiting."
+   exit
+fi
+
+echo "[*] Starting Docker Compose service installation."
+
 
