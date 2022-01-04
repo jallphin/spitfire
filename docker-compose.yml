@@ -53,8 +53,8 @@ services:
     container_name: synapse
     hostname: matrix.rts.lan
     #build:
-    #    context: ../..
-    #    dockerfile: docker/Dockerfile
+        #context: ./
+        #dockerfile: Dockerfile
     image: docker.io/matrixdotorg/synapse:latest
     restart: unless-stopped
     environment:
@@ -73,6 +73,7 @@ services:
       - VIRTUAL_PORT=8008
     volumes:
       - synapse-data:/data
+      - "./homeserver.yaml:/data/homeserver.yaml"
     depends_on:
       - synapse-db
     # In order to expose Synapse, remove one of the following, you might for
@@ -80,7 +81,7 @@ services:
     # ports:
     #   - 8448:8448/tcp
     expose:
-      - 8448
+      - 8008
     #networks:
     #  - web
     #  - backend  
@@ -263,3 +264,12 @@ services:
       - 80
     environment:
       - VIRTUAL_HOST=element.rts.lan
+##### wetty - terminal based ssh #####  
+  wetty:
+    ports:
+      - '3010:3000'
+    image: wettyoss/wetty
+    environment:
+      - SSH-HOST=192.168.147.137
+      - VIRTUAL_HOST=ssh.rts.lan
+      - VIRTUAL_PORT=3010
