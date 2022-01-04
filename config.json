@@ -6,9 +6,9 @@
     },
     "cors": {
         "allowedOrigins": [
-            "http://rts.lan:80",
+            "http://rts.lan:5500",
             "http://rts.lan",
-            "http://reconmap.rts.lan:80",
+            "http://reconmap.rts.lan:5500",
             "http://reconmap.rts.lan"
         ]
     },

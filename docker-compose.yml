@@ -200,9 +200,10 @@ services:
     #ports:
     expose:
       - 80
-      #- 3001:80
+    #  - 80:5500
     environment:
       - VIRTUAL_HOST=reconmap.rts.lan
+      - VIRTUAL_PORT=5500
 
   reconmap-redis:
     container_name: rmap-redis
@@ -238,7 +239,7 @@ services:
       - "./reconmap/logs:/var/www/webapp/logs/"
       - "./reconmap/data:/var/www/webapp/data/"
     ports:
-      - 8080:80
+      - 5510:5510
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -249,9 +250,9 @@ services:
     container_name: rmap-agent
     image: quay.io/reconmap/agent:latest
     ports:
-      - 4040:2020
+      - 5520:5520
     environment:
-      VALID_ORIGINS: http://localhost:80
+      VALID_ORIGINS: http://rts.lan:80
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: REconDIS
@@ -266,10 +267,13 @@ services:
       - VIRTUAL_HOST=element.rts.lan
 ##### wetty - terminal based ssh #####  
   wetty:
-    ports:
-      - '3010:3000'
+    #ports:
+    expose:
+    #  - '3010:3000'
+      - 80
     image: wettyoss/wetty
+    command: --ssh-host="${rts_ip_address}" --ssh-user=rts
     environment:
-      - SSH-HOST=192.168.147.137
       - VIRTUAL_HOST=ssh.rts.lan
-      - VIRTUAL_PORT=3010
+      - VIRTUAL_PORT=3000
+

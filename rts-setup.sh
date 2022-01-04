@@ -17,6 +17,8 @@ gitea_db_user=gitea
 gitea_db_pass=gitea
 initial_working_dir=$(pwd)
 initial_user=$(whoami)
+install_path="/home/rts/redteamserver"
+ip_address=$(ip route get 1 | awk '{print $(NF-2);exit}')
 
 function rawurlencode() {
   local string="${1}"
@@ -49,10 +51,25 @@ else
   echo "[*] Effective UID is $EUID"
   echo "[**] Running as root"
 fi
+
+echo "rts_ip_address=${ip_address}" > /home/rts/red-team-server/.env
+
 echo
 sleep 3
-read -p "[*] Enter the password you want to use for Gitea and Nextcloud -> " web_password
+read -p "[*] Enter the password you want to use for Gitea and Nextcloud (default is rtsPassw0rd! )-> " web_password
+if [ -z "${web_password}" ]
+then
+   web_password="rtsPassw0rd!"
+fi
 url_encoded_pass=$( rawurlencode "$web_password" )
+
+echo
+read -p "[*] Enter the path to install the redteamserver (default /home/rts/redteamserver) -> " install_path
+if [ -z "${install_path}" ]
+then
+  install_path="/home/rts/redteamserver"
+fi
+
 echo
 echo "[*] Checking hostname status..."
 # check to see if hostname is set correctly
@@ -67,6 +84,7 @@ if [ "${check_hostname}" != "rts.lan" ]; then
     fi
     else echo "[**] Hostname ($check_hostname) is correct."
 fi
+
 # ensure ssh is enabled
 echo
 sleep 3
@@ -161,11 +179,15 @@ fi
 echo
 sleep 2
 # If script was run by non-rts user in non /home/rts/rts/ directory this is a problem that we will now fix"
-if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "/home/rts/rts" ]; then
-	echo "[*] Copying files from current location to /home/rts/rts"
-        cp -R $initial_working_dir /home/rts/
-        echo "[*] Changing working directory to /home/rts/rts"
-        cd /home/rts/rts/
+if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_path}" ]; then
+	echo "[*] Copying files from current location to ${install_path}"
+        if [ ! -d "${install_path}" ]
+           then
+               sudo -u rts mkdir ${install_path}
+        fi
+        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
+        echo "[*] Changing working directory to ${install_path}"
+        cd ${install_path}
         pwd
         echo "[**] Assuming rts user level."
 else echo "[**] User and path look good to go."
@@ -189,7 +211,7 @@ sudo_2=$(sudo -u rts pwd)
 echo "[*] Dropping priveleges down to rts user account."
 if [ "${sudo_1}" = "rts" ]; then
    echo "[*] User Privs look good, continuing."
-   if [ "${sudo_2}" = "/home/rts/rts" ]; then
+   if [ "${sudo_2}" = "${install_path}" ]; then
       echo "[*] Build path looks good, continuing with the build."
    else
         echo "[!!!] Something is wrong and we are not in the right path. Exiting."
@@ -201,9 +223,9 @@ else
 fi
 echo
 echo "[*] Cloning Reconmap..."
-sudo -u rts git clone https://github.com/reconmap/reconmap.git /home/rts/rts/reconmap >/dev/null
-sudo -u rts cp /home/rts/rts/config.json /home/rts/rts/reconmap/ >/dev/null
-sudo -u rts cp /home/rts/rts/environment.js /home/rts/rts/reconmap/ >/dev/null
+sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap >/dev/null
+sudo -u rts cp /home/rts/red-team-server/config.json ${install_path}/reconmap/ >/dev/null
+sudo -u rts cp /home/rts/red-team-server/environment.js ${install_path}/reconmap/ >/dev/null
 if [ $? -eq 0 ]; then
    echo "[**] Clone successful, movin' on."
 else
@@ -212,7 +234,7 @@ else
 fi
 echo
 
-echo "[*] Starting Docker Compose service installation."
+echo "[*] Starting Docker Compose Build"
 read -p "[**] Everything seems good to go to continue the docker-compose build. Continue? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -226,7 +248,7 @@ fi
 echo
 echo "[*] Starting stage 1 of build"
 sleep 5
-sudo -u rts docker-compose -f /home/rts/rts/docker-compose.yml build
+sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build
 if [ $? -eq 0 ]; then
    echo "[**] Stage 1 complete, moving to stage 2."
 else
@@ -236,7 +258,7 @@ fi
 sleep 5
 echo "[*] Starting stage 2 of build"
 sleep 5
-sudo -u rts docker-compose -f /home/rts/rts/docker-compose.yml up -d
+sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d
 if [ $? -eq 0 ]; then
    echo "[**] Stage 2 complete, finalizing."
 else
@@ -246,7 +268,7 @@ fi
 echo
 sleep 5
 echo "[*] Generating Matrix/Synapse configuration and restarting."
-sudo -u rts docker-compose run --rm -e SYNAPSE_SERVER_NAME=my.matrix.host synapse generate >/dev/null
+sudo -u rts docker-compose run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate >/dev/null
 if [ $? -eq 0 ]; then
     echo "[**] Matrix/Synapse configuration generated."
 else
@@ -262,6 +284,63 @@ else
    echo "[!!!] Docker Compose restart failed, please post an issue on the RTS github. Exiting."
    exit
 fi
+echo
+echo "[*] Adding in services to /etc/hosts"
+if grep -qF "${ip_address} www.rts.lan" /etc/hosts; then
+  echo "[**] www.rts.lan found."
+else
+  echo "[***] adding in www.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} www.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} gitea.rts.lan" /etc/hosts; then
+  echo "[**] gitea.rts.lan found."
+else
+  echo "[***] adding in gitea.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} gitea.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} nextcloud.rts.lan" /etc/hosts; then
+  echo "[**] nextcloud.rts.lan found."
+else
+  echo "[***] adding in nextcloud.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} nextcloud.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} ivre.rts.lan" /etc/hosts; then
+  echo "[**] ivre.rts.lan found."
+else
+  echo "[***] adding in ivre.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} ivre.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} hastebin.rts.lan" /etc/hosts; then
+  echo "[**] hastebin.rts.lan found."
+else
+  echo "[***] adding in hastebin.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} hastebin.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} matrix.rts.lan" /etc/hosts; then
+  echo "[**] matrix.rts.lan found."
+else
+  echo "[***] adding in matrix.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} matrix.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} element.rts.lan" /etc/hosts; then
+  echo "[**] element.rts.lan found."
+else
+  echo "[***] adding in element.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} element.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} reconmap.rts.lan" /etc/hosts; then
+  echo "[**] reconmap.rts.lan found."
+else
+  echo "[***] adding in reconmap.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} reconmap.rts.lan" >> /etc/hosts
+fi
+if grep -qF "${ip_address} ssh.rts.lan" /etc/hosts; then
+  echo "[**] ssh.rts.lan found."
+else
+  echo "[***] adding in ssh.rts.lan with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} ssh.rts.lan" >> /etc/hosts
+fi
+echo "[**] Finished updating /etc/hosts."
 echo
 echo "[*] Sleeping 30 seconds to allow services to initialize."
 sleep 30
@@ -336,8 +415,12 @@ do
   echo $ip_address matrix.rts.lan
   echo $ip_address element.rts.lan
   echo $ip_address reconmap.rts.lan
+  echo $ip_address ssh.rts.lan
 done
 echo
+# Some quick configuration for reconmap
+chmod -R 777 ${install_path}/reconmap/logs
+chmod -R 777 ${install_path}/reconmap/data/attachments
 echo "[*] The username and password for Gitea and Nextcloud are:"
 echo "rts/$web_password"
 echo "[*] The username and password for Reconmap is:"
