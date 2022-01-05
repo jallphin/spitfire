@@ -52,7 +52,7 @@ else
   echo "[**] Running as root"
 fi
 
-echo "rts_ip_address=${ip_address}" > /home/rts/red-team-server/.env
+echo "rts_ip_address=${ip_address}" > ./.env
 
 echo
 sleep 3
@@ -73,16 +73,19 @@ fi
 echo
 echo "[*] Checking hostname status..."
 # check to see if hostname is set correctly
-check_hostname="$(hostname -f)"
-if [ "${check_hostname}" != "rts.lan" ]; then
+check_hostname="$(hostname)"
+hosts_line="127.0.1.1	rts.lan	  rts"
+if [ "${check_hostname}" != "rts" ]; then
     echo "[!!!] Hostname is not set correctly (currently set to $check_hostname), setting to rts.lan"
-    hostnamectl set-hostname rts.lan
+    hostnamectl set-hostname rts
+    sed -i".bak" "/$check_hostname/d" /etc/hosts
+    echo ${hosts_line} >> /etc/hosts
     # verify hostname changed
-    if [ "$HOSTNAME" -ne "rts.lan"]; then
+    if [ "`(hostname -f)`" != "rts.lan" ]; then
         echo "[!!!] Hostname change did not work, you need to do it manually. Exiting."
         exit
     fi
-    else echo "[**] Hostname ($check_hostname) is correct."
+    else echo "[**] Hostname (${check_hostname}) is correct."
 fi
 
 # ensure ssh is enabled
@@ -140,7 +143,7 @@ else
     fi
 fi
 echo
-#ensure rts user exists on the system, and if not create it. 
+#ensure rts user exists on the system, and if not create it.
 echo "[*] Checking to see if rts user exists..."
 getent passwd rts > /dev/null
 if [ $? -eq 0 ]; then
@@ -148,10 +151,10 @@ if [ $? -eq 0 ]; then
 else
     echo "[***] 'rts' user does not exist, creating.."
     echo "[*] The 'rts' user will be the primary *SHARED* account that your team uses to access this instance of kali. Make sure you use a generic team password."
-    read -ps "[*] What password would you like for the 'rts' account? ->" rtspassword
-    useradd rts -s /bin/bash -m -g adm -G rts,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,bluetooth,wireshark,scanner,kaboxer,docker
+    read -r -s -p "[*] What password would you like for the 'rts' account? -> " rtspassword
+    useradd rts -s /bin/bash -m -g adm -G dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,bluetooth,wireshark,scanner,kaboxer,docker
     echo "rts:$rtspassword" | chpasswd
-    echp "[**] User created."
+    echo "[**] User created."
 fi
 
 
@@ -224,8 +227,8 @@ fi
 echo
 echo "[*] Cloning Reconmap..."
 sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap >/dev/null
-sudo -u rts cp /home/rts/red-team-server/config.json ${install_path}/reconmap/ >/dev/null
-sudo -u rts cp /home/rts/red-team-server/environment.js ${install_path}/reconmap/ >/dev/null
+sudo -u rts cp ./config.json ${install_path}/reconmap/ >/dev/null
+sudo -u rts cp ./environment.js ${install_path}/reconmap/ >/dev/null
 if [ $? -eq 0 ]; then
    echo "[**] Clone successful, movin' on."
 else

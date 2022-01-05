@@ -277,3 +277,14 @@ services:
       - VIRTUAL_HOST=ssh.rts.lan
       - VIRTUAL_PORT=3000
 
+##### COVENANT C2 ########## - configured for https on port 7443, not proxied, http listeners to 80, htttps listeners to 443
+  covenant:
+    build: ./covenant/.
+    container_name: covenant
+    environment:
+      - TZ=Pacific/Los_Angeles
+    ports:
+      - 7443:7443
+      - 443:443
+      - 8080:80
+    restart: unless-stopped
