@@ -227,6 +227,8 @@ fi
 echo
 echo "[*] Cloning Reconmap..."
 sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap >/dev/null
+sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent >/dev/null
+sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
 sudo -u rts cp ./config.json ${install_path}/reconmap/ >/dev/null
 sudo -u rts cp ./environment.js ${install_path}/reconmap/ >/dev/null
 if [ $? -eq 0 ]; then
@@ -431,11 +433,5 @@ echo "admin/admin123"
 echo "[*] Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
 echo "[***] This concludes RTS installation."
 echo "Hack the Planet!"
-
-# Covenant C2 Install
-# git clone --recurse-submodules https://github.com/cobbr/Covenant
-# cd Covenant/Covenant
-# docker build -t covenant .
-# then docker-compose the build as normal
 
 # Also need to get nginx server up and operational for the rest of the website. Then we're done.

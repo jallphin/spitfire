@@ -246,16 +246,26 @@ services:
       REDIS_USER: default
       REDIS_PASSWORD: REconDIS
 
-  reconmap-agent:
+#  reconmap-agent:
+#    container_name: rmap-agent
+#    image: quay.io/reconmap/agent:latest
+#    ports:
+#      - 5520:5520
+#    environment:
+#      VALID_ORIGINS: http://rts.lan:80
+#      REDIS_HOST: redis
+#      REDIS_PORT: 6379
+#      REDIS_PASSWORD: REconDIS
+  rmap-agent:
+    build: ./reconmap-agent/.
     container_name: rmap-agent
-    image: quay.io/reconmap/agent:latest
-    ports:
-      - 5520:5520
     environment:
-      VALID_ORIGINS: http://rts.lan:80
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_PASSWORD: REconDIS
+      - TZ=Pacific/Los_Angeles
+    ports:
+      - 7443:7443
+      - 443:443
+      - 8080:80
+    restart: unless-stopped
 
 #### ELEMENT WEB CHAT CLIENT FOR MATRIX ####
   element-web:
