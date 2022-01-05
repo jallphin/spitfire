@@ -87,7 +87,7 @@ services:
     #  - backend  
     # ... or use a reverse proxy, here is an example for traefik:
   synapse-db:
-    container_name: synapse-postgres
+    container_name: synapse-db
     image: docker.io/postgres:10-alpine
     environment:
       - POSTGRES_DB=synapse
@@ -180,7 +180,7 @@ services:
       - ivredb
 ##### HASTEBIN #####
   hastebinweb:
-    container_name: hastebin
+    container_name: hastebinweb
     build: ./hastebin/.
     #ports:
     #  - "8081:7777"
@@ -193,7 +193,7 @@ services:
       - VIRTUAL_HOST=hastebin.rts.lan
 #### RECONMAP #####
   reconmap-web-client:
-    container_name: rmap-web-client
+    container_name: reconmap-web-client
     image: quay.io/reconmap/web-client:master
     volumes:
       - ./reconmap/environment.js:/usr/share/nginx/html/environment.js
@@ -206,7 +206,7 @@ services:
       - VIRTUAL_PORT=5500
 
   reconmap-redis:
-    container_name: rmap-redis
+    container_name: reconmap-redis
     image: redis:6.0
     command: redis-server --requirepass REconDIS
     ports:
@@ -217,7 +217,7 @@ services:
       - ./reconmap/data-redis:/data
 
   reconmap-mysql:
-    container_name: rmap-mysql
+    container_name: reconmap-mysql
     image: quay.io/reconmap/rest-api-db:latest
     volumes:
       - ./reconmap/data-mysql:/var/lib/mysql
@@ -232,7 +232,7 @@ services:
       MYSQL_PASSWORD: reconmapped
 
   reconmap-api:
-    container_name: rmap-api
+    container_name: reconmap-api
     image: quay.io/reconmap/rest-api:latest
     volumes:
       - "./reconmap/config.json:/var/www/webapp/config.json"
@@ -241,7 +241,7 @@ services:
     ports:
       - 5510:5510
     environment:
-      REDIS_HOST: redis
+      REDIS_HOST: reconmap-redis
       REDIS_PORT: 6379
       REDIS_USER: default
       REDIS_PASSWORD: REconDIS
@@ -256,15 +256,16 @@ services:
 #      REDIS_HOST: redis
 #      REDIS_PORT: 6379
 #      REDIS_PASSWORD: REconDIS
-  rmap-agent:
+  reconmap-agent:
     build: ./reconmap-agent/.
-    container_name: rmap-agent
+    container_name: reconmap-agent
     environment:
-      - TZ=Pacific/Los_Angeles
+      VALID_ORIGINS: http://rts.lan:80
+      REDIS_HOST: reconmap-redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: REconDIS
     ports:
-      - 7443:7443
-      - 443:443
-      - 8080:80
+      - 5520:5520
     restart: unless-stopped
 
 #### ELEMENT WEB CHAT CLIENT FOR MATRIX ####
