@@ -265,7 +265,7 @@ services:
       REDIS_PORT: 6379
       REDIS_PASSWORD: REconDIS
     ports:
-      - 5520:5520
+      - 5520:2020
     restart: unless-stopped
 
 #### ELEMENT WEB CHAT CLIENT FOR MATRIX ####
