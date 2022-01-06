@@ -202,7 +202,8 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
 	echo "[*] Copying files from current location to ${install_path}"
         if [ ! -d "${install_path}" ]
            then
-               sudo -u rts mkdir ${install_path}
+               mkdir ${install_path}
+               chown ${install_path} rts:rts
         fi
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path}
