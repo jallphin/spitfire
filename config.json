@@ -13,7 +13,7 @@
         ]
     },
     "database": {
-        "host": "reconmap-mysql",
+        "host": "rmap-mysql",
         "username": "reconmapper",
         "password": "reconmapped",
         "name": "reconmap"

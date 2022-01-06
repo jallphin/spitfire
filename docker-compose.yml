@@ -216,8 +216,8 @@ services:
     volumes:
       - ./reconmap/data-redis:/data
 
-  reconmap-mysql:
-    container_name: reconmap-mysql
+  rmap-mysql:
+    container_name: rmap-mysql
     image: quay.io/reconmap/rest-api-db:latest
     cap_add:
       - SYS_NICE

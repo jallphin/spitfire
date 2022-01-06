@@ -64,7 +64,7 @@ fi
 url_encoded_pass=$( rawurlencode "$web_password" )
 
 echo
-read -p "[*] Enter the path to install the redteamserver (default /home/rts/redteamserver) -> " install_path
+read -p "[*] Enter the path to install the redteamserver (default /opt/rts ) -> " install_path
 if [ -z "${install_path}" ]
 then
   install_path="/opt/rts"
@@ -106,6 +106,8 @@ if [ "${check_sshd}" = "inactive" ]; then
 else echo "[**] SSH is running."
 fi
 echo
+sleep 3
+
 # check to see if docker.io is installed
 echo "[*] Checking if 'docker' is installed..."
 dpkg -s docker.io &> /dev/null
@@ -123,6 +125,8 @@ else
         exit
     fi
 fi
+echo
+sleep 3
 # check to see if golang-go is installed
 echo "[*] Checking if 'golang' is installed..."
 dpkg -s golang &> /dev/null
@@ -140,7 +144,8 @@ else
         exit
     fi
 fi
-
+echo
+sleep 3
 # check to see if docker-compose is  installed
 echo "[*] Checking if 'docker-compose' is installed..."
 dpkg -s docker-compose &> /dev/null
@@ -159,6 +164,7 @@ else
     fi
 fi
 echo
+sleep 3
 #ensure rts user exists on the system, and if not create it.
 echo "[*] Checking to see if rts user exists..."
 getent passwd rts > /dev/null
@@ -172,9 +178,8 @@ else
     echo "rts:$rtspassword" | chpasswd
     echo "[**] User created."
 fi
-
-
 echo
+sleep 3
 # check to make sure root belongs to docker group
 echo "[*] Checking root and rts user permissions for docker..."
 check_USER="root"
@@ -208,7 +213,7 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path}
-	sudo -u rts cp ${initial_working_dir}/{agent-dockerfile,config.json,docker-compose.yml,environment.js,homeserver.yml,nuke-docker.sh} ${install_path}
+	sudo -u rts cp ${initial_working_dir}/{.env,agent-dockerfile,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh} ${install_path}
         echo "[*] Changing working directory to ${install_path}"
         cd ${install_path}
         pwd
@@ -216,7 +221,7 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
 else echo "[**] User and path look good to go."
 fi
 echo
-
+sleep 3
 #lets start crack-a-lackin
 
 #check for internet access
@@ -252,6 +257,11 @@ sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconm
 #sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
 sudo -u rts cp ./config.json ${install_path}/reconmap/ >/dev/null
 sudo -u rts cp ./environment.js ${install_path}/reconmap/ >/dev/null
+sudo -u rts rm ${install_path}/config.json > /dev/null
+sudo -u rts rm ${install_path}/environment.js > /dev/null
+# copy in patched terminal_handler for kali linux
+sudo -u rts cp terminal_handler.go ${install_path}/reconmap-agent/internal/ >/dev/null
+
 if [ $? -eq 0 ]; then
    echo "[**] Clone successful, movin' on."
 else
@@ -279,7 +289,7 @@ fi
 echo
 echo "[*] Copying reconmapd & rmap to install path."
 sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/
-sudo -u rts cp ${install_path/reconmap-cli/rmap ${install_path}/
+sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/
 echo
 
 echo "[*] Starting Docker Compose Build"
@@ -440,11 +450,13 @@ else
 fi
 echo
 echo "[*] Configuring and starting reconmapd agent service in the background."
-REDIS_HOST=localhost REDIS_PORT=6397 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd &>/dev/null
+REDIS_HOST=localhost REDIS_PORT=6379 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd > /dev/null 2>&1 &
 echo
 echo "[*] Configuring rmap."
-${install_path}/rmap config --api-url http://rts.lan:5510
-${install_path}/rmap login -u admin -p admin123
+sudo -u rts ${install_path}/rmap config --api-url http://rts.lan:5510
+sudo -u rts ${install_path}/rmap login -u admin -p admin123
+# add install_path to the base path 
+export PATH=$PATH:${install_path}
 echo
 echo "[****************************************************]"
 echo "[****************Service Information ****************]"
