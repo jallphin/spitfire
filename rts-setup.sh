@@ -204,7 +204,10 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
            then
                sudo -u rts mkdir ${install_path}
         fi
-        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
+#        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
+	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path}
+	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path}
+	sudo -u rts cp ${initial_working_dir}/{agent-dockerfile,config.json,docker-compose.yml,environment.js,homeserver.yml,nuke-docker.sh} ${install_path}
         echo "[*] Changing working directory to ${install_path}"
         cd ${install_path}
         pwd
