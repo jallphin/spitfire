@@ -219,6 +219,8 @@ services:
   reconmap-mysql:
     container_name: reconmap-mysql
     image: quay.io/reconmap/rest-api-db:latest
+    cap_add:
+      - SYS_NICE
     volumes:
       - ./reconmap/data-mysql:/var/lib/mysql
     ports:
@@ -256,17 +258,17 @@ services:
 #      REDIS_HOST: redis
 #      REDIS_PORT: 6379
 #      REDIS_PASSWORD: REconDIS
-  reconmap-agent:
-    build: ./reconmap-agent/.
-    container_name: reconmap-agent
-    environment:
-      VALID_ORIGINS: http://rts.lan:80
-      REDIS_HOST: reconmap-redis
-      REDIS_PORT: 6379
-      REDIS_PASSWORD: REconDIS
-    ports:
-      - 5520:2020
-    restart: unless-stopped
+#  reconmap-agent:
+#    build: ./reconmap-agent/.
+#    container_name: reconmap-agent
+#    environment:
+#      VALID_ORIGINS: http://rts.lan:80
+#      REDIS_HOST: reconmap-redis
+#      REDIS_PORT: 6379
+#      REDIS_PASSWORD: REconDIS
+#    ports:
+#      - 5520:2020
+#    restart: unless-stopped
 
 #### ELEMENT WEB CHAT CLIENT FOR MATRIX ####
   element-web:

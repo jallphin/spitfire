@@ -9,10 +9,16 @@ COPY internal/ ./internal/
 ENV CGO_ENABLED=0
 RUN go build -o /build/reconmapd ./cmd/reconmapd
 
+#RUN git clone https://github.com/reconmap/cli.git
+#WORKDIR /build/cli
+#RUN make
+
 WORKDIR /app
 
 RUN cp /build/reconmapd /app/reconmapd
+#RUN cp /build/cli/rmap /bin/rmap
+
 
 EXPOSE 2020
 
-CMD ["/app/reconmapd"]
+#CMD ["/app/reconmapd"]

@@ -17,7 +17,7 @@ gitea_db_user=gitea
 gitea_db_pass=gitea
 initial_working_dir=$(pwd)
 initial_user=$(whoami)
-install_path="/home/rts/redteamserver"
+install_path="/opt/rts"
 ip_address=$(ip route get 1 | awk '{print $(NF-2);exit}')
 
 function rawurlencode() {
@@ -67,7 +67,7 @@ echo
 read -p "[*] Enter the path to install the redteamserver (default /home/rts/redteamserver) -> " install_path
 if [ -z "${install_path}" ]
 then
-  install_path="/home/rts/redteamserver"
+  install_path="/opt/rts"
 fi
 
 echo
@@ -123,7 +123,23 @@ else
         exit
     fi
 fi
-
+# check to see if golang-go is installed
+echo "[*] Checking if 'golang' is installed..."
+dpkg -s golang &> /dev/null
+if [ $? -eq 0 ]; then
+    echo "[**] golang is installed, moving on."
+else
+    echo "[***] golang is not installed, installing from repo."
+    apt install golang-go -y &> /dev/null
+    # Verify golang is now installed
+    dpkg -s golang &> /dev/null
+    if [ $? -eq 0 ]; then
+       echo "[*] golang is now installed."
+    else
+       echo "[!!!] golang installation failed, check logs. Exiting."
+        exit
+    fi
+fi
 
 # check to see if docker-compose is  installed
 echo "[*] Checking if 'docker-compose' is installed..."
@@ -228,7 +244,8 @@ echo
 echo "[*] Cloning Reconmap..."
 sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap >/dev/null
 sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent >/dev/null
-sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
+sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconmap-cli >/dev/null
+#sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
 sudo -u rts cp ./config.json ${install_path}/reconmap/ >/dev/null
 sudo -u rts cp ./environment.js ${install_path}/reconmap/ >/dev/null
 if [ $? -eq 0 ]; then
@@ -237,6 +254,28 @@ else
    echo "[!!!] Clone failed, exiting. Check your internet connectivity or github access."
    exit
 fi
+echo
+echo "[*] Starting reconmap-agent build"
+sudo -u rts make -C ${install_path}/reconmap-agent/
+if [ $? -eq 0 ]; then
+   echo "[**] Reconmap-agent build successful, movin' on."
+else
+   echo "[!!!] Reconmap-agent build failed, exiting. Something is wrong with the build or script."
+   exit
+fi
+echo
+echo "[*] Starting reconmap-cli build"
+sudo -u rts make -C ${install_path}/reconmap-cli/
+if [ $? -eq 0 ]; then
+   echo "[**] Reconmap-cli build successful, movin' on."
+else
+   echo "[!!!] Reconmap-cli build failed, exiting. Something is wrong with the build or script."
+   exit
+fi
+echo
+echo "[*] Copying reconmapd & rmap to install path."
+sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/
+sudo -u rts cp ${install_path/reconmap-cli/rmap ${install_path}/
 echo
 
 echo "[*] Starting Docker Compose Build"
@@ -396,7 +435,13 @@ else
    exit
 fi
 echo
-
+echo "[*] Configuring and starting reconmapd agent service in the background."
+REDIS_HOST=localhost REDIS_PORT=6397 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd &>/dev/null
+echo
+echo "[*] Configuring rmap."
+${install_path}/rmap config --api-url http://rts.lan:5510
+${install_path}/rmap login -u admin -p admin123
+echo
 echo "[****************************************************]"
 echo "[****************Service Information ****************]"
 echo "[****************************************************]"
@@ -423,6 +468,8 @@ do
   echo $ip_address ssh.rts.lan
 done
 echo
+echo "[***] Convenant is accessible at http://rts.lan:7443"
+
 # Some quick configuration for reconmap
 chmod -R 777 ${install_path}/reconmap/logs
 chmod -R 777 ${install_path}/reconmap/data/attachments
