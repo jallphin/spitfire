@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/kali-chromium-install/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>HowTo: Kali Linux Chromium Install for Web App Pen Testing</title>
+<meta name="description" content="HowTo Install Chromium on Kali Linux and setup for Web Application Testing">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+ <option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+HowTo: Kali Linux Chromium Install for Web App Pen Testing
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+kali linux
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+24 Mar 2016
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<ul id="markdown-toc">
+<li><a href="#why-use-chromium-for-web-application-testing-" id="markdown-toc-why-use-chromium-for-web-application-testing-">Why use Chromium for Web Application Testing ?</a></li>
+<li><a href="#kali-install-chromium-browser" id="markdown-toc-kali-install-chromium-browser">Kali Install Chromium Browser</a></li>
+<li><a href="#chromium-wont-launch-on-kali" id="markdown-toc-chromium-wont-launch-on-kali">Chromium Won’t Launch on Kali</a></li>
+<li><a href="#chromium-setup-for-web-application-testing" id="markdown-toc-chromium-setup-for-web-application-testing">Chromium Setup for Web Application Testing</a></li>
+<li><a href="#complete-chromium-config" id="markdown-toc-complete-chromium-config">Complete Chromium Config</a></li>
+<li><a href="#kali-chromium-error-you-are-using-an-unsupported-command-line-flag-disable-web-security-security-and-stability-will-suffer" id="markdown-toc-kali-chromium-error-you-are-using-an-unsupported-command-line-flag-disable-web-security-security-and-stability-will-suffer">Kali Chromium Error: You Are using an Unsupported Command line flag –disable-web-security. Security and Stability will suffer</a></li>
+</ul>
+<h2 id="why-use-chromium-for-web-application-testing-">Why use Chromium for Web Application Testing ?</h2>
+<p>The primary reason I use Chromium is for DOM based XSS testing which as far as I know cannot be disabled in Firefox. If you have never heard of Chromium it’s the opensource version of Google Chrome and doesn’t have flash player built in and various other codecs such as: AAC, H.264, and MP3 Support.</p>
+<p>It’s possible to disable all security features in Chromium or Chrome using the switch <code>--disable-web-security</code>, this will disable all security options and allow you to test for DOM based XSS.</p>
+<h2 id="kali-install-chromium-browser">Kali Install Chromium Browser</h2>
+<p>Chromium exists within the Kali repositories and can be installed using:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install chromium</code></pre></figure>
+<h2 id="chromium-wont-launch-on-kali">Chromium Won’t Launch on Kali</h2>
+<p>By default chromium won’t launch on Kali Linux, this is due to chromium running as the root user. You can fix this by opening <code>/etc/chromium.d/default-flags</code> in vim and adding the following lines:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Run as root Kali</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --password-store=detect --no-sandbox --user-data-dir"</span></code></pre></figure>
+<p>This disables the <code>user-data-dir</code> and <code>sandboxing</code>, disabling sandboxing will have some obvious security issues but this browser is for web application penetration testing only.</p>
+<h2 id="chromium-setup-for-web-application-testing">Chromium Setup for Web Application Testing</h2>
+<p>In order to use chromium for Web Application Penetration Testing you need to disable all the security features, allowing for DOM based XSS testing in chromium.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Disable Chromium security features for web app testing</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --disable-web-security"</span></code></pre></figure>
+<h2 id="complete-chromium-config">Complete Chromium Config</h2>
+<p>What my entire Chromium config looks like:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># A set of command line flags that we want to set by default.</span>
+
+<span class="c"># Do not hide any extensions in the about:extensions dialog</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --show-component-extension-options"</span>
+
+<span class="c"># Don't use the GPU blacklist (bug #802933)</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --ignore-gpu-blacklist"</span>
+
+<span class="c"># Run as root Kali</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --password-store=detect --no-sandbox --user-data-dir"</span>
+
+<span class="c"># Disable Chromium security features for web app testing</span>
+<span class="nb">export </span><span class="nv">CHROMIUM_FLAGS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$CHROMIUM_FLAGS</span><span class="s2"> --disable-web-security"</span></code></pre></figure>
+<h2 id="kali-chromium-error-you-are-using-an-unsupported-command-line-flag-disable-web-security-security-and-stability-will-suffer">Kali Chromium Error: You Are using an Unsupported Command line flag –disable-web-security. Security and Stability will suffer</h2>
+<p>Ignore the following error, Chromium still process DOM based XSS. The same error occurs in Google Chrome.</p>
+<p><img src="https://highon.coffee/img/blog/kali-chromium/kali-chromium-web-app-testing.png" alt="Kali Chromium Error: You Are using an Unsupported Command line flag --disable-web-security. Security and Stability will suffer" /></p>
+<p>Enjoy.</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=HowTo:%20Kali%20Linux%20Chromium%20Install%20for%20Web%20App%20Pen%20Testing&amp;url=https://highon.coffee/blog/kali-chromium-install/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/kali-chromium-install/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/kali-chromium-install/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/kali-chromium-install/&amp;title=HowTo:%20Kali%20Linux%20Chromium%20Install%20for%20Web%20App%20Pen%20Testing" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lord-of-the-root-walkthrough/index.html">Lord of the Root Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="current">
+<a href="index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/kali-chromium-install/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:45 GMT -->
+</html>

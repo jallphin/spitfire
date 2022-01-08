@@ -1,0 +1,1327 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/security-harden-centos-7/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>Security Harden CentOS 7</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+Security Harden CentOS 7
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+security-hardening
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+25 Mar 2015
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<p><img src="http://i.imgur.com/z6hxOZG.png" alt="OpenSCAP Guide - Securing CentOS 7" /></p>
+<ul id="markdown-toc">
+<li><a href="#security-harden-centos-7" id="markdown-toc-security-harden-centos-7">Security Harden CentOS 7</a></li>
+<li><a href="#based-on-a-minimal-install" id="markdown-toc-based-on-a-minimal-install">Based on a Minimal Install</a></li>
+<li><a href="#issues-with-security-hardening" id="markdown-toc-issues-with-security-hardening">Issues with Security Hardening</a></li>
+<li><a href="#why-use-openscap-" id="markdown-toc-why-use-openscap-">Why use OpenSCAP ?</a></li>
+<li><a href="#kickstart" id="markdown-toc-kickstart">Kickstart</a></li>
+<li><a href="#secure-partition-mount-options" id="markdown-toc-secure-partition-mount-options">Secure Partition Mount Options</a></li>
+<li><a href="#install-ntp" id="markdown-toc-install-ntp">Install NTP</a></li>
+<li><a href="#configure-system-for-aide" id="markdown-toc-configure-system-for-aide">Configure System for AIDE</a></li>
+<li><a href="#install-aide" id="markdown-toc-install-aide">Install AIDE</a></li>
+<li><a href="#prevent-users-mounting-usb-storage" id="markdown-toc-prevent-users-mounting-usb-storage">Prevent Users Mounting USB Storage</a></li>
+<li><a href="#enable-secure-high-quality-password-policy" id="markdown-toc-enable-secure-high-quality-password-policy">Enable Secure (high quality) Password Policy</a></li>
+<li><a href="#secure-etclogindefs-pasword-policy" id="markdown-toc-secure-etclogindefs-pasword-policy">Secure /etc/login.defs Pasword Policy</a></li>
+<li><a href="#set-last-logonaccess-notification" id="markdown-toc-set-last-logonaccess-notification">Set Last Logon/Access Notification</a></li>
+<li><a href="#max-password-login-attempts-per-session" id="markdown-toc-max-password-login-attempts-per-session">Max Password Login Attempts per Session</a></li>
+<li><a href="#set-deny-for-failed-password-attempts" id="markdown-toc-set-deny-for-failed-password-attempts">Set Deny For Failed Password Attempts</a></li>
+<li><a href="#limit-password-reuse" id="markdown-toc-limit-password-reuse">Limit Password Reuse</a></li>
+<li><a href="#verify-bootgrub2grubcfg-permissions" id="markdown-toc-verify-bootgrub2grubcfg-permissions">Verify /boot/grub2/grub.cfg Permissions</a></li>
+<li><a href="#set-boot-loader-password" id="markdown-toc-set-boot-loader-password">Set Boot Loader Password</a></li>
+<li><a href="#require-authentication-for-single-user-mode" id="markdown-toc-require-authentication-for-single-user-mode">Require Authentication for Single User Mode</a></li>
+<li><a href="#disable-ctrl-alt-del-reboot-activation" id="markdown-toc-disable-ctrl-alt-del-reboot-activation">Disable Ctrl-Alt-Del Reboot Activation</a></li>
+<li><a href="#enable-console-screen-locking" id="markdown-toc-enable-console-screen-locking">Enable Console Screen Locking</a></li>
+<li><a href="#disable-zeroconf-networking" id="markdown-toc-disable-zeroconf-networking">Disable Zeroconf Networking</a></li>
+<li><a href="#disable-ipv6-support-automatically-loading" id="markdown-toc-disable-ipv6-support-automatically-loading">Disable IPv6 Support Automatically Loading</a></li>
+<li><a href="#disable-interface-usage-of-ipv6" id="markdown-toc-disable-interface-usage-of-ipv6">Disable Interface Usage of IPv6</a></li>
+<li><a href="#disable-support-for-rpc-ipv6" id="markdown-toc-disable-support-for-rpc-ipv6">Disable Support for RPC IPv6</a></li>
+<li><a href="#securing-root-logins" id="markdown-toc-securing-root-logins">Securing root Logins</a></li>
+<li><a href="#enable-umask-077" id="markdown-toc-enable-umask-077">Enable UMASK 077</a></li>
+<li><a href="#prune-idle-users" id="markdown-toc-prune-idle-users">Prune Idle Users</a></li>
+<li><a href="#securing-cron" id="markdown-toc-securing-cron">Securing Cron</a></li>
+<li><a href="#sysctl-security" id="markdown-toc-sysctl-security">Sysctl Security</a></li>
+<li><a href="#deny-all-tcp-wrappers" id="markdown-toc-deny-all-tcp-wrappers">Deny All TCP Wrappers</a></li>
+<li><a href="#basic-iptables-firewall-rules" id="markdown-toc-basic-iptables-firewall-rules">Basic iptables Firewall Rules</a></li>
+<li><a href="#verify-iptables-enabled" id="markdown-toc-verify-iptables-enabled">Verify iptables Enabled</a></li>
+<li><a href="#disable-uncommon-protocols" id="markdown-toc-disable-uncommon-protocols">Disable Uncommon Protocols</a></li>
+<li><a href="#ensure-rsyslog-is-installed" id="markdown-toc-ensure-rsyslog-is-installed">Ensure Rsyslog is installed</a></li>
+<li><a href="#enable-rsyslog" id="markdown-toc-enable-rsyslog">Enable Rsyslog</a></li>
+<li><a href="#auditd---audit-daemon" id="markdown-toc-auditd---audit-daemon">Auditd - Audit Daemon</a> <ul>
+<li><a href="#enable-auditd-service" id="markdown-toc-enable-auditd-service">Enable auditd Service</a></li>
+<li><a href="#audit-processes-which-start-prior-to-auditd" id="markdown-toc-audit-processes-which-start-prior-to-auditd">Audit Processes Which Start Prior to auditd</a></li>
+<li><a href="#auditd-number-of-logs-retained" id="markdown-toc-auditd-number-of-logs-retained">Auditd Number of Logs Retained</a></li>
+<li><a href="#auditd-max-log-file-size" id="markdown-toc-auditd-max-log-file-size">Auditd Max Log File Size</a></li>
+<li><a href="#auditd-max_log_file_action" id="markdown-toc-auditd-max_log_file_action">Auditd max_log_file_action</a></li>
+<li><a href="#auditd-space_left" id="markdown-toc-auditd-space_left">Auditd space_left</a></li>
+<li><a href="#auditd-admin_space_left" id="markdown-toc-auditd-admin_space_left">Auditd admin_space_left</a></li>
+<li><a href="#auditd-mail_acct" id="markdown-toc-auditd-mail_acct">Auditd mail_acct</a></li>
+<li><a href="#configure-auditd-to-use-audispd-plugin" id="markdown-toc-configure-auditd-to-use-audispd-plugin">Configure auditd to use audispd plugin</a></li>
+<li><a href="#auditd-rules-etcauditauditrules" id="markdown-toc-auditd-rules-etcauditauditrules">Auditd Rules: /etc/audit/audit.rules</a></li>
+<li><a href="#bulk-remove-of-services" id="markdown-toc-bulk-remove-of-services">Bulk Remove of Services</a></li>
+<li><a href="#bulk-enable--disable-services" id="markdown-toc-bulk-enable--disable-services">Bulk Enable / Disable Services</a></li>
+<li><a href="#disable-secure-rpc-client-service" id="markdown-toc-disable-secure-rpc-client-service">Disable Secure RPC Client Service</a></li>
+<li><a href="#disable-secure-rpc-server-service" id="markdown-toc-disable-secure-rpc-server-service">Disable Secure RPC Server Service</a></li>
+<li><a href="#disable-rpc-id-mapping-service" id="markdown-toc-disable-rpc-id-mapping-service">Disable RPC ID Mapping Service</a></li>
+<li><a href="#disable-network-file-systems-netfs" id="markdown-toc-disable-network-file-systems-netfs">Disable Network File Systems (netfs)</a></li>
+<li><a href="#disable-network-file-system-nfs" id="markdown-toc-disable-network-file-system-nfs">Disable Network File System (nfs)</a></li>
+<li><a href="#if-you-dont-need-ssh-disable-it" id="markdown-toc-if-you-dont-need-ssh-disable-it">If you don’t need SSH disable it</a></li>
+<li><a href="#disable-ssh-iptables-firewall-rule" id="markdown-toc-disable-ssh-iptables-firewall-rule">Disable SSH iptables Firewall rule</a></li>
+<li><a href="#disable-avahi-server-software" id="markdown-toc-disable-avahi-server-software">Disable Avahi Server Software</a></li>
+<li><a href="#disable-the-cups-service" id="markdown-toc-disable-the-cups-service">Disable the CUPS Service</a></li>
+<li><a href="#disable-dhcp-service" id="markdown-toc-disable-dhcp-service">Disable DHCP Service</a></li>
+<li><a href="#uninstall-dhcp-server-package" id="markdown-toc-uninstall-dhcp-server-package">Uninstall DHCP Server Package</a></li>
+<li><a href="#disable-dhcp-client" id="markdown-toc-disable-dhcp-client">Disable DHCP Client</a></li>
+<li><a href="#specify-additional-remote-ntp-servers" id="markdown-toc-specify-additional-remote-ntp-servers">Specify Additional Remote NTP Servers</a></li>
+<li><a href="#enable-postfix" id="markdown-toc-enable-postfix">Enable Postfix</a></li>
+<li><a href="#remove-sendmail" id="markdown-toc-remove-sendmail">Remove Sendmail</a></li>
+<li><a href="#postfix-disable-network-listening" id="markdown-toc-postfix-disable-network-listening">Postfix Disable Network Listening</a></li>
+<li><a href="#configure-smtp-greeting-banner" id="markdown-toc-configure-smtp-greeting-banner">Configure SMTP Greeting Banner</a></li>
+<li><a href="#disable-xinetd-service" id="markdown-toc-disable-xinetd-service">Disable xinetd Service</a></li>
+<li><a href="#system-audit-logs-permissions" id="markdown-toc-system-audit-logs-permissions">System Audit Logs Permissions</a></li>
+<li><a href="#system-audit-logs-must-be-owned-by-root" id="markdown-toc-system-audit-logs-must-be-owned-by-root">System Audit Logs Must Be Owned By Root</a></li>
+<li><a href="#disable-autofs" id="markdown-toc-disable-autofs">Disable autofs</a></li>
+</ul>
+</li>
+<li><a href="#disable-uncommon-filesystems" id="markdown-toc-disable-uncommon-filesystems">Disable uncommon filesystems</a></li>
+<li><a href="#disable-core-dumps-for-all-users" id="markdown-toc-disable-core-dumps-for-all-users">Disable core dumps for all users</a></li>
+<li><a href="#disable-core-dumps-for-suid-programs" id="markdown-toc-disable-core-dumps-for-suid-programs">Disable core dumps for SUID programs</a></li>
+<li><a href="#buffer-overflow-protection" id="markdown-toc-buffer-overflow-protection">Buffer Overflow Protection</a> <ul>
+<li><a href="#enable-execshield" id="markdown-toc-enable-execshield">Enable ExecShield</a></li>
+<li><a href="#check--enable-aslr" id="markdown-toc-check--enable-aslr">Check / Enable ASLR</a></li>
+<li><a href="#enable-xd-or-nx-support-on-x86-systems" id="markdown-toc-enable-xd-or-nx-support-on-x86-systems">Enable XD or NX Support on x86 Systems</a></li>
+</ul>
+</li>
+<li><a href="#selinux" id="markdown-toc-selinux">SELinux</a> <ul>
+<li><a href="#confirm-selinux-is-not-disabled" id="markdown-toc-confirm-selinux-is-not-disabled">Confirm SELinux is not disabled</a></li>
+<li><a href="#selinux-targeted--enforcing" id="markdown-toc-selinux-targeted--enforcing">SELinux Targeted / Enforcing</a></li>
+<li><a href="#enable-the-selinux-restorecond-service" id="markdown-toc-enable-the-selinux-restorecond-service">Enable the SELinux restorecond Service</a></li>
+<li><a href="#check-no-daemons-are-unconfined-by-selinux" id="markdown-toc-check-no-daemons-are-unconfined-by-selinux">Check no daemons are unconfined by SELinux</a></li>
+</ul>
+</li>
+<li><a href="#prevent-log-in-to-accounts-with-empty-password" id="markdown-toc-prevent-log-in-to-accounts-with-empty-password">Prevent Log In to Accounts With Empty Password</a></li>
+<li><a href="#secure-ssh" id="markdown-toc-secure-ssh">Secure SSH</a> <ul>
+<li><a href="#allow-only-ssh-protocol-2" id="markdown-toc-allow-only-ssh-protocol-2">Allow Only SSH Protocol 2</a></li>
+<li><a href="#limit-users-ssh-access" id="markdown-toc-limit-users-ssh-access">Limit Users’ SSH Access</a></li>
+<li><a href="#set-ssh-idle-timeout-interval" id="markdown-toc-set-ssh-idle-timeout-interval">Set SSH Idle Timeout Interval</a></li>
+<li><a href="#set-ssh-client-alive-count" id="markdown-toc-set-ssh-client-alive-count">Set SSH Client Alive Count</a></li>
+<li><a href="#disable-ssh-support-for-rhosts-files" id="markdown-toc-disable-ssh-support-for-rhosts-files">Disable SSH Support for .rhosts Files</a></li>
+<li><a href="#disable-host-based-authentication" id="markdown-toc-disable-host-based-authentication">Disable Host-Based Authentication</a></li>
+<li><a href="#disable-ssh-root-login" id="markdown-toc-disable-ssh-root-login">Disable SSH Root Login</a></li>
+<li><a href="#disable-ssh-access-via-empty-passwords" id="markdown-toc-disable-ssh-access-via-empty-passwords">Disable SSH Access via Empty Passwords</a></li>
+<li><a href="#enable-ssh-warning-banner" id="markdown-toc-enable-ssh-warning-banner">Enable SSH Warning Banner</a></li>
+<li><a href="#do-not-allow-ssh-environment-options" id="markdown-toc-do-not-allow-ssh-environment-options">Do Not Allow SSH Environment Options</a></li>
+<li><a href="#use-only-approved-ciphers" id="markdown-toc-use-only-approved-ciphers">Use Only Approved Ciphers</a></li>
+</ul>
+</li>
+<li><a href="#secure-x-windows" id="markdown-toc-secure-x-windows">Secure X Windows</a> <ul>
+<li><a href="#disable-x-windows-startup-by-setting-runlevel" id="markdown-toc-disable-x-windows-startup-by-setting-runlevel">Disable X Windows Startup By Setting Runlevel</a></li>
+<li><a href="#remove-the-x-windows-package-group" id="markdown-toc-remove-the-x-windows-package-group">Remove the X Windows Package Group</a></li>
+</ul>
+</li>
+<li><a href="#prompt-os-update-installation" id="markdown-toc-prompt-os-update-installation">Prompt OS update installation</a></li>
+</ul>
+<h2 id="security-harden-centos-7">Security Harden CentOS 7</h2>
+<p>This HowTo walks you through the steps required to <strong>security harden CentOS 7</strong>, it’s based on the <a href="http://www.open-scap.org/page/Main_Page">OpenSCAP</a> benchmark, unfortunately the current version of OpenSCAP that ships with CentOS does not offically support CentOS CPE’s. But there is a “workaround” that will allow OpenSCAP + OpenSCAP workbench to run on CentOS, I’ll document this in a separate post.</p>
+<h2 id="based-on-a-minimal-install">Based on a Minimal Install</h2>
+<p>To follow this guide you will need a minimal CentOS 7 install, ideally using the Kickstart file below or copying it’s partition layout. Installing CentOS 7 using a minimal installation reduces the attack surface and ensures you <em>only install software that you require</em>.</p>
+<p>This guide only covers the base system + SSH hardening, I will document specific service hardening separately such as HTTPD, SFTP, LDAP, BIND etc…</p>
+<p>In the section related to removing unrequired services, if you installed a minimal centos 7 install, you’ll likely have nothing to remove or disable - I’ve included this section for completeness.</p>
+<h2 id="issues-with-security-hardening">Issues with Security Hardening</h2>
+<p>After hardening a system you may run into issues, hardening a system will make it more restrictive, especially SELinux or filesystem related permission hardening. When hardening a system for a specific task I recommend creating a duplicate virtual machine you can use for troubleshooting should you run into a issue that you <em>think</em> is related to security hardening, you’ll be able to confirm by running it on the Vanilla system.</p>
+<p>Obviously <strong>don’t expose the Vanilla (un-hardened) system to the network!</strong></p>
+<h2 id="why-use-openscap-">Why use OpenSCAP ?</h2>
+<p>After a lot of research I decided to use OpenSCAP over other security hardening benchmarks / guides, here is my reasoning for doing so:</p>
+<ul>
+<li>It’s open, free and actively worked on</li>
+<li>It has an audit tool, essential to verify each system</li>
+<li>OpenSCAP has a GUI called, workbench</li>
+<li>OpenSCAP Workbench supports remote audits via SSH</li>
+<li>OpenSCAP Workbench allows you to customize your scan, should you not agree with all hardening checks</li>
+</ul>
+<p>If you don’t get on with workbench or auditing from the command line, Nessus has functionality for authenticated SCAP scans.</p>
+<h2 id="kickstart">Kickstart</h2>
+<p>I’ve provided the following RHEL kickstart file below, it’s a minimal install with a heavy partition scheme, allowing for stricter mount options.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#version=RHEL7</span>
+
+install
+<span class="c"># System authorization information</span>
+auth --enableshadow --passalgo<span class="o">=</span>sha512
+
+<span class="c"># Use CDROM installation media</span>
+cdrom
+<span class="c"># Accept EULA</span>
+eula --agreed
+
+services --enabled<span class="o">=</span>NetworkManager,sshd
+reboot
+
+<span class="c"># Run the Setup Agent on first boot</span>
+<span class="c">#firstboot --enable</span>
+ignoredisk --only-use<span class="o">=</span>sda
+<span class="c"># Keyboard layouts</span>
+keyboard --vckeymap<span class="o">=</span>us --xlayouts<span class="o">=</span><span class="s1">'us'</span>
+<span class="c"># System language</span>
+lang en_US.UTF-8
+<span class="c"># SELinux</span>
+selinux --enforcing
+<span class="c"># Network information</span>
+network  --bootproto<span class="o">=</span>dhcp --device<span class="o">=</span>eno16777736 --onboot<span class="o">=</span>on --ipv6<span class="o">=</span>off
+network  --hostname<span class="o">=</span>default-vm
+<span class="c"># Root password</span>
+rootpw --iscrypted HASHGOESHERE
+<span class="c"># System timezone</span>
+timezone Europe/London --isUtc --ntpservers<span class="o">=</span>prime.transformers
+<span class="c"># System bootloader configuration</span>
+bootloader --location<span class="o">=</span>mbr --boot-drive<span class="o">=</span>sda
+<span class="c"># Partition clearing information</span>
+clearpart --all --drives<span class="o">=</span>sda
+ignoredisk --only-use<span class="o">=</span>sda
+<span class="c"># LVM</span>
+
+<span class="c"># Disk partitioning information</span>
+part pv.18 --fstype<span class="o">=</span><span class="s2">"lvmpv"</span> --ondisk<span class="o">=</span>sda --size<span class="o">=</span>8004
+part pv.11 --fstype<span class="o">=</span><span class="s2">"lvmpv"</span> --ondisk<span class="o">=</span>sda --size<span class="o">=</span>8004
+part /boot --fstype<span class="o">=</span><span class="s2">"ext4"</span> --ondisk<span class="o">=</span>sda --size<span class="o">=</span>1000
+volgroup lg_data --pesize<span class="o">=</span>4096 pv.18
+volgroup lg_os --pesize<span class="o">=</span>4096 pv.11
+logvol /  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>4000 --name<span class="o">=</span>lv_root --vgname<span class="o">=</span>lg_os
+logvol /home  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>2000 --name<span class="o">=</span>lv_home --vgname<span class="o">=</span>lg_data
+logvol /tmp  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>1000 --name<span class="o">=</span>lv_tmp --vgname<span class="o">=</span>lg_os
+logvol /var  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>2000 --name<span class="o">=</span>lv_var --vgname<span class="o">=</span>lg_os
+logvol /var/tmp  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>1000 --name<span class="o">=</span>lv_var_tmp --vgname<span class="o">=</span>lg_os
+logvol /var/www  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>5000 --name<span class="o">=</span>lv_var_www --vgname<span class="o">=</span>lg_data
+logvol /var/log  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>1500 --name<span class="o">=</span>lv_var_log --vgname<span class="o">=</span>lg_os
+logvol /var/log/audit  --fstype<span class="o">=</span><span class="s2">"xfs"</span> --size<span class="o">=</span>500 --name<span class="o">=</span>lv_var_log_audit --vgname<span class="o">=</span>lg_os
+logvol swap  --fstype<span class="o">=</span><span class="s2">"swap"</span> --size<span class="o">=</span>1000 --name<span class="o">=</span>lv_swap --vgname<span class="o">=</span>lg_data
+
+%packages
+@core
+ %end
+
+%post
+%end</code></pre></figure>
+<h2 id="secure-partition-mount-options">Secure Partition Mount Options</h2>
+<p>Your millage will vary here, for example if you have a website that uses cgi-bin executables you won’t be able to use the <strong>noexec</strong> mount options, but you can and should use it on /tmp and /var/tmp as this is typically the first place an attacker will attempt to write and execute from when performing privilege escalation.</p>
+<p>Your /etc/fstab file should look something like:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#</span>
+<span class="c"># /etc/fstab</span>
+<span class="c"># Created by anaconda on Sat Oct 11 14:28:47 2014</span>
+<span class="c">#</span>
+<span class="c"># Accessible filesystems, by reference, are maintained under '/dev/disk'</span>
+<span class="c"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span>
+<span class="c">#</span>
+/dev/mapper/lg_os-lv_root /                       xfs     defaults        1 1
+<span class="nv">UUID</span><span class="o">=</span>d73c5d22-75ed-416e-aad2-8c1bb1dfc713 /boot                   ext4    defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_data-lv_home /home                   xfs     defaults        1 2
+/dev/mapper/lg_os-lv_tmp /tmp                    xfs     defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_os-lv_var /var                    xfs     defaults,nosuid        1 2
+/dev/mapper/lg_os-lv_var_tmp /var/tmp                xfs     defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_os-lv_var_tmp /var/log                xfs     defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_os-lv_var_tmp /var/log/audit                xfs     defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_data-lv_var_www /var/www                xfs     defaults,nosuid,noexec,nodev        1 2
+/dev/mapper/lg_data-lv_swap swap                    swap    defaults        0 0</code></pre></figure>
+<h2 id="install-ntp">Install NTP</h2>
+<p>NTP is required for a number of compliance audits and is general good practice.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum install ntp ntpdate
+chkconfig ntpd on
+ntpdate pool.ntp.org
+/etc/init.d/ntpd start</code></pre></figure>
+<h2 id="configure-system-for-aide">Configure System for AIDE</h2>
+<p>Pre-linking binaries (arguably) improved execution time, however this cause issues with AIDE, so it must be disabled.</p>
+<p>Open /etc/sysconfig/prelink and make sure the line <code>Set PRELINKING=no</code> is present, if you’re writing a script:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Disable prelinking altogether</span>
+<span class="c">#</span>
+<span class="k">if </span>grep -q ^PRELINKING /etc/sysconfig/prelink
+<span class="k">then
+  </span>sed -i <span class="s1">'s/PRELINKING.*/PRELINKING=no/g'</span> /etc/sysconfig/prelink
+<span class="k">else
+  </span><span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\n</span><span class="s2"># Set PRELINKING=no per security requirements"</span> &gt;&gt; /etc/sysconfig/prelink
+  <span class="nb">echo</span> <span class="s2">"PRELINKING=no"</span> &gt;&gt; /etc/sysconfig/prelink
+<span class="k">fi</span></code></pre></figure>
+<p>Disable previous prelink changes to binaries:</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">Disable previous prelink changes to binaries</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">/usr/sbin/prelink -ua</span>
+</p>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<h2 id="install-aide">Install AIDE</h2>
+<p>Install AIDE - Advanced Intrusion Detection Environment</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum install aide -y <span class="o">&amp;&amp;</span> /usr/sbin/aide --init <span class="o">&amp;&amp;</span> cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz <span class="o">&amp;&amp;</span> /usr/sbin/aide --check</code></pre></figure>
+<p>Configure periodic execution of AIDE, runs every morning at 04:30</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"05 4 * * * root /usr/sbin/aide --check"</span> &gt;&gt; /etc/crontab</code></pre></figure>
+<h2 id="prevent-users-mounting-usb-storage">Prevent Users Mounting USB Storage</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"install usb-storage /bin/false"</span> &gt; /etc/modprobe.d/usb-storage.conf</code></pre></figure>
+<h2 id="enable-secure-high-quality-password-policy">Enable Secure (high quality) Password Policy</h2>
+<p>The following command will Enable <strong>SHA512</strong> instead of using <em>MD5</em>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">authconfig --passalgo<span class="o">=</span>sha512 —update</code></pre></figure>
+<p><code>vi /etc/security/pwquality.conf</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Configuration for systemwide password quality limits</span>
+<span class="c"># Defaults:</span>
+<span class="c">#</span>
+<span class="c"># Number of characters in the new password that must not be present in the</span>
+<span class="c"># old password.</span>
+difok <span class="o">=</span> 5
+<span class="c">#</span>
+<span class="c"># Minimum acceptable size for the new password (plus one if</span>
+<span class="c"># credits are not disabled which is the default). (See pam_cracklib manual.)</span>
+<span class="c"># Cannot be set to lower value than 6.</span>
+minlen <span class="o">=</span> 14
+<span class="c">#</span>
+<span class="c"># The maximum credit for having digits in the new password. If less than 0</span>
+<span class="c"># it is the minimum number of digits in the new password.</span>
+dcredit <span class="o">=</span> 1
+<span class="c">#</span>
+<span class="c"># The maximum credit for having uppercase characters in the new password.</span>
+<span class="c"># If less than 0 it is the minimum number of uppercase characters in the new</span>
+<span class="c"># password.</span>
+ucredit <span class="o">=</span> 1
+<span class="c">#</span>
+<span class="c"># The maximum credit for having lowercase characters in the new password.</span>
+<span class="c"># If less than 0 it is the minimum number of lowercase characters in the new</span>
+<span class="c"># password.</span>
+lcredit <span class="o">=</span> 1
+<span class="c">#</span>
+<span class="c"># The maximum credit for having other characters in the new password.</span>
+<span class="c"># If less than 0 it is the minimum number of other characters in the new</span>
+<span class="c"># password.</span>
+ocredit <span class="o">=</span> 1
+<span class="c">#</span>
+<span class="c"># The minimum number of required classes of characters for the new</span>
+<span class="c"># password (digits, uppercase, lowercase, others).</span>
+minclass <span class="o">=</span> 4
+<span class="c">#</span>
+<span class="c"># The maximum number of allowed consecutive same characters in the new password.</span>
+<span class="c"># The check is disabled if the value is 0.</span>
+maxrepeat <span class="o">=</span> 3
+<span class="c">#</span>
+<span class="c"># The maximum number of allowed consecutive characters of the same class in the</span>
+<span class="c"># new password.</span>
+<span class="c"># The check is disabled if the value is 0.</span>
+maxclassrepeat <span class="o">=</span> 3
+<span class="c">#</span>
+<span class="c"># Whether to check for the words from the passwd entry GECOS string of the user.</span>
+<span class="c"># The check is enabled if the value is not 0.</span>
+gecoscheck <span class="o">=</span> 1
+<span class="c">#</span>
+<span class="c"># Path to the cracklib dictionaries. Default is to use the cracklib default.</span>
+<span class="c"># dictpath =</span></code></pre></figure>
+<h2 id="secure-etclogindefs-pasword-policy">Secure /etc/login.defs Pasword Policy</h2>
+<p>Add the following to <code>/etc/login.defs</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">PASS_MIN_LEN 14
+PASS_MIN_DAYS 1
+PASS_MAX_DAYS 60</code></pre></figure>
+<h2 id="set-last-logonaccess-notification">Set Last Logon/Access Notification</h2>
+<p>Open <code>/etc/pam.d/system-auth</code> and add the following line immediately after session required pam_limits.so:</p>
+<p><code>session required pam_lastlog.so showfailed</code></p>
+<h2 id="max-password-login-attempts-per-session">Max Password Login Attempts per Session</h2>
+<p>Set the amount of password reprompts per session, by editing the <code>pam_pwquality.so</code> statement in <code>/etc/pam.d/system-auth</code> to <code>retry=3</code> or lower.</p>
+<h2 id="set-deny-for-failed-password-attempts">Set Deny For Failed Password Attempts</h2>
+<p>Blocks logins for failed authentication on accounts.</p>
+<p>Add the following lines immediately below the <code>pam_unix.so</code> statement in AUTH section of both <code>/etc/pam.d/system-auth</code> and <code>/etc/pam.d/password-auth</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">auth <span class="o">[</span><span class="nv">default</span><span class="o">=</span>die] pam_faillock.so authfail <span class="nv">deny</span><span class="o">=</span>3 <span class="nv">unlock_time</span><span class="o">=</span>604800 <span class="nv">fail_interval</span><span class="o">=</span>900
+
+auth required pam_faillock.so authsucc <span class="nv">deny</span><span class="o">=</span>3 <span class="nv">unlock_time</span><span class="o">=</span>604800 <span class="nv">fail_interval</span><span class="o">=</span>900</code></pre></figure>
+<h2 id="limit-password-reuse">Limit Password Reuse</h2>
+<p>Open /etc/pam.d/system-auth, append remember=24 to the pam_unix.so line - preventing users from reusing passwords, remembering 24 times is the DoD standard.</p>
+<p>The line should look like:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">password sufficient pam_unix.so existing_options <span class="nv">remember</span><span class="o">=</span>24</code></pre></figure>
+<h2 id="verify-bootgrub2grubcfg-permissions">Verify /boot/grub2/grub.cfg Permissions</h2>
+<p>Set grub.conf to chmod 600:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo chmod 600/boot/grub2/grub.cfg</code></pre></figure>
+<h2 id="set-boot-loader-password">Set Boot Loader Password</h2>
+<p>The grub2 boot loader should have a superuser account and password protection enabled to protect boot-time settings.</p>
+<p>To do so, select a superuser account and password and add them into the appropriate grub2 configuration file(s) under /etc/grub.d. Since plaintext passwords are a security risk, generate a hash for the pasword by running the following command:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">grub2-mkpasswd-pbkdf2</code></pre></figure>
+<p>When prompted, enter the password that was selected and insert the returned password hash into the appropriate grub2 configuration file(s) under /etc/grub.d immediately after the superuser account. (Use the output from grub2-mkpasswd-pbkdf2 as the value of password-hash):</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">password_pbkdf2 superusers-accountpassword-hash</code></pre></figure>
+<div class="note tip">
+<h5>Don't use common admin account names for the grub2 superuser</h5>
+<p>Avoid using common admin account names like, root, admin or administrator for the grub2 superuser account. To meet FISMA Moderate, the bootloader superuser account password <b>must differ</b> from the root credentials.</p>
+</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre></figure>
+<div class="note warning">
+<h5>Don't manually add the superuser account to grub.cfg </h5>
+<p>Do NOT manually add the superuser account and password to the grub.cfg file as the grub2-mkconfig command overwrites this file.</p>
+</div>
+<h2 id="require-authentication-for-single-user-mode">Require Authentication for Single User Mode</h2>
+<p>Require root password when entering single user mode, open <code>/etc/sysconfig/init</code> and add the line:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">SINGLE</span><span class="o">=</span>/sbin/sulogin</code></pre></figure>
+<h2 id="disable-ctrl-alt-del-reboot-activation">Disable Ctrl-Alt-Del Reboot Activation</h2>
+<p>Prevernt ALT+CTRL+DEL from rebooting.</p>
+<p>Open <code>/etc/init/control-alt-delete.conf</code> and modify the existing line:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">exec</span> /sbin/shutdown -r now <span class="s2">"Control-Alt-Delete pressed"</span></code></pre></figure>
+<p>To:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">exec</span> /usr/bin/logger -p security.info <span class="s2">"Control-Alt-Delete pressed"</span></code></pre></figure>
+<h2 id="enable-console-screen-locking">Enable Console Screen Locking</h2>
+<p>Install the screen Package to allow console screen locking.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo yum install screen</code></pre></figure>
+<p>Users can now run <code>screen</code> and lock the console with <code>ctrl+a x</code>.</p>
+<h2 id="disable-zeroconf-networking">Disable Zeroconf Networking</h2>
+<p>Zeroconf network typically occours when you fail to get an address via DHCP, the interface will be assigned a 169.254.0.0 address.</p>
+<p>To prevernt this:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"NOZEROCONF=yes"</span> &gt;&gt; /etc/sysconfig/network</code></pre></figure>
+<h2 id="disable-ipv6-support-automatically-loading">Disable IPv6 Support Automatically Loading</h2>
+<p>Open <code>/etc/modprobe.d/disabled.conf</code> and add the line:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">options ipv6 <span class="nv">disable</span><span class="o">=</span>1</code></pre></figure>
+<h2 id="disable-interface-usage-of-ipv6">Disable Interface Usage of IPv6</h2>
+<p>Add the following to <code>/etc/sysconfig/network</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">NETWORKING_IPV6</span><span class="o">=</span>no
+<span class="nv">IPV6INIT</span><span class="o">=</span>no</code></pre></figure>
+<h2 id="disable-support-for-rpc-ipv6">Disable Support for RPC IPv6</h2>
+<p>RPC services like NFSv4 attempt to start using IPv6 even if it’s disabled in <code>/etc/modprobe.d</code>. To prevent this behaviour open <code>/etc/netconfig</code> and comment the following lines:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">udp6       tpi_clts      v     inet6    udp     -       -
+tcp6       tpi_cots_ord  v     inet6    tcp     -       -</code></pre></figure>
+<h2 id="securing-root-logins">Securing root Logins</h2>
+<p>Only allow root logins via local terminal:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"tty1"</span> &gt; /etc/securetty
+chmod 700 /root</code></pre></figure>
+<h2 id="enable-umask-077">Enable UMASK 077</h2>
+<p>Can causes issues on systems where users share files:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">perl -npe <span class="s1">'s/umask\s+0\d2/umask 077/g'</span> -i /etc/bashrc
+perl -npe <span class="s1">'s/umask\s+0\d2/umask 077/g'</span> -i /etc/csh.cshrc</code></pre></figure>
+<h2 id="prune-idle-users">Prune Idle Users</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"Idle users will be removed after 15 minutes"</span>
+<span class="nb">echo</span> <span class="s2">"readonly TMOUT=900"</span> &gt;&gt; /etc/profile.d/os-security.sh
+<span class="nb">echo</span> <span class="s2">"readonly HISTFILE"</span> &gt;&gt; /etc/profile.d/os-security.sh
+chmod +x /etc/profile.d/os-security.sh</code></pre></figure>
+<h2 id="securing-cron">Securing Cron</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"Locking down Cron"</span>
+touch /etc/cron.allow
+chmod 600 /etc/cron.allow
+awk -F: <span class="s1">'{print $1}'</span> /etc/passwd | grep -v root &gt; /etc/cron.deny
+<span class="nb">echo</span> <span class="s2">"Locking down AT"</span>
+touch /etc/at.allow
+chmod 600 /etc/at.allow
+awk -F: <span class="s1">'{print $1}'</span> /etc/passwd | grep -v root &gt; /etc/at.deny</code></pre></figure>
+<h2 id="sysctl-security">Sysctl Security</h2>
+<p><code>/etc/sysctl.conf</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">net.ipv4.ip_forward <span class="o">=</span> 0
+net.ipv4.conf.all.send_redirects <span class="o">=</span> 0
+net.ipv4.conf.default.send_redirects <span class="o">=</span> 0
+net.ipv4.tcp_max_syn_backlog <span class="o">=</span> 1280
+net.ipv4.icmp_echo_ignore_broadcasts <span class="o">=</span> 1
+net.ipv4.conf.all.accept_source_route <span class="o">=</span> 0
+net.ipv4.conf.all.accept_redirects <span class="o">=</span> 0
+net.ipv4.conf.all.secure_redirects <span class="o">=</span> 0
+net.ipv4.conf.all.log_martians <span class="o">=</span> 1
+net.ipv4.conf.default.accept_source_route <span class="o">=</span> 0
+net.ipv4.conf.default.accept_redirects <span class="o">=</span> 0
+net.ipv4.conf.default.secure_redirects <span class="o">=</span> 0
+net.ipv4.icmp_echo_ignore_broadcasts <span class="o">=</span> 1
+net.ipv4.icmp_ignore_bogus_error_responses <span class="o">=</span> 1
+net.ipv4.tcp_syncookies <span class="o">=</span> 1
+net.ipv4.conf.all.rp_filter <span class="o">=</span> 1
+net.ipv4.conf.default.rp_filter <span class="o">=</span> 1
+net.ipv4.tcp_timestamps <span class="o">=</span> 0</code></pre></figure>
+<h2 id="deny-all-tcp-wrappers">Deny All TCP Wrappers</h2>
+<p>TCP wrappers can provide a quick and easy method for controlling access to applications linked to them. Examples of TCP Wrapper aware applications are sshd, and portmap.</p>
+<p>Below commands block all but SSH:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"ALL:ALL"</span> &gt;&gt; /etc/hosts.deny
+<span class="nb">echo</span> <span class="s2">"sshd:ALL"</span> &gt;&gt; /etc/hosts.allow</code></pre></figure>
+<h2 id="basic-iptables-firewall-rules">Basic iptables Firewall Rules</h2>
+<p>Basic iptables Firewall rules, set to denyall as the default.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#Drop anything we aren't explicitly allowing. All outbound traffic is okay</span>
+<span class="k">*</span>filter
+:INPUT DROP <span class="o">[</span>0:0]
+:FORWARD DROP <span class="o">[</span>0:0]
+:OUTPUT ACCEPT <span class="o">[</span>0:0]
+:RH-Firewall-1-INPUT - <span class="o">[</span>0:0]
+-A INPUT -j RH-Firewall-1-INPUT
+-A FORWARD -j RH-Firewall-1-INPUT
+-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmp --icmp-type <span class="nb">echo</span>-reply -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmp --icmp-type destination-unreachable -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmp --icmp-type <span class="nb">time</span>-exceeded -j ACCEPT
+<span class="c"># Accept Pings</span>
+-A RH-Firewall-1-INPUT -p icmp --icmp-type <span class="nb">echo</span>-request -j ACCEPT
+<span class="c"># Log anything on eth0 claiming it's from a local or non-routable network</span>
+<span class="c"># If you're using one of these local networks, remove it from the list below</span>
+-A INPUT -i eth0 -s 10.0.0.0/8 -j LOG --log-prefix <span class="s2">"IP DROP SPOOF A: "</span>
+-A INPUT -i eth0 -s 172.16.0.0/12 -j LOG --log-prefix <span class="s2">"IP DROP SPOOF B: "</span>
+-A INPUT -i eth0 -s 192.168.0.0/16 -j LOG --log-prefix <span class="s2">"IP DROP SPOOF C: "</span>
+-A INPUT -i eth0 -s 224.0.0.0/4 -j LOG --log-prefix <span class="s2">"IP DROP MULTICAST D: "</span>
+-A INPUT -i eth0 -s 240.0.0.0/5 -j LOG --log-prefix <span class="s2">"IP DROP SPOOF E: "</span>
+-A INPUT -i eth0 -d 127.0.0.0/8 -j LOG --log-prefix <span class="s2">"IP DROP LOOPBACK: "</span>
+<span class="c"># Accept any established connections</span>
+-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+<span class="c"># Accept ssh traffic. Restrict this to known ips if possible.</span>
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
+<span class="c">#Log and drop everything else</span>
+-A RH-Firewall-1-INPUT -j LOG
+-A RH-Firewall-1-INPUT -j DROP
+COMMIT</code></pre></figure>
+<h2 id="verify-iptables-enabled">Verify iptables Enabled</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo systemctl <span class="nb">enable </span>iptables
+systemctl start iptables.service</code></pre></figure>
+<h2 id="disable-uncommon-protocols">Disable Uncommon Protocols</h2>
+<p>The following Protocols will be disabled:</p>
+<ul>
+<li>Datagram Congestion Control Protocol (DCCP)</li>
+<li>Stream Control Transmission Protocol (SCTP)</li>
+<li>Reliable Datagram Sockets (RDS)</li>
+<li>Transparent Inter-Process Communication (TIPC)</li>
+</ul>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"install dccp /bin/false"</span> &gt; /etc/modprobe.d/dccp.conf
+<span class="nb">echo</span> <span class="s2">"install sctp /bin/false"</span> &gt; /etc/modprobe.d/sctp.conf
+<span class="nb">echo</span> <span class="s2">"install rds /bin/false"</span> &gt; /etc/modprobe.d/rds.conf
+<span class="nb">echo</span> <span class="s2">"install tipc /bin/false"</span> &gt; /etc/modprobe.d/tipc.conf</code></pre></figure>
+<h2 id="ensure-rsyslog-is-installed">Ensure Rsyslog is installed</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum -y install rsyslog</code></pre></figure>
+<h2 id="enable-rsyslog">Enable Rsyslog</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable </span>rsyslog.service
+systemctl start rsyslog.service</code></pre></figure>
+<h2 id="auditd---audit-daemon">Auditd - Audit Daemon</h2>
+<h3 id="enable-auditd-service">Enable auditd Service</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable </span>auditd.service
+systemctl start auditd.service</code></pre></figure>
+<h3 id="audit-processes-which-start-prior-to-auditd">Audit Processes Which Start Prior to auditd</h3>
+<p>Audit process which start before the Audit Daemon.</p>
+<p>Add the following line to <code>/etc/grub.conf</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">kernel /vmlinuz-version ro <span class="nv">vga</span><span class="o">=</span>ext <span class="nv">root</span><span class="o">=</span>/dev/VolGroup00/LogVol00 rhgb quiet <span class="nv">audit</span><span class="o">=</span>1</code></pre></figure>
+<h3 id="auditd-number-of-logs-retained">Auditd Number of Logs Retained</h3>
+<p>Open <code>/etc/audit/auditd.conf</code> and add or modify:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">num_logs <span class="o">=</span> 5</code></pre></figure>
+<h3 id="auditd-max-log-file-size">Auditd Max Log File Size</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">max_log_file <span class="o">=</span> 30MB</code></pre></figure>
+<h3 id="auditd-max_log_file_action">Auditd max_log_file_action</h3>
+<p>Open <code>/etc/audit/auditd.conf</code> and set this to rotate.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">max_log_file_action <span class="o">=</span> rotate</code></pre></figure>
+<h3 id="auditd-space_left">Auditd space_left</h3>
+<p>Configure auditd to email you when space gets low, open <code>/etc/audit/auditd.conf</code> and modify the following:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">space_left_action <span class="o">=</span> email</code></pre></figure>
+<h3 id="auditd-admin_space_left">Auditd admin_space_left</h3>
+<p>Configure auditd to halt when auditd log space is used up, forcing the system admin to rectify the space issue.</p>
+<p>On some systems where monitoring is less important another action could be leveraged.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">admin_space_left_action <span class="o">=</span> halt</code></pre></figure>
+<h3 id="auditd-mail_acct">Auditd mail_acct</h3>
+<p>When space gets low auditd can send a email notification via email, to configure this and the following line to <code>/etc/audit/auditd.conf</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">action_mail_acct <span class="o">=</span> root</code></pre></figure>
+<h3 id="configure-auditd-to-use-audispd-plugin">Configure auditd to use audispd plugin</h3>
+<p>Auditd does not have the functionality to send logs directly to an external log server, however the audispd plugin pass audit records to the local syslog server, to enable this open <code>/etc/audisp/plugins.d/syslog.conf</code> and set the active line to yes, then restart audispd daemon:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo service auditd restart</code></pre></figure>
+<h3 id="auditd-rules-etcauditauditrules">Auditd Rules: /etc/audit/audit.rules</h3>
+<p>Open <code>/etc/audit/audit.rules</code> and add the following lines to monitor various system files and activities:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># audit_time_rules - Record attempts to alter time through adjtime</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S adjtimex -k audit_time_rules
+
+<span class="c"># audit_time_rules - Record attempts to alter time through settimeofday</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S settimeofday -k audit_time_rules
+
+<span class="c"># audit_time_rules - Record Attempts to Alter Time Through stime</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S adjtimex -S settimeofday -S clock_settime
+-k audit_time_rules
+
+<span class="c"># audit_time_rules - Record Attempts to Alter Time Through clock_settime</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S clock_settime -k audit_time_rules
+
+<span class="c"># Record Attempts to Alter the localtime File</span>
+-w /etc/localtime -p wa -k audit_time_rules
+
+<span class="c"># Record Events that Modify User/Group Information</span>
+<span class="c"># audit_account_changes</span>
+-w /etc/group -p wa -k audit_account_changes
+-w /etc/passwd -p wa -k audit_account_changes
+-w /etc/gshadow -p wa -k audit_account_changes
+-w /etc/shadow -p wa -k audit_account_changes
+-w /etc/security/opasswd -p wa -k audit_account_changes
+
+<span class="c"># Record Events that Modify the System's Network Environment</span>
+<span class="c"># audit_network_modifications</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>ARCH -S sethostname -S setdomainname -k audit_network_modifications
+-w /etc/issue -p wa -k audit_network_modifications
+-w /etc/issue.net -p wa -k audit_network_modifications
+-w /etc/hosts -p wa -k audit_network_modifications
+-w /etc/sysconfig/network -p wa -k audit_network_modifications
+
+<span class="c">#Record Events that Modify the System's Mandatory Access Controls</span>
+-w /etc/selinux/ -p wa -k MAC-policy
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - chmod</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S chmod -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S chmod  -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - chown</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S chown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S chown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchmod</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchmod -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchmod -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchmodat</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchmodat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchmodat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchown</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchownat</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchownat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchownat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fremovexattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fsetxattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - lchown</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S lchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S lchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - lremovexattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S lremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S lremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - lsetxattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S lsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S lsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - removexattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S removexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S removexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchmodat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchmodat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchown</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchown -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fchownat</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fchownat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fchownat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fremovexattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S fremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S fremovexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - fsetxattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S lsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S lsetxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - removexattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S removexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S removexattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Events that Modify the System's Discretionary Access Controls - setxattr</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S setxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S setxattr -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k perm_mod
+
+<span class="c">#Record Attempts to Alter Logon and Logout Events</span>
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+
+<span class="c">#Record Attempts to Alter Process and Session Initiation Information</span>
+-w /var/run/utmp -p wa -k session
+-w /var/log/btmp -p wa -k session
+-w /var/log/wtmp -p wa -k session
+
+<span class="c">#Ensure auditd Collects Unauthorized Access Attempts to Files (unsuccessful)</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F <span class="nb">exit</span><span class="o">=</span>-EACCES -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k access
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F <span class="nb">exit</span><span class="o">=</span>-EPERM -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k access
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F <span class="nb">exit</span><span class="o">=</span>-EACCES -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k access
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F <span class="nb">exit</span><span class="o">=</span>-EPERM -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k access
+
+<span class="c">#Ensure auditd Collects Information on the Use of Privileged Commands</span>
+<span class="c">#</span>
+<span class="c">#  Find setuid / setgid programs then modify and uncomment the line below.</span>
+<span class="c">#</span>
+<span class="c">##  sudo find / -xdev -type f -perm -4000 -o -perm -2000 2&gt;/dev/null</span>
+<span class="c">#</span>
+<span class="c"># -a always,exit -F path=SETUID_PROG_PATH -F perm=x -F auid&gt;=500 -F auid!=4294967295 -k privileged</span>
+
+<span class="c">#Ensure auditd Collects Information on Exporting to Media (successful)</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>ARCH -S mount -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k <span class="nb">export</span>
+
+<span class="c">#Ensure auditd Collects File Deletion Events by User</span>
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>ARCH -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid&gt;<span class="o">=</span>500 -F auid!<span class="o">=</span>4294967295 -k delete
+
+<span class="c">#Ensure auditd Collects System Administrator Actions</span>
+-w /etc/sudoers -p wa -k actions
+
+<span class="c">#Ensure auditd Collects Information on Kernel Module Loading and Unloading</span>
+-w /sbin/insmod -p x -k modules
+-w /sbin/rmmod -p x -k modules
+-w /sbin/modprobe -p x -k modules
+-a always,exit -F <span class="nv">arch</span><span class="o">=</span>b64 -S init_module -S delete_module -k modules
+
+<span class="c">#Make the auditd Configuration Immutable</span>
+-e 2</code></pre></figure>
+<p>##Removal of Unrequired Services</p>
+<p>The section outlines software that should be removed, instruction for disabling the service is also documented.</p>
+<h3 id="bulk-remove-of-services">Bulk Remove of Services</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Remove</span>
+yum remove xinetd
+yum remove telnet-server
+yum remove rsh-server
+yum remove telnet
+yum remove rsh-server
+yum remove rsh
+yum remove ypbind
+yum remove ypserv
+yum remove tftp-server
+yum remove cronie-anacron
+yum remove <span class="nb">bind
+</span>yum remove vsftpd
+yum remove httpd
+yum remove dovecot
+yum remove squid
+yum remove net-snmpd</code></pre></figure>
+<h3 id="bulk-enable--disable-services">Bulk Enable / Disable Services</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#Disable / Enable</span>
+systemctl disable xinetd
+systemctl disable rexec
+systemctl disable rsh
+systemctl disable rlogin
+systemctl disable ypbind
+systemctl disable tftp
+systemctl disable certmonger
+systemctl disable cgconfig
+systemctl disable cgred
+systemctl disable cpuspeed
+systemctl <span class="nb">enable </span>irqbalance
+systemctl disable kdump
+systemctl disable mdmonitor
+systemctl disable messagebus
+systemctl disable netconsole
+systemctl disable ntpdate
+systemctl disable oddjobd
+systemctl disable portreserve
+systemctl <span class="nb">enable </span>psacct
+systemctl disable qpidd
+systemctl disable quota_nld
+systemctl disable rdisc
+systemctl disable rhnsd
+systemctl disable rhsmcertd
+systemctl disable saslauthd
+systemctl disable smartd
+systemctl disable sysstat
+systemctl <span class="nb">enable </span>crond
+systemctl disable atd
+systemctl disable nfslock
+systemctl disable named
+systemctl disable httpd
+systemctl disable dovecot
+systemctl disable squid
+systemctl disable snmpd</code></pre></figure>
+<h3 id="disable-secure-rpc-client-service">Disable Secure RPC Client Service</h3>
+<p>Disable rpcgssd:</p>
+<p>The rpcgssd service manages RPCSEC GSS contexts required to secure protocols that use RPC (most often Kerberos and NFS). The rpcgssd service is the client-side of RPCSEC GSS. If the system does not require secure RPC then this service should be disabled. The rpcgssd service can be disabled with the following command:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable rpcgssd</code></pre></figure>
+<h3 id="disable-secure-rpc-server-service">Disable Secure RPC Server Service</h3>
+<p>Disable rpcsvcgssd:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable rpcsvcgssd</code></pre></figure>
+<h3 id="disable-rpc-id-mapping-service">Disable RPC ID Mapping Service</h3>
+<p>Disable rpcidmapd.</p>
+<p>The rpcidmapd service is used to map user names and groups to UID and GID numbers on NFSv4 mounts. If NFS is not in use on the local system then this service should be disabled. The rpcidmapd service can be disabled with the following command:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable rpcidmapd</code></pre></figure>
+<h3 id="disable-network-file-systems-netfs">Disable Network File Systems (netfs)</h3>
+<p>The netfs script manages the boot-time mounting of several types of networked filesystems, of which NFS and Samba are the most common. If these filesystem types are not in use, the script can be disabled, protecting the system somewhat against accidental or malicious changes to /etc/fstab and against flaws in the netfs script itself. The netfs service can be disabled with the following command:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo systemctl disable netfs</code></pre></figure>
+<h3 id="disable-network-file-system-nfs">Disable Network File System (nfs)</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable nfs</code></pre></figure>
+<h3 id="if-you-dont-need-ssh-disable-it">If you don’t need SSH disable it</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable sshd</code></pre></figure>
+<h3 id="disable-ssh-iptables-firewall-rule">Disable SSH iptables Firewall rule</h3>
+<p>Only do this if you don’t need SSH.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</code></pre></figure>
+<div class="note">
+<h5>Tips™ - You probable need to leave SSH alone</h5>
+<p>Unless you know you don't need SSH, leave SSH and it's iptables rule enabled.</p>
+</div>
+<p>###Remove Rsh Trust Files</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">rm /etc/hosts.equiv
+rm ~/.rhosts</code></pre></figure>
+<h3 id="disable-avahi-server-software">Disable Avahi Server Software</h3>
+<p>The avahi-daemon service can be disabled with the following command:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable avahi-daemon</code></pre></figure>
+<h3 id="disable-the-cups-service">Disable the CUPS Service</h3>
+<p>If you don’t need CUPS, disable it to further reduce your attack surface:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable cups</code></pre></figure>
+<h3 id="disable-dhcp-service">Disable DHCP Service</h3>
+<p>The dhcpd service should be disabled on any system that does not need to act as a DHCP server.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl disable dhcpd</code></pre></figure>
+<h3 id="uninstall-dhcp-server-package">Uninstall DHCP Server Package</h3>
+<p>If you don’t need a DHCP client, remove it:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum erase dhcp</code></pre></figure>
+<h3 id="disable-dhcp-client">Disable DHCP Client</h3>
+<p>Open <code>/etc/sysconfig/network-scripts/ifcfg-eth0</code> (if you have more interfaces, do this for each one) and make sure the address is statically assigned with the BOOTPROTO=none</p>
+<p>Example:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">BOOTPROTO</span><span class="o">=</span>none
+
+<span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
+<span class="nv">IPADDR</span><span class="o">=</span>192.168.1.2
+<span class="nv">GATEWAY</span><span class="o">=</span>192.168.1.1</code></pre></figure>
+<h3 id="specify-additional-remote-ntp-servers">Specify Additional Remote NTP Servers</h3>
+<p>Open <code>/etc/ntp.conf</code> and add the following line:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">server ntpserver</code></pre></figure>
+<p>Use an internal NTP server if possible.</p>
+<h3 id="enable-postfix">Enable Postfix</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable </span>postfix</code></pre></figure>
+<h3 id="remove-sendmail">Remove Sendmail</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum remove sendmail</code></pre></figure>
+<h3 id="postfix-disable-network-listening">Postfix Disable Network Listening</h3>
+<p>Open, <code>/etc/postfix/main.cf</code> and ensure the following inet_interfaces line appears:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">inet_interfaces <span class="o">=</span> localhost</code></pre></figure>
+<h3 id="configure-smtp-greeting-banner">Configure SMTP Greeting Banner</h3>
+<p>Change the greeting banner, the default banner discloses the SMTP server is Postfix.</p>
+<h3 id="disable-xinetd-service">Disable xinetd Service</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo systemctl disable xinetd</code></pre></figure>
+<h3 id="system-audit-logs-permissions">System Audit Logs Permissions</h3>
+<p>System audit logs must have 0640 or less permissions set.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo chmod 0640 audit_file</code></pre></figure>
+<h3 id="system-audit-logs-must-be-owned-by-root">System Audit Logs Must Be Owned By Root</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo chown root/var/log</code></pre></figure>
+<h3 id="disable-autofs">Disable autofs</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">chkconfig --level 0123456 autofs off
+service autofs stop</code></pre></figure>
+<h2 id="disable-uncommon-filesystems">Disable uncommon filesystems</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"install cramfs /bin/false"</span> &gt; /etc/modprobe.d/cramfs.conf
+<span class="nb">echo</span> <span class="s2">"install freevxfs /bin/false"</span> &gt; /etc/modprobe.d/freevxfs.conf
+<span class="nb">echo</span> <span class="s2">"install jffs2 /bin/false"</span> &gt; /etc/modprobe.d/jffs2.conf
+<span class="nb">echo</span> <span class="s2">"install hfs /bin/false"</span> &gt; /etc/modprobe.d/hfs.conf
+<span class="nb">echo</span> <span class="s2">"install hfsplus /bin/false"</span> &gt; /etc/modprobe.d/hfsplus.conf
+<span class="nb">echo</span> <span class="s2">"install squashfs /bin/false"</span> &gt; /etc/modprobe.d/squashfs.conf
+<span class="nb">echo</span> <span class="s2">"install udf /bin/false"</span> &gt; /etc/modprobe.d/udf.conf</code></pre></figure>
+<h2 id="disable-core-dumps-for-all-users">Disable core dumps for all users</h2>
+<p><code>vi /etc/security/limits.conf</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">*</span> hard core 0</code></pre></figure>
+<h2 id="disable-core-dumps-for-suid-programs">Disable core dumps for SUID programs</h2>
+<p>Run <code>sysctl -w fs.suid_dumpable=0</code> and <code>fs.suid_dumpable = 0</code>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Set runtime for fs.suid_dumpable</span>
+<span class="c">#</span>
+sysctl -q -n -w fs.suid_dumpable<span class="o">=</span>0
+
+<span class="c">#</span>
+<span class="c"># If fs.suid_dumpable present in /etc/sysctl.conf, change value to "0"</span>
+<span class="c">#     else, add "fs.suid_dumpable = 0" to /etc/sysctl.conf</span>
+<span class="c">#</span>
+<span class="k">if </span>grep --silent ^fs.suid_dumpable /etc/sysctl.conf ; <span class="k">then
+     </span>sed -i <span class="s1">'s/^fs.suid_dumpable.*/fs.suid_dumpable = 0/g'</span> /etc/sysctl.conf
+<span class="k">else
+     </span><span class="nb">echo</span> <span class="s2">""</span> &gt;&gt; /etc/sysctl.conf
+     <span class="nb">echo</span> <span class="s2">"# Set fs.suid_dumpable to 0 per security requirements"</span> &gt;&gt; /etc/sysctl.conf
+     <span class="nb">echo</span> <span class="s2">"fs.suid_dumpable = 0"</span> &gt;&gt; /etc/sysctl.conf
+<span class="k">fi</span></code></pre></figure>
+<h2 id="buffer-overflow-protection">Buffer Overflow Protection</h2>
+<p>This section helps mitigate against Buffer Overflow attacks (BOF).</p>
+<h3 id="enable-execshield">Enable ExecShield</h3>
+<p>Helps prevent stack smashing / BOF.</p>
+<p>Enable on current kernel: <code>sysctl -w kernel.exec-shield=1</code></p>
+<p>Add to /etc/sysctl.conf:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">kernel.exec-shield <span class="o">=</span> 1</code></pre></figure>
+<h3 id="check--enable-aslr">Check / Enable ASLR</h3>
+<p>Set runtime for kernel.randomize_va_space <code>sysctl -q -n -w kernel.randomize_va_space=2</code></p>
+<p>Add <code>kernel.randomize_va_space = 2</code> to /etc/sysctl.conf if it does not already exist.</p>
+<h3 id="enable-xd-or-nx-support-on-x86-systems">Enable XD or NX Support on x86 Systems</h3>
+<p>Recent processors in the x86 family support the ability to prevent code execution on a per memory page basis. Generically and on AMD processors, this ability is called <strong>No Execute (NX)</strong>, while on Intel processors it is called <strong>Execute Disable (XD)</strong>. This ability can help prevent exploitation of buffer overflow vulnerabilities and should be activated whenever possible. Extra steps must be taken to ensure that this protection is enabled, particularly on 32-bit x86 systems. Other processors, such as Itanium and POWER, have included such support since inception and the standard kernel for those platforms supports the feature.</p>
+<p>Check bios and ensure XD/NX is enabled, not relevant for VM’s.</p>
+<h2 id="selinux">SELinux</h2>
+<h3 id="confirm-selinux-is-not-disabled">Confirm SELinux is not disabled</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sed -i <span class="s2">"s/selinux=0//gI"</span> /etc/grub.conf
+sed -i <span class="s2">"s/enforcing=0//gI"</span> /etc/grub.conf</code></pre></figure>
+<h3 id="selinux-targeted--enforcing">SELinux Targeted / Enforcing</h3>
+<p>Open /etc/selinux/config and check for <code>SELINUXTYPE=targeted</code> or <code>SELINUXTYPE=enforcing</code>, depending on your requirements.</p>
+<h3 id="enable-the-selinux-restorecond-service">Enable the SELinux restorecond Service</h3>
+<p>The restorecond service utilizes inotify to look for the creation of new files listed in the /etc/selinux/restorecond.conf configuration file. When a file is created, restorecond ensures the file receives the proper SELinux security context. The restorecond service can be enabled with the following command:</p>
+<p>Enable restorecond for all run levels:</p>
+<p><code>chkconfig --level 0123456 restorecond on</code></p>
+<p>Start restorecond if not currently running:</p>
+<p><code>service restorecond start</code></p>
+<h3 id="check-no-daemons-are-unconfined-by-selinux">Check no daemons are unconfined by SELinux</h3>
+<p>Run:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo ps -eZ | egrep <span class="s2">"initrc"</span> | egrep -vw <span class="s2">"tr|ps|egrep|bash|awk"</span> | tr <span class="s1">':'</span> <span class="s1">' '</span> | awk <span class="s1">'{ print $NF }’</span></code></pre></figure>
+<p>This should return no output.</p>
+<h2 id="prevent-log-in-to-accounts-with-empty-password">Prevent Log In to Accounts With Empty Password</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sed -i <span class="s1">'s/\&lt;nullok\&gt;//g'</span> /etc/pam.d/system-auth</code></pre></figure>
+<h2 id="secure-ssh">Secure SSH</h2>
+<h3 id="allow-only-ssh-protocol-2">Allow Only SSH Protocol 2</h3>
+<p>Open <code>/etc/ssh/sshd_config</code> and ensure the following line exists:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Protocol 2</code></pre></figure>
+<h3 id="limit-users-ssh-access">Limit Users’ SSH Access</h3>
+<p>Open <code>/etc/ssh/sshd_config</code> and add:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">DenyUsers USER1 USER2</code></pre></figure>
+<h3 id="set-ssh-idle-timeout-interval">Set SSH Idle Timeout Interval</h3>
+<p>To set an idle timeout interval, edit the following line in <code>/etc/ssh/sshd_config</code> as follows:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ClientAliveInterval interval</code></pre></figure>
+<h3 id="set-ssh-client-alive-count">Set SSH Client Alive Count</h3>
+<p>To ensure the SSH idle timeout occurs precisely when the ClientAliveCountMax is set, edit <code>/etc/ssh/sshd_config</code> as follows:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ClientAliveCountMax 0</code></pre></figure>
+<h3 id="disable-ssh-support-for-rhosts-files">Disable SSH Support for .rhosts Files</h3>
+<p>SSH can emulate the behavior of the obsolete rsh command in allowing users to enable insecure access to their accounts via .rhosts files.</p>
+<p>To ensure this behavior is disabled, add or correct the following line in <code>/etc/ssh/sshd_config</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">IgnoreRhosts yes</code></pre></figure>
+<h3 id="disable-host-based-authentication">Disable Host-Based Authentication</h3>
+<p>SSH’s cryptographic host-based authentication is more secure than .rhosts authentication. However, it is not recommended that hosts unilaterally trust one another, even within an organization.</p>
+<p>To disable host-based authentication, add or correct the following line in <code>/etc/ssh/sshd_config</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">HostbasedAuthentication no</code></pre></figure>
+<h3 id="disable-ssh-root-login">Disable SSH Root Login</h3>
+<p>Disable root logins via SSH, open <code>/etc/ssh/sshd_config</code> and ensure the following line exists:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">PermitRootLogin no</code></pre></figure>
+<h3 id="disable-ssh-access-via-empty-passwords">Disable SSH Access via Empty Passwords</h3>
+<p>Open <code>/etc/ssh/sshd_config</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">PermitEmptyPasswords no</code></pre></figure>
+<h3 id="enable-ssh-warning-banner">Enable SSH Warning Banner</h3>
+<p>Enable a warning banner (Renforce policy awareness).</p>
+<p>Banner <code>/etc/issue</code></p>
+<h3 id="do-not-allow-ssh-environment-options">Do Not Allow SSH Environment Options</h3>
+<p>To ensure users are not able to present environment options to the SSH daemon, add or correct the following line in <code>/etc/ssh/sshd_config</code>:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">PermitUserEnvironment no</code></pre></figure>
+<h3 id="use-only-approved-ciphers">Use Only Approved Ciphers</h3>
+<p>Limit the ciphers to those algorithms which are FIPS-approved. Counter (CTR) mode is also preferred over cipher-block chaining (CBC) mode. The following line in <code>/etc/ssh/sshd_config</code> demonstrates use of FIPS-approved ciphers:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Ciphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc</code></pre></figure>
+<h2 id="secure-x-windows">Secure X Windows</h2>
+<h3 id="disable-x-windows-startup-by-setting-runlevel">Disable X Windows Startup By Setting Runlevel</h3>
+<p>Disable X windows system, further reducing your attack surface.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Add id:3:initdefault: to /etc/inittab.</code></pre></figure>
+<h3 id="remove-the-x-windows-package-group">Remove the X Windows Package Group</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum groupremove <span class="s2">"X Window System"</span></code></pre></figure>
+<h2 id="prompt-os-update-installation">Prompt OS update installation</h2>
+<p>A process for prompt installation of OS updates must exist</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">yum -y install yum-cron
+chkconfig yum-cron on</code></pre></figure>
+<p>Make sure yum-cron is set to “check only”, I don’t recommend installing updates automatically.</p>
+<p>If this was helpfull, click tweet below.</p>
+<p>Enjoy.</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=Security%20Harden%20CentOS%207&amp;url=https://highon.coffee/blog/security-harden-centos-7/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/security-harden-centos-7/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/security-harden-centos-7/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/security-harden-centos-7/&amp;title=Security%20Harden%20CentOS%207" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="current">
+<a href="index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+ <a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/security-harden-centos-7/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:05:00 GMT -->
+</html>

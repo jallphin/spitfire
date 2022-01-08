@@ -56,7 +56,7 @@ echo "rts_ip_address=${ip_address}" > ./.env
 
 echo
 sleep 3
-read -p "[*] Enter the password you want to use for Gitea and Nextcloud (default is rtsPassw0rd! )-> " web_password
+read -p "[*] Enter the password you want to use for Gitea and Nextcloud (default is rtsPassw0rd!) -> " web_password
 if [ -z "${web_password}" ]
 then
    web_password="rtsPassw0rd!"
@@ -64,7 +64,7 @@ fi
 url_encoded_pass=$( rawurlencode "$web_password" )
 
 echo
-read -p "[*] Enter the path to install the redteamserver (default /opt/rts ) -> " install_path
+read -p "[*] Enter the path to install the redteamserver (default /opt/rts) -> " install_path
 if [ -z "${install_path}" ]
 then
   install_path="/opt/rts"
@@ -208,12 +208,12 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
         if [ ! -d "${install_path}" ]
            then
                mkdir ${install_path}
-               chown ${install_path} rts:rts
+               chown rts:rts ${install_path}
         fi
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path}
-	sudo -u rts cp ${initial_working_dir}/{.env,agent-dockerfile,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh} ${install_path}
+	sudo -u rts cp ${initial_working_dir}/{.env,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh} ${install_path}
         echo "[*] Changing working directory to ${install_path}"
         cd ${install_path}
         pwd
@@ -260,7 +260,7 @@ sudo -u rts cp ./environment.js ${install_path}/reconmap/ >/dev/null
 sudo -u rts rm ${install_path}/config.json > /dev/null
 sudo -u rts rm ${install_path}/environment.js > /dev/null
 # copy in patched terminal_handler for kali linux
-sudo -u rts cp terminal_handler.go ${install_path}/reconmap-agent/internal/ >/dev/null
+sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ >/dev/null
 
 if [ $? -eq 0 ]; then
    echo "[**] Clone successful, movin' on."
@@ -290,6 +290,10 @@ echo
 echo "[*] Copying reconmapd & rmap to install path."
 sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/
 sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/
+echo
+
+echo "[*] Copying website data to install path."
+sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/
 echo
 
 echo "[*] Starting Docker Compose Build"
@@ -498,3 +502,16 @@ echo "[***] This concludes RTS installation."
 echo "Hack the Planet!"
 
 # Also need to get nginx server up and operational for the rest of the website. Then we're done.
+
+# I think it's a good idea to set up a shared local folder for nextcloud. For this you have to
+# A.) enable the "external storage" under apps
+# B.) use something like "/opt/pentest-storage-data/" and chmod 777 that sucker
+# C.) make sure you mount that directory in the docker-compose.yml for nextcloud under volumes, which means its need to be setup before hand
+# D.) figure out a way to programatically make those changes instead of manually do it via the user with curl.
+
+
+# Other issues:
+# 1.) the recommapd path sucks. It spawns a new bash shell, so it doesn't know where rmap is installed even if in same directory. This will require a change to rts user .bashrc to add in whatever directory
+# you want to use for these suckers. and source it. This will make the web terminal work with rmap.
+# 2.) Consider using a directory that is mapped to nextcloud, so when rmap creates output, you can grab it from nextcloud as well.
+

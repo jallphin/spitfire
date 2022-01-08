@@ -1,0 +1,4 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.highon.coffee	TRUE	/	FALSE	1999999999	__cfduid	d442958a86e7d3a7cb97ab6ac4d92d5951512065099
+

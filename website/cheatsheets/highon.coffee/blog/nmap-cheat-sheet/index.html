@@ -1,0 +1,1593 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/nmap-cheat-sheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>Nmap Cheat Sheet</title>
+<meta name="description" content="Nmap Cheat Sheet, examples and practical examples">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+Nmap Cheat Sheet
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+cheat-sheet
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+13 Dec 2014
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<ul id="markdown-toc">
+<li><a href="#nmap-examples" id="markdown-toc-nmap-examples">Nmap Examples</a> <ul>
+<li><a href="#nmap-scan-from-file" id="markdown-toc-nmap-scan-from-file">Nmap scan from file</a></li>
+<li><a href="#nmap-output-formats" id="markdown-toc-nmap-output-formats">Nmap output formats</a></li>
+<li><a href="#nmap-netbios-examples" id="markdown-toc-nmap-netbios-examples">Nmap Netbios Examples</a></li>
+<li><a href="#nmap-nikto-scan" id="markdown-toc-nmap-nikto-scan">Nmap Nikto Scan</a></li>
+</ul>
+</li>
+<li><a href="#nmap-cheatsheet" id="markdown-toc-nmap-cheatsheet">Nmap Cheatsheet</a> <ul>
+<li><a href="#target-specification" id="markdown-toc-target-specification">Target Specification</a></li>
+<li><a href="#host-discovery" id="markdown-toc-host-discovery">Host Discovery</a></li>
+<li><a href="#scan-techniques" id="markdown-toc-scan-techniques">Scan Techniques</a></li>
+<li><a href="#port-specification-and-scan-order" id="markdown-toc-port-specification-and-scan-order">Port Specification and Scan Order</a></li>
+<li><a href="#service-version-detection" id="markdown-toc-service-version-detection">Service Version Detection</a></li>
+<li><a href="#script-scan" id="markdown-toc-script-scan">Script Scan</a></li>
+<li><a href="#os-detection" id="markdown-toc-os-detection">OS Detection</a></li>
+<li><a href="#timing-and-performance" id="markdown-toc-timing-and-performance">Timing and Performance</a></li>
+<li><a href="#firewalls-ids-evasion-and-spoofing" id="markdown-toc-firewalls-ids-evasion-and-spoofing">Firewalls IDS Evasion and Spoofing</a></li>
+<li><a href="#nmap-output-options" id="markdown-toc-nmap-output-options">Nmap Output Options</a></li>
+<li><a href="#misc-nmap-options" id="markdown-toc-misc-nmap-options">Misc Nmap Options</a></li>
+</ul>
+</li>
+<li><a href="#nmap-enumeration-examples" id="markdown-toc-nmap-enumeration-examples">Nmap Enumeration Examples</a> <ul>
+<li><a href="#enumerating-netbios" id="markdown-toc-enumerating-netbios">Enumerating Netbios</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Nmap</strong> (network mapper), the god of port scanners used for network discovery and the basis for most security enumeration during the initial stages of <a href="https://www.aptive.co.uk/penetration-testing/">penetration testing</a>. The tool was written and maintained by Fyodor AKA Gordon Lyon.</p>
+<p><a href="http://nmap.org/">Nmap</a> displays exposed services on a target machine along with other useful information such as the verion and OS detection.</p>
+<p>Nmap has made twelve movie appearances, including The Matrix Reloaded, Die Hard 4, Girl With the Dragon Tattoo, and The Bourne Ultimatum.</p>
+<p><img src="https://highon.coffee/img/nmap-trinity.png" alt="Nmap Trinity" /></p>
+<p><strong>Nmap in a nutshell</strong></p>
+<ul>
+<li>Host discovery</li>
+<li>Port discovery / enumeration</li>
+<li>Service discovery</li>
+<li>Operating system version detection</li>
+<li>Hardware (MAC) address detection</li>
+<li>Service version detection</li>
+<li>Vulnerability / exploit detection, using Nmap scripts (NSE)</li>
+</ul>
+<h3 id="nmap-examples">Nmap Examples</h3>
+<p>Basic Nmap scanning examples, often used at the first stage of enumeration.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>nmap -sP 10.0.0.0/24</code></p>
+</td>
+<td>
+<p>Ping scans the network, listing machines that respond to ping.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -p 1-65535 -sV -sS -T4 target</code></p>
+</td>
+<td>
+<p>Full TCP port scan using with service version detection - usually my first scan, I find T4 more accurate than T5 and still "pretty quick".</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -v -sS -A -T4 target</code></p>
+</td>
+<td>
+<p>Prints verbose output, runs stealth syn scan, T4 timing, OS and version detection + traceroute and scripts against target services.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -v -sS -A -T5 target</code></p>
+</td>
+<td>
+<p>Prints verbose output, runs stealth syn scan, T5 timing, OS and version detection + traceroute and scripts against target services.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -v -sV -O -sS -T5 target</code></p>
+</td>
+<td>
+<p>Prints verbose output, runs stealth syn scan, T5 timing, OS and version detection.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -v -p 1-65535 -sV -O -sS -T4 target</code></p>
+</td>
+<td>
+<p>Prints verbose output, runs stealth syn scan, T4 timing, OS and version detection + full port range scan.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -v -p 1-65535 -sV -O -sS -T5 target</code></p>
+</td>
+<td>
+<p>Prints verbose output, runs stealth syn scan, T5 timing, OS and version detection + full port range scan.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note info">
+<h5>Agressive scan timings are faster, but could yeild inaccurate results!</h5>
+<p>T5 uses very aggressive scan timings and could lead to missed ports, T4 is a better compromise if you need fast results.</p>
+</div>
+<h4 id="nmap-scan-from-file">Nmap scan from file</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>nmap -iL ip-addresses.txt</code></p>
+</td>
+<td>
+<p>Scans a list of IP addresses, you can add options before / after.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="nmap-output-formats">Nmap output formats</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>nmap -sV -p 139,445 -oG grep-output.txt 10.0.1.0/24</code></p>
+</td>
+<td>
+<p>Outputs "grepable" output to a file, in this example Netbios servers.</p>
+<p>E.g, The output file could be grepped for "Open".</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -sS -sV -T5 10.0.1.99 --webxml -oX -<br /> | xsltproc --output file.html -</code></p>
+</td>
+<td>
+<p>Export nmap output to HTML report. </p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="nmap-netbios-examples">Nmap Netbios Examples</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>nmap -sV -v -p 139,445 10.0.0.1/24</code></p>
+</td>
+<td>
+<p>Find all Netbios servers on subnet</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -sU --script nbstat.nse -p 137 target</code></p>
+</td>
+<td>
+<p>Nmap display Netbios name</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap --script-args=unsafe=1 --script <br /> smb-check-vulns.nse -p 445 target</code></p>
+</td>
+<td>
+<p>Nmap check if Netbios servers are vulnerable to MS08-067</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note warning">
+<h5>--script-args=unsafe=1 has the potential to crash servers / services</h5>
+<p>Becareful when running this command.</p>
+</div>
+<h4 id="nmap-nikto-scan">Nmap Nikto Scan</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>nmap -p80 10.0.1.0/24 -oG - | nikto.pl -h -</code></p>
+</td>
+<td>
+<p>Scans for http servers on port 80 and pipes into Nikto for scanning.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>nmap -p80,443 10.0.1.0/24 -oG - | nikto.pl -h -</code></p>
+</td>
+<td>
+<p>Scans for http/https servers on port 80, 443 and pipes into Nikto for scanning.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="nmap-cheatsheet">Nmap Cheatsheet</h3>
+<h4 id="target-specification">Target Specification</h4>
+<p>Nmap allows hostnames, IP addresses, subnets.</p>
+<p>Example blah.highon.coffee, nmap.org/24, 192.168.0.1; 10.0.0-255.1-254</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-iL</code></p>
+</td>
+<td>
+<p>inputfilename: Input from list of hosts/networks</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-iR</code></p>
+</td>
+<td>
+<p>num hosts: Choose random targets</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--exclude</code></p>
+</td>
+<td>
+<p>host1[,host2][,host3],... : Exclude hosts/networks</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--excludefile</code></p>
+</td>
+<td>
+<p>exclude_file: Exclude list from file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="host-discovery">Host Discovery</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-sL</code></p>
+</td>
+<td>
+<p>List Scan - simply list targets to scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sn</code></p>
+</td>
+<td>
+<p>Ping Scan - disable port scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-Pn</code></p>
+</td>
+<td>
+<p>Treat all hosts as online -- skip host discovery</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-PS/PA/PU/PY[portlist]</code></p>
+</td>
+<td>
+<p>TCP SYN/ACK, UDP or SCTP discovery to given ports</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-PE/PP/PM</code></p>
+</td>
+<td>
+<p>ICMP echo, timestamp, and netmask request discovery probes</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-PO[protocol list]</code></p>
+</td>
+<td>
+<p>IP Protocol Ping</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-n/-R</code></p>
+</td>
+<td>
+<p>Never do DNS resolution/Always resolve [default: sometimes]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="scan-techniques">Scan Techniques</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-sS<br />-sT<br />-sA<br />-sW<br />-sM</code></p>
+</td>
+<td>
+<p>TCP SYN scan<br />Connect scan<br />ACK scan<br />Window scan<br />Maimon scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sU</code></p>
+</td>
+<td>
+<p>UDP Scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sN<br />-sF<br />-sX</code></p>
+</td>
+<td>
+<p>TCP Null scan<br />FIN scan<br />Xmas scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--scanflags</code></p>
+</td>
+<td>
+<p>Customize TCP scan flags</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sI zombie host[:probeport]</code></p>
+</td>
+<td>
+<p>Idle scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sY<br />-sZ</code></p>
+</td>
+<td>
+<p>SCTP INIT scan<br />COOKIE-ECHO scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-sO</code></p>
+</td>
+<td>
+<p>IP protocol scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code> -b "FTP relay host"</code></p>
+</td>
+<td>
+<p>FTP bounce scan</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="port-specification-and-scan-order">Port Specification and Scan Order</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-p</code></p>
+</td>
+<td>
+<p>Specify ports, e.g. -p80,443 or -p1-65535</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-p U:PORT</code></p>
+</td>
+<td>
+<p>Scan UDP ports with Nmap, e.g. -p U:53</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-F</code></p>
+</td>
+<td>
+<p>Fast mode, scans fewer ports than the default scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-r</code></p>
+</td>
+<td>
+<p>Scan ports consecutively - don't randomize</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--top-ports "number"</code></p>
+</td>
+<td>
+<p>Scan "number" most common ports</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--port-ratio "ratio"</code></p>
+</td>
+<td>
+<p>Scan ports more common than "ratio"</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="service-version-detection">Service Version Detection</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-sV</code></p>
+</td>
+<td>
+<p>Probe open ports to determine service/version info</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--version-intensity "level"</code></p>
+</td>
+<td>
+<p>Set from 0 (light) to 9 (try all probes)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--version-light</code></p>
+</td>
+<td>
+<p>Limit to most likely probes (intensity 2)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--version-all</code></p>
+</td>
+<td>
+<p>Try every single probe (intensity 9)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--version-trace</code></p>
+</td>
+<td>
+<p>Show detailed version scan activity (for debugging)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="script-scan">Script Scan</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-sC</code></p>
+</td>
+<td>
+<p>equivalent to --script=default</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--script="Lua scripts"</code></p>
+</td>
+<td>
+<p>"Lua scripts" is a comma separated list of
+directories, script-files or script-categories</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--script-args=n1=v1,[n2=v2,...]</code></p>
+</td>
+<td>
+<p>provide arguments to scripts</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-script-args-file=filename</code></p>
+</td>
+<td>
+<p>provide NSE script args in a file</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--script-trace</code></p>
+</td>
+<td>
+<p>Show all data sent and received</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--script-updatedb</code></p>
+</td>
+<td>
+<p>Update script database</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--script-help="Lua scripts"</code></p>
+</td>
+<td>
+<p>Show help about scripts</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="os-detection">OS Detection</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-O</code></p>
+</td>
+<td>
+<p>Enable OS Detection</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--osscan-limit</code></p>
+</td>
+<td>
+<p>Limit OS detection to promising targets</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--osscan-guess</code></p>
+</td>
+<td>
+<p>Guess OS more aggressively</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="timing-and-performance">Timing and Performance</h4>
+<p>Options which take TIME are in seconds, or append 'ms' (milliseconds),
+'s' (seconds), 'm' (minutes), or 'h' (hours) to the value (e.g. 30m).</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-T 0-5</code></p>
+</td>
+<td>
+<p>Set timing template - higher is faster (less accurate)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--min-hostgroup SIZE <br />--max-hostgroup SIZE</code></p>
+</td>
+<td>
+<p>Parallel host scan group sizes</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--min-parallelism NUMPROBES <br />--max-parallelism NUMPROBES</code></p>
+</td>
+<td>
+<p>Probe parallelization</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--min-rtt-timeout TIME<br />--max-rtt-timeout TIME<br />--initial-rtt-timeout TIME</code></p>
+</td>
+<td>
+<p>Specifies probe round trip time</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--max-retries TRIES</code></p>
+</td>
+<td>
+<p>Caps number of port scan probe retransmissions</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--host-timeout TIME</code></p>
+</td>
+<td>
+<p>Give up on target after this long</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--scan-delay TIME <br />--max-scan-delay TIME</code></p>
+</td>
+<td>
+<p>Adjust delay between probes</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--min-rate NUMBER</code></p>
+</td>
+<td>
+<p>Send packets no slower than NUMBER per second</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--max-rate NUMBER</code></p>
+</td>
+<td>
+<p>Send packets no faster than NUMBER per second</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="firewalls-ids-evasion-and-spoofing">Firewalls IDS Evasion and Spoofing</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-f; --mtu VALUE</code></p>
+</td>
+<td>
+<p>Fragment packets (optionally w/given MTU)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-D decoy1,decoy2,ME</code></p>
+</td>
+<td>
+<p>Cloak a scan with decoys</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-S IP-ADDRESS</code></p>
+</td>
+<td>
+<p>Spoof source address</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-e IFACE</code></p>
+</td>
+<td>
+<p>Use specified interface</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-g PORTNUM<br />--source-port PORTNUM</code></p>
+</td>
+<td>
+<p>Use given port number</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--proxies url1,[url2],...</code></p>
+</td>
+<td>
+<p>Relay connections through HTTP / SOCKS4 proxies</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--data-length NUM</code></p>
+</td>
+<td>
+<p>Append random data to sent packets</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--ip-options OPTIONS</code></p>
+</td>
+<td>
+<p>Send packets with specified ip options</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--ttl VALUE</code></p>
+</td>
+<td>
+<p>Set IP time to live field</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--spoof-mac ADDR/PREFIX/VENDOR</code></p>
+</td>
+<td>
+<p>Spoof NMAP MAC address</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--badsum</code></p>
+</td>
+<td>
+<p>Send packets with a bogus TCP/UDP/SCTP checksum</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="nmap-output-options">Nmap Output Options</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-oN</code></p>
+</td>
+<td>
+<p>Output Normal</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-oX</code></p>
+</td>
+<td>
+<p>Output to XML</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-oS</code></p>
+</td>
+<td>
+<p>Script Kiddie / 1337 speak... sigh</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-oG</code></p>
+</td>
+<td>
+<p>Output greppable - easy to grep nmap output</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-oA BASENAME</code></p>
+</td>
+<td>
+<p>Output in the three major formats at once</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-v</code></p>
+</td>
+<td>
+<p>Increase verbosity level use -vv or more for greater effect</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-d</code></p>
+</td>
+<td>
+<p>Increase debugging level use -dd or more for greater effect</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--reason</code></p>
+</td>
+<td>
+<p>Display the reason a port is in a particular state</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--open</code></p>
+</td>
+<td>
+<p>Only show open or possibly open ports</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--packet-trace</code></p>
+</td>
+<td>
+<p>Show all packets sent / received</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--iflist</code></p>
+</td>
+<td>
+<p>Print host interfaces and routes for debugging</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--log-errors</code></p>
+</td>
+<td>
+<p>Log errors/warnings to the normal-format output file</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--append-output</code></p>
+</td>
+<td>
+<p>Append to rather than clobber specified output files</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--resume FILENAME</code></p>
+</td>
+<td>
+<p>Resume an aborted scan</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--stylesheet PATH/URL</code></p>
+</td>
+<td>
+<p>XSL stylesheet to transform XML output to HTML</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--webxml</code></p>
+</td>
+<td>
+<p>Reference stylesheet from Nmap.Org for more portable XML</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--no-stylesheet</code></p>
+</td>
+<td>
+<p>Prevent associating of XSL stylesheet w/XML output</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="misc-nmap-options">Misc Nmap Options</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>-6</code></p>
+</td>
+<td>
+<p>Enable IPv6 scanning</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-A</code></p>
+</td>
+<td>
+<p>Enable OS detection, version detection, script scanning, and traceroute</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--datedir DIRNAME</code></p>
+</td>
+<td>
+<p>Specify custom Nmap data file location</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--send-eth<br />--send-ip</code></p>
+</td>
+<td>
+<p>Send using raw ethernet frames or IP packets</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--privileged</code></p>
+</td>
+<td>
+<p>Assume that the user is fully privileged</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>--unprivileged</code></p>
+</td>
+<td>
+<p>Assume the user lacks raw socket privileges</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-V</code></p>
+</td>
+<td>
+<p>Show nmap version number</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>-h</code></p>
+</td>
+<td>
+<p>Show nmap help screen</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="nmap-enumeration-examples">Nmap Enumeration Examples</h2>
+<p>The following are real world examples of Nmap enumeration.</p>
+<h3 id="enumerating-netbios">Enumerating Netbios</h3>
+<p>The following example enumerates Netbios on the target networks, the same process can be applied to other services by modifying ports / NSE scripts.</p>
+<p>Detect all exposed Netbios servers on the subnet.</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">Nmap find exposed Netbios servers</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">nmap -sV -v -p 139,445 10.0.1.0/24</span>
+</p>
+<span class="output"><br /></span>
+<span class="output">Starting Nmap 6.47 ( http://nmap.org ) at 2014-12-11 21:26 GMT<br /></span>
+<span class="output">Nmap scan report for nas.decepticons 10.0.1.12<br /></span>
+<span class="output">Host is up (0.014s latency).<br /></span>
+<span class="output"><br /></span>
+<span class="output">PORT STATE SERVICE VERSION<br /></span>
+<span class="output">139/tcp open netbios-ssn Samba smbd 3.X (workgroup: MEGATRON)<br /></span>
+<span class="output">445/tcp open netbios-ssn Samba smbd 3.X (workgroup: MEGATRON)<br /></span>
+<span class="output"><br /></span>
+<span class="output">Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .<br /></span>
+<span class="output"><br /></span>
+<span class="output">Nmap done: 256 IP addresses (1 hosts up) scanned in 28.74 seconds<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Nmap find Netbios name.</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">Nmap find exposed Netbios servers</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">nmap -sU --script nbstat.nse -p 137 10.0.1.12</span>
+</p>
+<span class="output"><br /></span>
+<span class="output">Starting Nmap 6.47 ( http://nmap.org ) at 2014-12-11 21:26 GMT<br /></span>
+<span class="output">Nmap scan report for nas.decepticons 10.0.1.12<br /></span>
+<span class="output">Host is up (0.014s latency).<br /></span>
+<span class="output"><br /></span>
+<span class="output">PORT STATE SERVICE VERSION<br /></span>
+<span class="output">137/udp open netbios-ns<br /></span>
+<span class="output"><br /></span>
+<span class="output">Host script results:<br /></span>
+<span class="output">|_nbstat: NetBIOS name: STARSCREAM, NetBIOS user: unknown, NetBIOS MAC: unknown (unknown)
+</span>
+<span class="output"><br /></span>
+<span class="output">Nmap done: 256 IP addresses (1 hosts up) scanned in 28.74 seconds<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>Check if Netbios servers are vulnerable to MS08-067</p>
+<section class="shellbox">
+<div class="unit golden-large code">
+<p class="title">Nmap check MS08-067</p>
+<div class="shell">
+<p class="line">
+<span class="prompt">root</span><span>:</span><span class="path">~</span><span>#</span>
+<span class="command">nmap --script-args=unsafe=1 --script smb-check-vulns.nse -p 445</span>
+<span>10.0.0.1</span>
+</p>
+<span class="output"><br /></span>
+<span class="output">Nmap scan report for ie6winxp.decepticons (10.0.1.1)<br /></span>
+<span class="output">Host is up (0.00026s latency).<br /></span>
+ <span class="output">PORT STATE SERVICE<br /></span>
+<span class="output">445/tcp open microsoft-ds<br /></span>
+<span class="output">Host script results:<br /></span>
+<span class="output">| smb-check-vulns:<br /></span>
+<span class="output">| MS08-067: VULNERABLE<br /></span>
+<span class="output">| Conficker: Likely CLEAN<br /></span>
+<span class="output">| regsvc DoS: NOT VULNERABLE<br /></span>
+<span class="output">| SMBv2 DoS (CVE-2009-3103): NOT VULNERABLE<br /></span>
+<span class="output">|_ MS07-029: NO SERVICE (the Dns Server RPC service is inactive)<br /></span>
+<span class="output">Nmap done: 1 IP address (1 host up) scanned in 5.45 seconds<br /></span>
+&lt;/p&gt;
+</div>
+</div>
+</section>
+<p>The information gathered during the enumeration indicates the target is vulnerable to MS08-067, exploitation will confirm if it’s vulnerable to MS08-067.</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=Nmap%20Cheat%20Sheet&amp;url=https://highon.coffee/blog/nmap-cheat-sheet/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/nmap-cheat-sheet/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/nmap-cheat-sheet/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/nmap-cheat-sheet/&amp;title=Nmap%20Cheat%20Sheet" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="current">
+<a href="index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/nmap-cheat-sheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:59 GMT -->
+</html>

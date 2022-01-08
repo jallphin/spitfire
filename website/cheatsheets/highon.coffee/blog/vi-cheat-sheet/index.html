@@ -1,0 +1,1707 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/vi-cheat-sheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>Vi Cheat Sheet</title>
+<meta name="description" content="Vim cheat sheet, a collection of Vi / Vim commands and tips in a nicely presented cheat sheet.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+Vi Cheat Sheet
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+cheat-sheet
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+01 Nov 2015
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<ul id="markdown-toc">
+<li><a href="#vim-resources" id="markdown-toc-vim-resources">Vim Resources</a></li>
+<li><a href="#vi-insert-mode--command-mode" id="markdown-toc-vi-insert-mode--command-mode">Vi Insert mode &amp; Command Mode</a> <ul>
+<li><a href="#vi-insert-mode" id="markdown-toc-vi-insert-mode">Vi Insert Mode</a></li>
+<li><a href="#vi-command-mode" id="markdown-toc-vi-command-mode">Vi Command Mode</a></li>
+</ul>
+</li>
+<li><a href="#vi-file-navigvation" id="markdown-toc-vi-file-navigvation">Vi File Navigvation</a> <ul>
+<li><a href="#move-up-down-left-and-right-in-vim" id="markdown-toc-move-up-down-left-and-right-in-vim">Move up, down, left and right in Vim</a></li>
+<li><a href="#vi-page-down" id="markdown-toc-vi-page-down">Vi Page Down</a></li>
+<li><a href="#vi-half-a-page-down" id="markdown-toc-vi-half-a-page-down">Vi Half a Page Down</a></li>
+<li><a href="#vi-page-up" id="markdown-toc-vi-page-up">Vi Page Up</a></li>
+<li><a href="#vi-half-a-page-up" id="markdown-toc-vi-half-a-page-up">Vi Half a Page Up</a></li>
+</ul>
+</li>
+<li><a href="#more-advanced-ways-of-entering-insert-mode" id="markdown-toc-more-advanced-ways-of-entering-insert-mode">More Advanced Ways of Entering Insert Mode</a> <ul>
+<li><a href="#vi-insert-text-at-start-of-the-line" id="markdown-toc-vi-insert-text-at-start-of-the-line">Vi Insert Text at Start of the Line</a></li>
+<li><a href="#vi-insert-text-at-the-end-of-the-line" id="markdown-toc-vi-insert-text-at-the-end-of-the-line">Vi Insert Text at the end of the Line</a></li>
+<li><a href="#vi-append-text-to-the-right-of-the-cursor" id="markdown-toc-vi-append-text-to-the-right-of-the-cursor">Vi Append text to the right of the Cursor</a></li>
+<li><a href="#begin-a-new-line-below" id="markdown-toc-begin-a-new-line-below">Begin a new line below</a></li>
+<li><a href="#vi-replace-line" id="markdown-toc-vi-replace-line">Vi replace line</a></li>
+</ul>
+</li>
+<li><a href="#vi-replace" id="markdown-toc-vi-replace">Vi Replace</a> <ul>
+<li><a href="#change-a-word-in-vi" id="markdown-toc-change-a-word-in-vi">Change a Word in Vi</a></li>
+<li><a href="#replace-line-but-not-wrapped-text" id="markdown-toc-replace-line-but-not-wrapped-text">Replace line, but not wrapped text</a></li>
+<li><a href="#vi-replace-character" id="markdown-toc-vi-replace-character">Vi Replace Character</a></li>
+<li><a href="#vi-replace-1" id="markdown-toc-vi-replace-1">Vi Replace</a></li>
+</ul>
+</li>
+<li><a href="#vi-delete" id="markdown-toc-vi-delete">Vi Delete</a> <ul>
+<li><a href="#vi-delete-single-character-after-the-cursor" id="markdown-toc-vi-delete-single-character-after-the-cursor">Vi Delete Single Character After the Cursor</a></li>
+<li><a href="#vi-delete-character-before-the-cursor" id="markdown-toc-vi-delete-character-before-the-cursor">Vi Delete Character before the Cursor</a></li>
+<li><a href="#vi-delete-word" id="markdown-toc-vi-delete-word">Vi Delete Word</a></li>
+</ul>
+</li>
+<li><a href="#vi-delete-line-commands" id="markdown-toc-vi-delete-line-commands">Vi Delete Line commands</a> <ul>
+<li><a href="#vi-delete-line" id="markdown-toc-vi-delete-line">Vi Delete Line</a></li>
+<li><a href="#vi-delete-until-end-of-line" id="markdown-toc-vi-delete-until-end-of-line">Vi Delete until end of Line</a></li>
+<li><a href="#delete-to-end-of-screen" id="markdown-toc-delete-to-end-of-screen">Delete to end of screen</a></li>
+<li><a href="#delete-to-end-of-file" id="markdown-toc-delete-to-end-of-file">Delete to end of file</a></li>
+<li><a href="#vi-delete-from-cursor-to-start-of-line" id="markdown-toc-vi-delete-from-cursor-to-start-of-line">Vi Delete From Cursor To Start of Line</a></li>
+</ul>
+</li>
+<li><a href="#vi-copy-and-paste" id="markdown-toc-vi-copy-and-paste">Vi Copy and Paste</a> <ul>
+<li><a href="#vi-copy-line" id="markdown-toc-vi-copy-line">Vi Copy Line</a></li>
+<li><a href="#vi-copy-3-lines-of-text" id="markdown-toc-vi-copy-3-lines-of-text">Vi Copy 3 Lines of Text</a></li>
+<li><a href="#vi-copy-word" id="markdown-toc-vi-copy-word">Vi Copy Word</a></li>
+<li><a href="#vi-copy-3-words" id="markdown-toc-vi-copy-3-words">Vi Copy 3 Words</a></li>
+<li><a href="#vi-paste-commands" id="markdown-toc-vi-paste-commands">Vi Paste Commands</a></li>
+</ul>
+</li>
+<li><a href="#vi-search-commands" id="markdown-toc-vi-search-commands">Vi Search Commands</a> <ul>
+<li><a href="#vi-search-forward" id="markdown-toc-vi-search-forward">Vi Search forward</a></li>
+<li><a href="#vi-search-back" id="markdown-toc-vi-search-back">Vi Search Back</a></li>
+</ul>
+</li>
+<li><a href="#vi-search-and-replace-commands" id="markdown-toc-vi-search-and-replace-commands">Vi Search and Replace Commands</a> <ul>
+<li><a href="#vi-search-and-replace-first-instance" id="markdown-toc-vi-search-and-replace-first-instance">Vi Search and Replace First Instance</a></li>
+<li><a href="#vi-search-and-replace-on-a-single-line" id="markdown-toc-vi-search-and-replace-on-a-single-line">Vi Search and Replace on a Single Line</a></li>
+<li><a href="#vi-search-and-replace-entire-file" id="markdown-toc-vi-search-and-replace-entire-file">Vi Search and Replace Entire File</a></li>
+<li><a href="#vi-search-for-part-of-a-word" id="markdown-toc-vi-search-for-part-of-a-word">Vi Search for part of a Word</a></li>
+<li><a href="#vi-search-for-words-ending-with-string" id="markdown-toc-vi-search-for-words-ending-with-string">Vi Search for words ending with $string</a></li>
+<li><a href="#vi-search-for-metacharacters" id="markdown-toc-vi-search-for-metacharacters">Vi Search for Metacharacters</a></li>
+<li><a href="#vi-exact-match-search-only" id="markdown-toc-vi-exact-match-search-only">Vi Exact Match Search Only</a></li>
+<li><a href="#vi-search-for-a-range-of-strings" id="markdown-toc-vi-search-for-a-range-of-strings">Vi Search for a range of Strings</a></li>
+<li><a href="#vi-search-for-upper-and-lowercase" id="markdown-toc-vi-search-for-upper-and-lowercase">Vi Search for Upper and Lowercase</a></li>
+</ul>
+</li>
+<li><a href="#advanced-vi-commands" id="markdown-toc-advanced-vi-commands">Advanced Vi commands</a> <ul>
+<li><a href="#vi-view-options" id="markdown-toc-vi-view-options">Vi View Options</a></li>
+<li><a href="#vi-run-shell-commands" id="markdown-toc-vi-run-shell-commands">Vi Run Shell Commands</a></li>
+<li><a href="#vi-joining-lines" id="markdown-toc-vi-joining-lines">Vi Joining Lines</a></li>
+<li><a href="#vi-split-windows" id="markdown-toc-vi-split-windows">Vi Split Windows</a> <ul>
+<li><a href="#vi-split-window-horizontally" id="markdown-toc-vi-split-window-horizontally">Vi Split Window Horizontally</a></li>
+<li><a href="#vi-split-window-virtically" id="markdown-toc-vi-split-window-virtically">Vi Split Window Virtically</a></li>
+</ul>
+</li>
+<li><a href="#vi-close-all-split-windows" id="markdown-toc-vi-close-all-split-windows">Vi Close All Split Windows</a></li>
+</ul>
+</li>
+<li><a href="#vi-save-commands" id="markdown-toc-vi-save-commands">Vi Save commands</a> <ul>
+<li><a href="#how-to-save-in-vi" id="markdown-toc-how-to-save-in-vi">How to Save in Vi</a></li>
+<li><a href="#vi-save-and-exit" id="markdown-toc-vi-save-and-exit">Vi Save and Exit</a></li>
+</ul>
+</li>
+<li><a href="#misc-vi-commands" id="markdown-toc-misc-vi-commands">Misc Vi Commands</a> <ul>
+<li><a href="#vi-undo-command" id="markdown-toc-vi-undo-command">Vi Undo Command</a></li>
+<li><a href="#vi-undo-all" id="markdown-toc-vi-undo-all">Vi Undo All</a></li>
+</ul>
+</li>
+<li><a href="#vi-show-file-name" id="markdown-toc-vi-show-file-name">Vi Show File Name</a></li>
+<li><a href="#vi-multipliers" id="markdown-toc-vi-multipliers">Vi Multipliers</a></li>
+</ul>
+<p>A collection of Vi commands in a cheat sheet, handy reference document for learning / remembering Vi commands. I refer to Vim / Vi as the same thing in this document, but in most modern Linux distros vi is often a symlink to vim.</p>
+<p>It’s worth learning Vi as it’s installed on pretty much every Linux base system out there.</p>
+<p>If you’re learning Vi, you might want to check out <a href="http://vim-adventures.com/">Vim Adventures</a> - an online adventure game that uses Vi commands.</p>
+<h2 id="vim-resources">Vim Resources</h2>
+<ul>
+<li><a href="index.html">Vi Cheat Sheet</a></li>
+<li><a href="http://themebow.com/">Good looking Vim Themes</a></li>
+<li><a href="https://github.com/NullMode/vim">NullMode’s personal Vim Settings</a></li>
+<li><a href="http://vimcasts.org/">Vim Casts</a></li>
+</ul>
+<p>Enjoy the cheat sheet :)</p>
+<h2 id="vi-insert-mode--command-mode">Vi Insert mode &amp; Command Mode</h2>
+<p>Vi has two basic modes, <strong>insert mode</strong> - used for entering text and <strong>command mode</strong>, used for entering commands. See the tip section below for switching between each mode.</p>
+<h3 id="vi-insert-mode">Vi Insert Mode</h3>
+<p>Enter vi insert mode, insert mode is used for inserting text.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>i</code></p>
+</td>
+<td>
+<p>Enter insert mode from command mode.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note tip">
+<h5>Vi Command Mode - Vi Insert Mode</h5>
+<p>Vi has two modes, <b>insert mode</b> for inserting text and <b>command mode</b> a common mistake is attempting to edit in command mode. If you are unsure on what mode Vi is using double tap escape (enters command mode) and then hit "i" if you wish to enter insert mode.</p>
+</div>
+<h3 id="vi-command-mode">Vi Command Mode</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vim Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>Esc</code></p>
+</td>
+<td>
+<p>Hit escape to enter command mode.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-file-navigvation">Vi File Navigvation</h2>
+<p>Basic file navigation, how to move up, down, left and right.</p>
+<div class="note tip">
+<h5>Arrow Keys</h5>
+<p>Modern Vi / Vim editors will allow you to use the arrow keys, but it's worth learning the correct way to navigate vi without using the arrow keys in case you come across Vi command line or a shell that doesn't like arrow keys.</p>
+</div>
+<h3 id="move-up-down-left-and-right-in-vim">Move up, down, left and right in Vim</h3>
+<p>You’ll need to be in command mode for these commands, navigation in vi uses <strong>h</strong> <strong>j</strong> <strong>k</strong> <strong>l</strong></p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vim Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>h</code></p>
+</td>
+<td>
+<p>Move left - easy to remember h key is on the left</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>j</code></p>
+</td>
+<td>
+<p>Move down - I remember it with j(d)own for down</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>k</code></p>
+</td>
+<td>
+<p>Move up - k for up - I remember it with (k)up</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><code>l</code></p>
+</td>
+<td>
+<p>Move right - l is on the right side of hjkl and moves you right</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-page-down">Vi Page Down</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vim Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>Ctrl+F </code></p>
+</td>
+<td>
+<p>Vi move forward a page</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-half-a-page-down">Vi Half a Page Down</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>Ctrl+D </code></p>
+</td>
+<td>
+<p>Vi move half a page down</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-page-up">Vi Page Up</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>Ctrl+B </code></p>
+</td>
+<td>
+<p>Vi move up a page</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-half-a-page-up">Vi Half a Page Up</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>Ctrl+U </code></p>
+</td>
+<td>
+<p>Vi move up half a page</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="more-advanced-ways-of-entering-insert-mode">More Advanced Ways of Entering Insert Mode</h2>
+<h3 id="vi-insert-text-at-start-of-the-line">Vi Insert Text at Start of the Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>I</code></p>
+</td>
+<td>
+<p>Insert text at the beginning of the line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-insert-text-at-the-end-of-the-line">Vi Insert Text at the end of the Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>A</code></p>
+</td>
+<td>
+<p>Appends text at the end of the line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-append-text-to-the-right-of-the-cursor">Vi Append text to the right of the Cursor</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>a</code></p>
+</td>
+<td>
+<p>Appends text to the right of the cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="begin-a-new-line-below">Begin a new line below</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>o</code></p>
+</td>
+<td>
+<p>Begin a new line, below the current line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-replace-line">Vi replace line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>O</code></p>
+</td>
+<td>
+<p>Removes line, and allows you to type a new line in it's place</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-replace">Vi Replace</h2>
+<h3 id="change-a-word-in-vi">Change a Word in Vi</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>cw</code></p>
+</td>
+<td>
+<p>Replaces a single word, place cursor on first letter and hit cw (Change Word)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="replace-line-but-not-wrapped-text">Replace line, but not wrapped text</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>c$</code></p>
+</td>
+<td>
+<p>Replaces the current line but doesn’t extend to change the rest of a wrapped sentence on the screen</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-replace-character">Vi Replace Character</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>r</code></p>
+</td>
+<td>
+<p>Replaces only the character under the cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-replace-1">Vi Replace</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>R</code></p>
+</td>
+<td>
+ <p>Replaces over the top of existing text, until the user hits return.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-delete">Vi Delete</h2>
+<h3 id="vi-delete-single-character-after-the-cursor">Vi Delete Single Character After the Cursor</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>x</code></p>
+</td>
+<td>
+<p>Vi deletes single character after the cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-delete-character-before-the-cursor">Vi Delete Character before the Cursor</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>X</code></p>
+</td>
+<td>
+<p>Vi deletes character before the cursor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-delete-word">Vi Delete Word</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>dw</code></p>
+</td>
+<td>
+<p>Vi Delete Word, deleted the word under the cursor, from the curosr position onward</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-delete-line-commands">Vi Delete Line commands</h2>
+<h3 id="vi-delete-line">Vi Delete Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>dd</code></p>
+</td>
+<td>
+<p>Delete the current line in Vi</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-delete-until-end-of-line">Vi Delete until end of Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>D</code></p>
+</td>
+<td>
+<p>Deletes from cursor to end of line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="delete-to-end-of-screen">Delete to end of screen</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>dL</code></p>
+</td>
+<td>
+<p>Deletes from cursor to end of screen</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="delete-to-end-of-file">Delete to end of file</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>dG</code></p>
+</td>
+<td>
+<p>Deletes from cursor to end of file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-delete-from-cursor-to-start-of-line">Vi Delete From Cursor To Start of Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>d^</code></p>
+</td>
+<td>
+<p>Deletes from cursor to start of line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-copy-and-paste">Vi Copy and Paste</h2>
+<h3 id="vi-copy-line">Vi Copy Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>yy</code></p>
+</td>
+<td>
+<p>Copies current line into unnamed buffer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-copy-3-lines-of-text">Vi Copy 3 Lines of Text</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>3yy</code></p>
+</td>
+<td>
+<p>Copy 3 lines of text into unnamed buffer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-copy-word">Vi Copy Word</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>yw</code></p>
+</td>
+<td>
+<p>Copy word under cursor into unnamed buffer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-copy-3-words">Vi Copy 3 Words</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>3yw</code></p>
+</td>
+<td>
+<p>Copy 3 words into unnamed buffer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-paste-commands">Vi Paste Commands</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>P</code></p>
+</td>
+<td>
+<p>Copy contents of unamed buffer to right of cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>p</code></p>
+</td>
+<td>
+<p>Copy contents of unamed buffer to left of cursor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-search-commands">Vi Search Commands</h2>
+<h3 id="vi-search-forward">Vi Search forward</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>N</code></p>
+</td>
+<td>
+<p>Vi search forward in file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-back">Vi Search Back</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>SHIFT+N</code></p>
+</td>
+<td>
+<p>Vi search backward in file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-search-and-replace-commands">Vi Search and Replace Commands</h2>
+<h3 id="vi-search-and-replace-first-instance">Vi Search and Replace First Instance</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:s/find-string/replace-string/</code></p>
+</td>
+<td>
+<p>Vi search and replace first instance of specified string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-and-replace-on-a-single-line">Vi Search and Replace on a Single Line</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:s/find-string/replace-string/g</code></p>
+</td>
+<td>
+<p>Vi search and replace all instances of specified string on current line</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-and-replace-entire-file">Vi Search and Replace Entire File</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:%s/find-string/replace-string/g</code></p>
+</td>
+<td>
+<p>Vi search and replace all instances of specified string for entire file</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-for-part-of-a-word">Vi Search for part of a Word</h3>
+<p>A fuzzy search allows you to find something that you only know part of, for example if you wanted to find all instances of lines starting with the word “Picard” you would use the following:</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/^Picard</code></p>
+</td>
+<td>
+<p>Vi search within file words starting with Picard</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-for-words-ending-with-string">Vi Search for words ending with $string</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/worf$</code></p>
+</td>
+<td>
+<p>Vi search within file for word engine with worf</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-for-metacharacters">Vi Search for Metacharacters</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/\*</code></p>
+</td>
+<td>
+<p>Vi search within file for metacharacters like, * </p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-exact-match-search-only">Vi Exact Match Search Only</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/star\.</code></p>
+</td>
+<td>
+<p>Vi exact search only, will return instances of "star only", not starfleet or star-trek</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-for-a-range-of-strings">Vi Search for a range of Strings</h3>
+<p>Helpful for finding version numbers in text files.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/v2.[1-9]</code></p>
+</td>
+<td>
+<p>Vi search for a range, this example would return all v2.1-9 instances within the file, e.g. v2.4 v2.7 etc</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-search-for-upper-and-lowercase">Vi Search for Upper and Lowercase</h3>
+<p>Search for upper and lowercase strings in Vi.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>/ [tT] [hH [eE]</code></p>
+</td>
+<td>
+<p>Vi search upper or lowercase strings, this example would return any instance of the word 'the'. e.g. The, THE, tHE, tHe </p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="advanced-vi-commands">Advanced Vi commands</h2>
+<h3 id="vi-view-options">Vi View Options</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:set all</code></p>
+</td>
+<td>
+<p>Lists all Vi options</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-run-shell-commands">Vi Run Shell Commands</h3>
+<p>Run shell commands from Vi.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:! ls -l</code></p>
+</td>
+<td>
+<p>Run shell command from Vi, in this example ls -l is executed</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-joining-lines">Vi Joining Lines</h3>
+<p>Backspace doesn’t always work…</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>SHIFT+J</code></p>
+</td>
+<td>
+<p>Position the cursor in either line you wish to join, and press <code>SHIFT+J</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-split-windows">Vi Split Windows</h3>
+<p>Useful for comparing files, to switch between windows press <code>SHIFT+W</code></p>
+<h4 id="vi-split-window-horizontally">Vi Split Window Horizontally</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:split</code></p>
+</td>
+<td>
+<p>Split window Horizontally in Vi</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="vi-split-window-virtically">Vi Split Window Virtically</h4>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:vsplit</code></p>
+</td>
+<td>
+<p>Split window Virtically in Vi</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-close-all-split-windows">Vi Close All Split Windows</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:only</code></p>
+</td>
+<td>
+<p>Closes all split windows and focuses on the primary window</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-save-commands">Vi Save commands</h2>
+<h3 id="how-to-save-in-vi">How to Save in Vi</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:w</code></p>
+</td>
+<td>
+<p>Writes the file to disk</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-save-and-exit">Vi Save and Exit</h3>
+<p>How to save and exit Vi, personally I use <code>:wq</code></p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:wq</code></p>
+</td>
+<td>
+<p>Save and exit Vi</p>
+</td>
+</tr>
+&lt;/tr&gt;
+<tr>
+<td>
+<p><code>:x</code></p>
+</td>
+<td>
+<p>Exit - Vi will prompt and ask if you wish to save</p>
+</td>
+</tr>
+&lt;/tr&gt;
+<tr>
+<td>
+<p><code>SHIFT+ZZ</code></p>
+</td>
+<td>
+<p>Another way to Save and Exit Vi</p>
+</td>
+</tr>
+&lt;/tr&gt;
+<tr>
+<td>
+<p><code>wq!</code></p>
+</td>
+<td>
+<p>Forces save on read only files, and exits</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="misc-vi-commands">Misc Vi Commands</h2>
+<h3 id="vi-undo-command">Vi Undo Command</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>U</code></p>
+</td>
+<td>
+<p>Press <code>SHIFT+U</code> to undo in Vi</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="vi-undo-all">Vi Undo All</h3>
+<p>Vi undo all since last write.</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Vi Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><code>:+X+!</code></p>
+</td>
+<td>
+<p>Undo everything since last write</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="vi-show-file-name">Vi Show File Name</h2>
+<p><code>SHIFT+G</code> shows the file name, number of lines and current position.</p>
+<h2 id="vi-multipliers">Vi Multipliers</h2>
+<p>Almost every command in Vi can leverage multipliers, typically it’s a case of prefixing the command with a numnber. Example: <code>10W</code> would move 10 words to the right.</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=Vi%20Cheat%20Sheet&amp;url=https://highon.coffee/blog/vi-cheat-sheet/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/vi-cheat-sheet/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/vi-cheat-sheet/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/vi-cheat-sheet/&amp;title=Vi%20Cheat%20Sheet" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+ <td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+<li class="current">
+<a href="index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="">
+<a href="../fristileaks-walkthrough/index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+ </li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/vi-cheat-sheet/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:38 GMT -->
+</html>

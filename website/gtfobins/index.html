@@ -1,0 +1,11434 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<!-- Mirrored from gtfobins.github.io/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 May 2020 17:46:12 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+        <meta charset="utf-8">
+        <title>
+            
+            GTFOBins
+        </title>
+        <link rel="icon" href="assets/logo.png">
+        <link rel="stylesheet" href="assets/style.css" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </head>
+    <body>
+        <a href="https://github.com/GTFOBins/GTFOBins.github.io" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+        <h1>
+    
+    GTFOBins
+    <div class="github-buttons">
+        <a class="github-button" href="https://github.com/GTFOBins/GTFOBins.github.io" data-icon="octicon-star" data-show-count="true" aria-label="Star GTFOBins/GTFOBins.github.io on GitHub">Star</a>
+    </div>
+</h1>
+
+
+<p><img src="assets/logo.png" alt="logo" class="logo" /></p>
+
+<p>GTFOBins is a curated list of Unix binaries that can be exploited by an attacker to bypass local security restrictions.</p>
+
+<p>The project collects legitimate functions of Unix binaries that can be abused to <strike>get the f**k</strike> break out restricted shells, escalate or maintain elevated privileges, transfer files, spawn bind and reverse shells, and facilitate the other post-exploitation tasks. See the full list of <a href="functions/index.html">functions</a>.</p>
+
+<p>This was inspired by the <a href="https://lolbas-project.github.io/">LOLBAS</a> project for Windows.</p>
+
+<p>GTFOBins is a <a href="https://github.com/GTFOBins/GTFOBins.github.io/graphs/contributors">collaborative</a> project created by <a href="https://twitter.com/norbemi">norbemi</a> and <a href="https://twitter.com/cyrus_and">cyrus_and</a> where everyone can <a href="contribute/index.html">contribute</a> with additional binaries and techniques.</p>
+
+<div id="bin-search-wrapper">
+    <ul id="bin-search-filters" class="function-list">
+        
+        
+        
+        <li><a href="#+shell" data-title="It can be used to break out from restricted environments by spawning an interactive system shell.">Shell</a></li>
+        
+        
+        
+        <li><a href="#+command" data-title="It can be used to break out from restricted environments by running non-interactive system commands.">Command</a></li>
+        
+        
+        
+        <li><a href="#+reverse shell" data-title="It can send back a reverse shell to a listening attacker to open a remote network access.">Reverse shell</a></li>
+        
+        
+        
+        <li><a href="#+non-interactive reverse shell" data-title="It can send back a non-interactive reverse shell to a listening attacker to open a remote network access.">Non-interactive reverse shell</a></li>
+        
+        
+        
+        <li><a href="#+bind shell" data-title="It can bind a shell to a local port to allow remote network access.">Bind shell</a></li>
+        
+        
+        
+        <li><a href="#+non-interactive bind shell" data-title="It can bind a non-interactive shell to a local port to allow remote network access.">Non-interactive bind shell</a></li>
+        
+        
+        
+        <li><a href="#+file upload" data-title="It can exfiltrate files on the network.">File upload</a></li>
+        
+        
+        
+        <li><a href="#+file download" data-title="It can download remote files.">File download</a></li>
+        
+        
+        
+        <li><a href="#+file write" data-title="It writes data to files, it may be used to do privileged writes or write files outside a restricted file system.">File write</a></li>
+        
+        
+        
+        <li><a href="#+file read" data-title="It reads data from files, it may be used to do privileged reads or disclose files outside a restricted file system.">File read</a></li>
+        
+        
+        
+        <li><a href="#+library load" data-title="It loads shared libraries that may be used to run code in the binary execution context.">Library load</a></li>
+        
+        
+        
+        <li><a href="#+suid" data-title="It runs with the SUID bit set and may be exploited to access the file system, escalate or maintain access with elevated privileges working as a SUID backdoor. If it is used to run `sh -p`, omit the `-p` argument on systems like Debian (&lt;= Stretch) that allow the default `sh` shell to run with SUID privileges.
+
+This example creates a local SUID copy of the binary and runs it to maintain elevated privileges. To exploit an existing SUID binary skip the first command and run the program using its original path.
+">SUID</a></li>
+        
+        
+        
+        <li><a href="#+sudo" data-title="It runs in privileged context and may be used to access the file system, escalate or maintain access with elevated privileges if enabled on `sudo`.">Sudo</a></li>
+        
+        
+        
+        <li><a href="#+capabilities" data-title="It can manipulate its process UID and can be used on Linux as a backdoor to maintain elevated privileges with the `CAP_SETUID` capability set. This also works when executed by another binary with the capability set.">Capabilities</a></li>
+        
+        
+        
+        <li><a href="#+limited suid" data-title="It runs with the SUID bit set and may be exploited to access the file system, escalate or maintain access with elevated privileges working as a SUID backdoor. If it is used to run commands it only works on systems like Debian (&lt;= Stretch) that allow the default `sh` shell to run with SUID privileges.
+
+This example creates a local SUID copy of the binary and runs it to maintain elevated privileges. To exploit an existing SUID binary skip the first command and run the program using its original path.
+">Limited SUID</a></li>
+        
+    </ul>
+
+    <input id="bin-search" type="text" placeholder="Search among 185 binaries: &lt;binary&gt; +&lt;function&gt; ..." />
+</div>
+
+<div id="bin-table-wrapper">
+    <table id="bin-table">
+        <thead>
+            <tr>
+                <th>Binary</th>
+                <th>Functions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td><a href="gtfobins/apt-get/index.html" class="bin-name">apt-get</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/apt-get/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/apt-get/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/apt/index.html" class="bin-name">apt</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/apt/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/apt/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/aria2c/index.html" class="bin-name">aria2c</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/aria2c/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/aria2c/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/aria2c/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/arp/index.html" class="bin-name">arp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/arp/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/arp/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/arp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ash/index.html" class="bin-name">ash</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ash/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ash/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ash/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ash/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/awk/index.html" class="bin-name">awk</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/awk/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/base32/index.html" class="bin-name">base32</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/base32/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/base32/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/base32/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/base64/index.html" class="bin-name">base64</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/base64/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/base64/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/base64/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/bash/index.html" class="bin-name">bash</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/bash/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/bpftrace/index.html" class="bin-name">bpftrace</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/bpftrace/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/bundler/index.html" class="bin-name">bundler</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/bundler/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/bundler/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/busctl/index.html" class="bin-name">busctl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/busctl/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/busctl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/busybox/index.html" class="bin-name">busybox</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/busybox/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/byebug/index.html" class="bin-name">byebug</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/byebug/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/byebug/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/byebug/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cancel/index.html" class="bin-name">cancel</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cancel/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cat/index.html" class="bin-name">cat</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cat/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cat/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/cat/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/chmod/index.html" class="bin-name">chmod</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/chmod/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/chmod/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/chown/index.html" class="bin-name">chown</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/chown/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/chown/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/chroot/index.html" class="bin-name">chroot</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/chroot/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/chroot/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cobc/index.html" class="bin-name">cobc</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/cobc/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cobc/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cp/index.html" class="bin-name">cp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cp/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/cp/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cp/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/cp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cpan/index.html" class="bin-name">cpan</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/cpan/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cpan/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cpan/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/cpan/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cpan/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cpulimit/index.html" class="bin-name">cpulimit</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/cpulimit/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cpulimit/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/crash/index.html" class="bin-name">crash</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/crash/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/crash/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/crash/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/crontab/index.html" class="bin-name">crontab</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/crontab/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/crontab/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/csh/index.html" class="bin-name">csh</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/csh/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/csh/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/csh/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/csh/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/curl/index.html" class="bin-name">curl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/curl/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/curl/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/curl/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/curl/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/curl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/cut/index.html" class="bin-name">cut</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cut/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/cut/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/cut/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dash/index.html" class="bin-name">dash</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/dash/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dash/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dash/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/dash/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/date/index.html" class="bin-name">date</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/date/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/date/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/date/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dd/index.html" class="bin-name">dd</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dd/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/dd/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dd/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/dd/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dialog/index.html" class="bin-name">dialog</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dialog/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dialog/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/dialog/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/diff/index.html" class="bin-name">diff</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/diff/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/diff/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/diff/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dmesg/index.html" class="bin-name">dmesg</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/dmesg/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dmesg/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dmesg/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dmsetup/index.html" class="bin-name">dmsetup</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dmsetup/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/dmsetup/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dnf/index.html" class="bin-name">dnf</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dnf/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/docker/index.html" class="bin-name">docker</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/docker/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/docker/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/docker/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/docker/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/docker/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/dpkg/index.html" class="bin-name">dpkg</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/dpkg/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/dpkg/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/easy_install/index.html" class="bin-name">easy_install</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/easy_install/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/eb/index.html" class="bin-name">eb</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/eb/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/eb/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ed/index.html" class="bin-name">ed</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ed/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ed/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ed/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ed/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ed/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/emacs/index.html" class="bin-name">emacs</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/emacs/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/emacs/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/emacs/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/emacs/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/emacs/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/env/index.html" class="bin-name">env</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/env/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/env/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/env/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/eqn/index.html" class="bin-name">eqn</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/eqn/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/eqn/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/eqn/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/expand/index.html" class="bin-name">expand</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/expand/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/expand/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/expand/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/expect/index.html" class="bin-name">expect</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/expect/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/expect/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/expect/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/facter/index.html" class="bin-name">facter</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/facter/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/facter/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/file/index.html" class="bin-name">file</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/file/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/file/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/file/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/find/index.html" class="bin-name">find</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/find/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/find/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/find/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/finger/index.html" class="bin-name">finger</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/finger/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/finger/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/flock/index.html" class="bin-name">flock</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/flock/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/flock/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/flock/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/fmt/index.html" class="bin-name">fmt</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/fmt/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/fmt/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/fmt/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/fold/index.html" class="bin-name">fold</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/fold/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/fold/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/fold/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ftp/index.html" class="bin-name">ftp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ftp/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ftp/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ftp/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ftp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gawk/index.html" class="bin-name">gawk</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gawk/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gcc/index.html" class="bin-name">gcc</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gcc/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gcc/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gdb/index.html" class="bin-name">gdb</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gdb/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gem/index.html" class="bin-name">gem</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gem/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gem/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/genisoimage/index.html" class="bin-name">genisoimage</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/genisoimage/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/genisoimage/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gimp/index.html" class="bin-name">gimp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gimp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/git/index.html" class="bin-name">git</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/git/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/git/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/git/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/grep/index.html" class="bin-name">grep</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/grep/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/grep/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/grep/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/gtester/index.html" class="bin-name">gtester</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/gtester/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/gtester/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/gtester/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/hd/index.html" class="bin-name">hd</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/hd/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/hd/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/hd/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/head/index.html" class="bin-name">head</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/head/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/head/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/head/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/hexdump/index.html" class="bin-name">hexdump</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/hexdump/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/hexdump/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/hexdump/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/highlight/index.html" class="bin-name">highlight</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/highlight/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/highlight/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/highlight/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/iconv/index.html" class="bin-name">iconv</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/iconv/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/iconv/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/iconv/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/iconv/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/iftop/index.html" class="bin-name">iftop</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/iftop/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/iftop/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/iftop/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ionice/index.html" class="bin-name">ionice</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ionice/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ionice/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ionice/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ip/index.html" class="bin-name">ip</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ip/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ip/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ip/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/irb/index.html" class="bin-name">irb</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/irb/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/jjs/index.html" class="bin-name">jjs</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jjs/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/journalctl/index.html" class="bin-name">journalctl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/journalctl/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/journalctl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/jq/index.html" class="bin-name">jq</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jq/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jq/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jq/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/jrunscript/index.html" class="bin-name">jrunscript</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/jrunscript/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ksh/index.html" class="bin-name">ksh</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ksh/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ksshell/index.html" class="bin-name">ksshell</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ksshell/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ksshell/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ksshell/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ld.so/index.html" class="bin-name">ld.so</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ld.so/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ld.so/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ld.so/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ldconfig/index.html" class="bin-name">ldconfig</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ldconfig/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ldconfig/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/less/index.html" class="bin-name">less</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/less/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/less/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/less/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/less/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/less/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/logsave/index.html" class="bin-name">logsave</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/logsave/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/logsave/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/logsave/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/look/index.html" class="bin-name">look</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/look/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/look/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/look/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ltrace/index.html" class="bin-name">ltrace</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ltrace/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ltrace/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/lua/index.html" class="bin-name">lua</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lua/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/lwp-download/index.html" class="bin-name">lwp-download</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-download/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-download/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-download/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/lwp-request/index.html" class="bin-name">lwp-request</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-request/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-request/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/lwp-request/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mail/index.html" class="bin-name">mail</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/mail/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mail/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/make/index.html" class="bin-name">make</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/make/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/make/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/make/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/make/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/man/index.html" class="bin-name">man</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/man/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/man/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/man/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mawk/index.html" class="bin-name">mawk</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/mawk/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mawk/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/mawk/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mawk/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mawk/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/more/index.html" class="bin-name">more</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/more/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/more/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/more/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/more/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mount/index.html" class="bin-name">mount</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mount/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mtr/index.html" class="bin-name">mtr</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mtr/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mtr/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mv/index.html" class="bin-name">mv</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mv/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/mv/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/mysql/index.html" class="bin-name">mysql</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/mysql/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mysql/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mysql/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/mysql/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nano/index.html" class="bin-name">nano</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nano/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nano/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nano/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nano/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nano/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nawk/index.html" class="bin-name">nawk</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nawk/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nc/index.html" class="bin-name">nc</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#bind-shell">Bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nc/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nice/index.html" class="bin-name">nice</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nice/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nice/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nice/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nl/index.html" class="bin-name">nl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nl/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nl/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nmap/index.html" class="bin-name">nmap</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nmap/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/node/index.html" class="bin-name">node</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#bind-shell">Bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/node/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nohup/index.html" class="bin-name">nohup</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nohup/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nohup/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nohup/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/nohup/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nroff/index.html" class="bin-name">nroff</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nroff/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nroff/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/nsenter/index.html" class="bin-name">nsenter</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/nsenter/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/nsenter/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/od/index.html" class="bin-name">od</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/od/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/od/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/od/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/openssl/index.html" class="bin-name">openssl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/openssl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pdb/index.html" class="bin-name">pdb</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pdb/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pdb/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/perl/index.html" class="bin-name">perl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/perl/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/perl/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/perl/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/perl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/perl/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pg/index.html" class="bin-name">pg</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pg/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pg/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pg/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pg/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/php/index.html" class="bin-name">php</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#command">Command</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/php/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pic/index.html" class="bin-name">pic</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pic/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pic/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pic/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pico/index.html" class="bin-name">pico</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pico/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pico/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pico/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pico/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pico/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pip/index.html" class="bin-name">pip</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pip/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/pry/index.html" class="bin-name">pry</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/pry/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pry/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/pry/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/puppet/index.html" class="bin-name">puppet</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/puppet/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/puppet/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/puppet/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/puppet/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/python/index.html" class="bin-name">python</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/python/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rake/index.html" class="bin-name">rake</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rake/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rake/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rake/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/readelf/index.html" class="bin-name">readelf</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/readelf/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/readelf/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/readelf/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/red/index.html" class="bin-name">red</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/red/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/red/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/red/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/redcarpet/index.html" class="bin-name">redcarpet</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/redcarpet/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/redcarpet/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/restic/index.html" class="bin-name">restic</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/restic/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/restic/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/restic/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rlogin/index.html" class="bin-name">rlogin</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rlogin/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rlwrap/index.html" class="bin-name">rlwrap</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rlwrap/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rlwrap/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rlwrap/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rlwrap/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rpm/index.html" class="bin-name">rpm</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rpm/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rpm/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rpm/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rpmquery/index.html" class="bin-name">rpmquery</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rpmquery/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rpmquery/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rpmquery/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rsync/index.html" class="bin-name">rsync</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rsync/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rsync/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rsync/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ruby/index.html" class="bin-name">ruby</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ruby/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/run-mailcap/index.html" class="bin-name">run-mailcap</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/run-mailcap/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/run-mailcap/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/run-mailcap/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/run-mailcap/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/run-parts/index.html" class="bin-name">run-parts</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/run-parts/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/run-parts/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/run-parts/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/rvim/index.html" class="bin-name">rvim</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/rvim/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/scp/index.html" class="bin-name">scp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/scp/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/scp/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/scp/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/scp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/scp/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/screen/index.html" class="bin-name">screen</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/screen/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/screen/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/screen/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/script/index.html" class="bin-name">script</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/script/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/script/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/script/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/sed/index.html" class="bin-name">sed</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sed/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/service/index.html" class="bin-name">service</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/service/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/service/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/setarch/index.html" class="bin-name">setarch</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/setarch/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/setarch/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/setarch/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/sftp/index.html" class="bin-name">sftp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/sftp/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sftp/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sftp/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sftp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/shuf/index.html" class="bin-name">shuf</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/shuf/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/shuf/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/shuf/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/shuf/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/smbclient/index.html" class="bin-name">smbclient</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/smbclient/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/smbclient/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/smbclient/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/smbclient/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/socat/index.html" class="bin-name">socat</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#bind-shell">Bind shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/socat/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/soelim/index.html" class="bin-name">soelim</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/soelim/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/soelim/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/soelim/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/sort/index.html" class="bin-name">sort</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sort/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sort/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sort/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/sqlite3/index.html" class="bin-name">sqlite3</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/sqlite3/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sqlite3/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/sqlite3/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sqlite3/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/sqlite3/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ssh/index.html" class="bin-name">ssh</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/ssh/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ssh/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ssh/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ssh/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ssh/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/start-stop-daemon/index.html" class="bin-name">start-stop-daemon</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/start-stop-daemon/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/start-stop-daemon/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/start-stop-daemon/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/stdbuf/index.html" class="bin-name">stdbuf</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/stdbuf/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/stdbuf/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/stdbuf/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/strace/index.html" class="bin-name">strace</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/strace/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/strace/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/strace/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/strings/index.html" class="bin-name">strings</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/strings/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/strings/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/strings/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/systemctl/index.html" class="bin-name">systemctl</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/systemctl/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/systemctl/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tac/index.html" class="bin-name">tac</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tac/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tac/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tac/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tail/index.html" class="bin-name">tail</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tail/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tail/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tail/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tar/index.html" class="bin-name">tar</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tar/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/taskset/index.html" class="bin-name">taskset</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/taskset/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/taskset/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/taskset/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tclsh/index.html" class="bin-name">tclsh</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/tclsh/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tclsh/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tclsh/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tclsh/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tcpdump/index.html" class="bin-name">tcpdump</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tcpdump/index.html#command">Command</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tcpdump/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tee/index.html" class="bin-name">tee</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tee/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tee/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tee/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/telnet/index.html" class="bin-name">telnet</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/telnet/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/telnet/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/telnet/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/telnet/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tftp/index.html" class="bin-name">tftp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tftp/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tftp/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tftp/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/tftp/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/time/index.html" class="bin-name">time</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/time/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/time/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/time/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/timeout/index.html" class="bin-name">timeout</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/timeout/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/timeout/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/timeout/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/tmux/index.html" class="bin-name">tmux</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/tmux/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/tmux/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/top/index.html" class="bin-name">top</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/top/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/top/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/ul/index.html" class="bin-name">ul</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ul/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/ul/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/ul/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/unexpand/index.html" class="bin-name">unexpand</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/unexpand/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/unexpand/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/unexpand/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/uniq/index.html" class="bin-name">uniq</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uniq/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uniq/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/uniq/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/unshare/index.html" class="bin-name">unshare</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/unshare/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/unshare/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/unshare/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/uudecode/index.html" class="bin-name">uudecode</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uudecode/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uudecode/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/uudecode/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/uuencode/index.html" class="bin-name">uuencode</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uuencode/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/uuencode/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/uuencode/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/valgrind/index.html" class="bin-name">valgrind</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/valgrind/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/valgrind/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/vi/index.html" class="bin-name">vi</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/vi/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/vi/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vi/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/vi/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/vim/index.html" class="bin-name">vim</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#reverse-shell">Reverse shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#non-interactive-bind-shell">Non-interactive bind shell</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#library-load">Library load</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#capabilities">Capabilities</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/vim/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/watch/index.html" class="bin-name">watch</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/watch/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/watch/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/watch/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/watch/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/wget/index.html" class="bin-name">wget</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/wget/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/wget/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/wget/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/wget/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/whois/index.html" class="bin-name">whois</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/whois/index.html#file-upload">File upload</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/whois/index.html#file-download">File download</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/wish/index.html" class="bin-name">wish</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/wish/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/wish/index.html#non-interactive-reverse-shell">Non-interactive reverse shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/wish/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/xargs/index.html" class="bin-name">xargs</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/xargs/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/xargs/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/xargs/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/xargs/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/xxd/index.html" class="bin-name">xxd</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/xxd/index.html#file-write">File write</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/xxd/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/xxd/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/xxd/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/yelp/index.html" class="bin-name">yelp</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/yelp/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/yum/index.html" class="bin-name">yum</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/yum/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/zip/index.html" class="bin-name">zip</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/zip/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zip/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zip/index.html#limited-suid">Limited SUID</a></li>
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/zsh/index.html" class="bin-name">zsh</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/zsh/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zsh/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/zsh/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/zsoelim/index.html" class="bin-name">zsoelim</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zsoelim/index.html#file-read">File read</a></li>
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zsoelim/index.html#suid">SUID</a></li>
+    
+    
+    
+    
+    <li><a href="gtfobins/zsoelim/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+            <tr>
+                <td><a href="gtfobins/zypper/index.html" class="bin-name">zypper</a></td>
+                <td><ul class="function-list">
+    
+    
+    
+    
+    <li><a href="gtfobins/zypper/index.html#shell">Shell</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="gtfobins/zypper/index.html#sudo">Sudo</a></li>
+    
+    
+    
+    
+    
+    
+    
+</ul>
+</td>
+            </tr>
+            
+        </tbody>
+        <tfoot>
+            <tr><td id="search-message" colspan="2">No binary matches...</td></tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+ function filter(query) {
+     var queryArray = query.toLowerCase().trim().split(/ *\+/);
+     var binPattern = queryArray[0];
+     var functionPatterns = queryArray.splice(1);
+
+     // filter rows
+     var noResults = true;
+     document.querySelectorAll('#bin-table tbody tr').forEach(function (row) {
+         var show = true;
+
+         var binName = row.children[0].firstElementChild.innerText.toLowerCase();
+         if (binName.indexOf(binPattern) === -1) {
+             show = false;
+         }
+
+         if (show) {
+             var functionElems = Array.from(row.children[1].firstElementChild.children);
+             functionElems.forEach((item) => {
+                 item.className = '';
+             });
+             functionPatterns.forEach((pattern) => {
+                 // skip empty filters
+                 if (!pattern) {
+                     return;
+                 }
+                 // check against the pattern
+                 var noMatches = true;
+                 functionElems.forEach((item) => {
+                     if (item.innerText.toLowerCase().startsWith(pattern.toLowerCase())) {
+                         item.className = 'match';
+                         noMatches = false;
+                     }
+                 });
+                 // no function satisfies the pattern
+                 if (noMatches) {
+                     show = false;
+                 }
+             });
+         }
+
+         if (show) {
+             row.style.display = '';
+             noResults = false;
+         } else {
+             row.style.display = 'none';
+         }
+     });
+
+     // update the search message visibility
+     var searchMessage = document.getElementById('search-message');
+     searchMessage.style.display = noResults ? 'table-cell' : 'none';
+ }
+
+ function applyFilter() {
+     // filter on load according to the URL
+     var searchBox = document.getElementById('bin-search');
+     var query = decodeURIComponent(location.hash.slice(1));
+     filter(query);
+     if (query) {
+         searchBox.value = query;
+     }
+ }
+
+ function setup() {
+     var searchBox = document.getElementById('bin-search');
+
+     // ensure height during filtering
+     var binTableWrapper = document.getElementById('bin-table-wrapper');
+     binTableWrapper.style.height = binTableWrapper.clientHeight + 'px';
+
+     // handle user input
+     searchBox.addEventListener('input', function () {
+         var query = searchBox.value;
+         history.replaceState(null, null, encodeURI('#' + query));
+         applyFilter();
+     });
+
+     // handle shortcuts
+     addEventListener('keydown', function (event) {
+         // focus search box on valid keydown
+         if (event.key.toLowerCase().match(/^[+a-z]$/) &&
+             !(event.ctrlKey || event.altKey || event.metaKey)) {
+             searchBox.focus();
+             searchBox.parentElement.scrollIntoView();
+         }
+         // clear filter on escape
+         else if (event.key === 'Escape') {
+             location.hash = searchBox.value = '';
+             searchBox.focus();
+             searchBox.parentElement.scrollIntoView();
+         }
+     });
+
+     // handle URL changes
+     window.onhashchange = applyFilter;
+
+     // trigger filter on page load
+     applyFilter();
+ }
+
+ setup();
+</script>
+
+
+
+        <script>
+         // add permalink on headings
+         document.querySelectorAll('h2, h3, h4, h5, h5').forEach((heading) => {
+             const link = document.createElement('a');
+             link.className = 'permalink';
+             link.href = `#${heading.id}`;
+             heading.appendChild(link);
+         });
+        </script>
+    </body>
+
+<!-- Mirrored from gtfobins.github.io/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 19 May 2020 17:46:14 GMT -->
+</html>
