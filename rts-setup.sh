@@ -208,7 +208,11 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
         if [ ! -d "${install_path}" ]
            then
                mkdir ${install_path}
-               chown rts:rts ${install_path}
+               chown -R rts:adm ${install_path}
+	   else
+	       rm -rf ${install_path} # I understand this clobbers a previous install directory - but if you already have it installed, why are you running this again? Clean install? 
+               mkdir ${install_path}
+               chown -R rts:adm ${install_path}
         fi
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path}
