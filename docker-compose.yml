@@ -1,3 +1,18 @@
+# Ports Mapping
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
+# 22	 - local ssh
+# 80	 - nginx-proxy
+# 222	 - gitea ssh
+# 443	 - covenant
+# 2020   - reconmapd (this actually run locally because of issues with docker, check rts-setup.sh)
+# 3306   - rmap-sql
+# 5510	 - rmap-agent
+# 6379	 - rmap-redis
+# 7443	 - covenant
+# 8080	 - covenant
+# 9000	 - the-hive4 
+# 9001	 - cortex (part of the hive)
+
 version: '3'
 
 volumes:
@@ -168,8 +183,7 @@ services:
   ivreclient:
     image: ivre/client
     container_name: ivreclient
-    command: tail -F anything 
-   volumes:
+    volumes:
       - ./ivre/ivre-share:/ivre-share
     depends_on:
       - ivredb
@@ -313,4 +327,31 @@ services:
       - 80
     environment:
       - VIRTUAL_HOST=www.rts.lan
- 
+
+
+### The HIVE4 ###
+#  cassandra:
+#    image: 'cassandra:3.11'
+#    container_name: cassandra
+#    hostname: cassandra
+#    environment:
+#      - MAX_HEAP_SIZE=1G
+#      - HEAP_NEWSIZE=1G
+#      - CASSANDRA_CLUSTER_NAME=thp
+#    volumes:
+#      - './vol/cassandra/data:/var/lib/cassandra/data'
+#  thehive:
+#    image: 'thehiveproject/thehive4:latest'
+#    container_name: thehive4
+#    restart: unless-stopped
+#    depends_on:
+#      - cassandra
+#    ports:
+#      - '0.0.0.0:9000:9000'
+#    volumes:
+#      - ./vol/thehive/application.conf:/etc/thehive/application.conf
+#      - ./vol/thehive/data:/opt/thp/thehive/data
+#      - ./vol/thehive/index:/opt/thp/thehive/index
+#    command: '--no-config --no-config-secret'
+
+

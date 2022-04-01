@@ -176,6 +176,26 @@ else
 fi
 echo
 sleep 3
+# check to see if jq is  installed # needed for API processing
+ee "[*] Checking if 'jq' is installed..."
+dpkg -s jq | tee -a $log &> /dev/null
+if [ $? -eq 0 ]; then
+    ee "[**] jq is installed, moving on."
+else
+    ee "[***] jq is not installed, installing from repo."
+    apt install jq -y | tee -a $log &> /dev/null
+    # Verify docker-compose is now installe
+    dpkg -s jq | tee -a $log &> /dev/null
+    if [ $? -eq 0 ]; then
+       ee "[*] jq is now installed."
+    else
+       ee "[!!!] jq installation failed, check logs. Exiting."
+        exit
+    fi
+fi
+
+echo
+sleep 3
 #ensure rts user exists on the system, and if not create it.
 ee "[*] Checking to see if rts user exists..."
 getent passwd rts | tee -a $log > /dev/null
@@ -532,4 +552,9 @@ chown rts:adm /opt/rts/rts.log
 # 1.) the recommapd path sucks. It spawns a new bash shell, so it doesn't know where rmap is installed even if in same directory. This will require a change to rts user .bashrc to add in whatever directory
 # you want to use for these suckers. and source it. This will make the web terminal work with rmap.
 # 2.) Consider using a directory that is mapped to nextcloud, so when rmap creates output, you can grab it from nextcloud as well.
+
+
+# GITEA API ACCESS
+# http://gitea.rts.lan/api/v1/users/rts/tokens
+# curl -XPOST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$web_password http://gitea.rts.lan/api/v1/users/rts/tokens
 
