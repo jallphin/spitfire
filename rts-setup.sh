@@ -377,7 +377,7 @@ if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_pa
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | slog
 	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | slog
-	sudo -u rts cp ${initial_working_dir}/{.env,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh} ${install_path} | slog
+	sudo -u rts cp ${initial_working_dir}/{.env,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh} ${install_path} | slog
 	es "Changing working directory to ${install_path}"
         cd ${install_path}
         pwd
@@ -690,6 +690,8 @@ echo
 # Some quick configuration for reconmap
 chmod -R 777 ${install_path}/reconmap/logs | slog
 chmod -R 777 ${install_path}/reconmap/data/attachments | slog
+# copy nuke.sh to ivre-share so nuke-ivre.sh works
+mv /opt/rts/nuke.sh /opt/rts/ivre/ivre-share/
 ec "========================================================[**]"
 ec "Main website: http://www.rts.lan"
 ec "Gitea:        http://gitea.rts.lan"
@@ -708,6 +710,10 @@ ec "The username and password for Reconmap is:"
 ew "admin/admin123"
 es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
 es "Log file moved from /tmp/rts.log to ${install_path}/rts.log"
+es "scan.sh -> Scan script to order IVRE to scan a host/network/range."
+es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database."
+es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box."
+es "rmap -> Reconmap CLI interface. Refer to its github for instructions."
 ec "This concludes RTS installation."
 ec "Hack the Planet!"
 mv /tmp/rts.log /opt/rts/
