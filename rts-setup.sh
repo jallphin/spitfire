@@ -1,25 +1,38 @@
 #!/bin/bash
-echo
-echo
-cat << EOF
-    '########::'########::'######::
-    ##.... ##:... ##..::'##... ##:
-    ##:::: ##:::: ##:::: ##:::..::
-    ########::::: ##::::. ######::
-    ##.. ##:::::: ##:::::..... ##:
-    ##::. ##::::: ##::::'##::: ##:
-    ##:::. ##:::: ##::::. ######::
-    ..:::::..:::::..::::::......:::
-EOF
-echo      "#### Red Team Server Setup Script ####"
-echo
-echo "[*]   = Status"
-echo "[**]  = Completed"
-echo "[***] = Warning"
-echo "[!!!] = Error"
-echo "Log file is at /tmp/rts.log for any issues."
-echo
+clear
+# Reset
+nocolor='\e[0m'       # Text Reset
 
+# Regular Colors
+black='\e[0;30m'        # Black
+red='\e[0;31m'          # Red
+green='\e[0;32m'        # Green
+yellow='\e[0;33m'       # Yellow
+blue='\e[0;34m'         # Blue
+purple='\e[0;35m'       # Purple
+cyan='\e[0;36m'         # Cyan
+white='\e[0;37m'        # White
+
+# Bold
+bblack='\e[1;30m'       # Black
+bred='\e[1;31m'         # Red
+bgreen='\e[1;32m'       # Green
+byellow='\e[1;33m'      # Yellow
+bblue='\e[1;34m'        # Blue
+bpurple='\e[1;35m'      # Purple
+bcyan='\e[1;36m'        # Cyan
+bwhite='\e[1;37m'       # White
+
+# Underline
+ublack='\e[4;30m'       # Black
+ured='\e[4;31m'         # Red
+ugreen='\e[4;32m'       # Green
+uyellow='\e[4;33m'      # Yellow
+ublue='\e[4;34m'        # Blue
+upurple='\e[4;35m'      # Purple
+ucyan='\e[4;36m'        # Cyan
+uwhite='\e[4;37m'       # White
+set -o pipefail
 nextcloud_db_user=nextcloud
 nextcloud_db_host=nextcloud-db
 nextcloud_d_pass=rts_passw0rd
@@ -27,7 +40,7 @@ gitea_db_host=gitea-db
 gitea_db_type=postgres
 gitea_db_user=gitea
 gitea_db_pass=gitea
-initial_working_dir=$(pwd)
+initial_working_dir="$(pwd)/setup"
 initial_user=$(whoami)
 install_path="/opt/rts"
 log="/tmp/rts.log"
@@ -52,25 +65,203 @@ function rawurlencode() {
 
 }
 
-function ee() {
-echo "$1" | tee -a $log
+# simple spinner
+spin[0]="-"
+spin[1]="\\"
+spin[2]="|"
+spin[3]="/"
+
+# silent log
+function slog() {
+tee -a $log > /dev/null 2>&1
 }
 
-ee "Starting sanity checks and initial setup"
+#echo log
+function elog() {
+tee -a $log
+}
 
-ee "[*] Checking root status..."
-# check to see if I am root
-if [ "$EUID" -ne 0 ]; then
-  ee "[!!!] Effective UID is $EUID"
-  ee "[!!!] Please run as root"
-  exit
+#echo regular
+function es() {
+echo -e "${bcyan}[*] $1${nocolor}" | elog
+}
+
+#echo errors
+function ee() {
+echo -e "${bred}[!!!] $1${nocolor}" | elog
+}
+
+#echo warnings
+function ew() {
+echo -e "${byellow}[***] $1${nocolor}" | elog
+}
+
+#echo completed
+function ec() {
+echo -e "${bgreen}[**] $1${nocolor}" | elog
+}
+
+function check_installed() {
+# check to see if an application is installed, and if not, install it.
+es "Checking if '${1}' is installed..."
+dpkg -s $1 2>&1 | slog
+if [ $? -eq 0 ]; then
+    ec "${1} is installed."
 else
-  ee "[*] Effective UID is $EUID"
-  ee "[**] Running as root"
+    ew "${1} is not installed, installing from repo."
+    apt install ${1} -y 2>&1 | slog
+    # Verify package is now installe
+    dpkg -s ${1} 2>&1 | slog
+    if [ $? -eq 0 ]; then
+       ec "${1} is now installed."
+    else
+       ee "{1} installation failed, check logs. Exiting."
+        exit
+    fi
+fi
+sleep 3
+echo
+}
+
+function add_hosts() {
+if grep -qF "${ip_address} ${1}" /etc/hosts; then
+  ec "${1} found."
+else
+  ew "adding in ${1} with ip ${ip_address} into /etc/hosts"
+  echo "${ip_address} ${1}" >> /etc/hosts
+fi
+}
+
+# create a fresh log if installation got interrupted
+rm -rf /tmp/rts.log | slog
+# remove previous rmap config if present
+rm -rf /home/rts/.reconmap/config.json | slog
+
+echo
+echo
+cat << EOF
+    '########::'########::'######::
+    ##.... ##:... ##..::'##... ##:
+    ##:::: ##:::: ##:::: ##:::..::
+    ########::::: ##::::. ######::
+    ##.. ##:::::: ##:::::..... ##:
+    ##::. ##::::: ##::::'##::: ##:
+    ##:::. ##:::: ##::::. ######::
+    ..:::::..:::::..::::::......:::
+EOF
+echo -e "${bwhite}#### Red Team Server Setup Script ####${nocolor}"
+es "= Status"
+ec "= Completed"
+ew "= Warning"
+ee "= Error"
+es "Log file is at /tmp/rts.log for any issues."
+echo
+
+function additional_content() {
+echo
+es "Here's the list of tools we can clone into the local Gitea repository for team sharing:"
+es "--------------------------------------------------------------------------------------------"
+es "SecLists"
+es "HateCrack"
+es "Slowloris"
+es "GhostPack"
+es "HackTricks"
+es "Payload All The Things"
+es "Cobalt Strike ElevateKit"
+es "Cobalt Strike Malleable C2 Profiles"
+es "Cobalt Strike Community Kit"
+es "Cobalt Strike Arsenal (not official, 3rd party)"
+es "Veil Evasion Framework"
+es "----------------------------------------------------------------------------------------------"
+read -p "[*] Do you want to install these additional tools? --> " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+   es "Installing now"
+   sleep 3
+   auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:h3llfury http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
+   if [ $? -eq 0 ]; then
+        ec "Gitea auth token acquired."
+     else
+        ee "Gitea auth token failed, check the logs to see what happened."
+        exit
+   fi
+static_auth_token=$auth_token
+
+seclists_clone="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/danielmiessler/SecLists.git\", \"description\": \"SecLists\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"SecLists\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+payload_all_the_things="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/swisskyrepo/PayloadsAllTheThings.git\", \"description\": \"A list of useful payloads\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"payload_all_the_things\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+cobalt_strike_elevate="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/ElevateKit.git\", \"description\": \"Cobalt Strike Elevate Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_elevate\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+cobalt_strike_c2_profiles="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/Malleable-C2-Profiles.git\", \"description\": \"Cobalt Strike Malleable C2 Profiles\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_malleable-c2\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+cobalt_strike_community_kit="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/community_kit.git\", \"description\": \"Cobalt Strike Community Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_community_kit\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+# Cobalt Strike Community kit has its own setup script, which we'll need to replicate for our local gitea instance. Best way is probably to download the tracked_repos.txt from gitea, and then use a for loop to clone those bad boys. Thing is, they are tracked...
+# so mirroring is good to keep the list up to date, but how to pull the rest of the repos? something to ponder later, I guess.
+# So after some thought, ask the user if he wants to download the community kit, and if so clone all of them locally using the script. A simple clone from Internet -> execute script -> done.
+# If a team needs them, they can just scp or copy them from RTS to whatever host they need. To be honest, if Im going to use CS Im going to the team server on RTS anyways.
+# then you can write a script to copy all the contents out of the cloned directories into one final folder containing all the scripts.
+
+# Or better yet, if you want to mirror them all in gitea:
+# pull the community kit file down: community_kit_projects="https://raw.githubusercontent.com/Cobalt-Strike/community_kit/main/tracked_repos.txt"
+# then do a similar for loop in the setup script to iterate through the these with the above curl commands, mirroring all of them. That way the team can just clone them. Make sure to ask the user if they are ok with that, as it is a lot of them. 
+cobalt_strike_arsenal="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/mgeeky/cobalt-arsenal.git\", \"description\": \"Cobalt Strike Battle Tested Arsenal\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_arsenal\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+veil="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Veil-Framework/Veil.git\", \"description\": \"Veil Evasion Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"veil-evasion\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+hatecrack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/trustedsec/hate_crack.git\", \"description\": \"TrustedSec HateCrack\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hatecrack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+slowloris="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/gkbrk/slowloris.git\", \"description\": \"Slowloris DOS\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"slowloris\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+#nuclei=$(go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest)
+ghostpack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git\", \"description\": \"Ghostpacks C# Binaries\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"ghostpack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+hacktricks="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/hacktricks.git\", \"description\": \"hacktricks.xyz\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hacktricks\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+echo
+es "Mirroring SecLists"
+eval $seclists_clone
+es "Mirroring HateCrack"
+eval $hatecrack
+es "Mirroring Slowloris"
+eval $slowloris
+es "Mirroring GhostPack"
+eval $ghostpack
+es "Mirroring HackTricks"
+eval $hacktricks
+es "Mirroring Payload All The Things"
+eval $payload_all_the_things
+es "Mirroring Cobalt Strike ElevateKit"
+eval $cobalt_strike_elevate
+es "Mirroring Cobalt Strike Malleable C2 Profiles"
+eval $cobalt_strike_c2_profiles
+es "Mirroring Cobalt Strike Community Kit"
+eval $cobalt_strike_community_kit
+es "Mirroring Cobalt Strike Arsenal"
+eval $cobalt_strike_arsenal
+es "Mirroring Veil Evasion Framework"
+eval $veil
+ec "Done mirroring, expanding cobalt-strike community kit into red-share..."
+ew "This will launch Cobalt Strikes custom installation script"
+cd /opt/rts/
+git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git > /dev/null 2>&1  | slog
+chmod +x /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
+/opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
+mv /opt/rts/cobaltstrike_community_kit /opt/rts/red-share/cobaltstrike_community_kit | slog
+ec "Finished."
+sleep 3
+else
+   ew "Returning to main setup."
+   return
 fi
 
-echo "rts_ip_address=${ip_address}" > ./.env
-echo "[*] added rts_ip_address=${ip_address} to ./env" | tee -a $log > /dev/null
+}
+es "Starting sanity checks and initial setup"
+
+es "Checking root status..."
+# check to see if I am root
+if [ "$EUID" -ne 0 ]; then
+  ee "Effective UID is $EUID"
+  ee "Please run as root"
+  exit
+else
+  es "Effective UID is $EUID"
+  ec "Running as root"
+fi
+
+echo
+echo "rts_ip_address=${ip_address}" > ./setup/.env
+echo -e "added rts_ip_address=${ip_address} to ./env" | slog
 
 echo
 sleep 3
@@ -89,192 +280,119 @@ then
 fi
 
 echo
-ee "[*] Checking hostname status..."
+es "Checking hostname status..."
 # check to see if hostname is set correctly
 check_hostname="$(hostname)"
 hosts_line="127.0.1.1	rts.lan	  rts"
 if [ "${check_hostname}" != "rts" ]; then
-    ee "[!!!] Hostname is not set correctly (currently set to $check_hostname), setting to rts.lan"
-    hostnamectl set-hostname rts | tee -a $log
-    sed -i".bak" "/$check_hostname/d" /etc/hosts | tee -a $log
+    ee "Hostname is not set correctly (currently set to $check_hostname), setting to rts.lan"
+    hostnamectl set-hostname rts | slog
+    sed -i".bak" "/$check_hostname/d" /etc/hosts | slog
     echo ${hosts_line} >> /etc/hosts
     # verify hostname changed
     if [ "`(hostname -f)`" != "rts.lan" ]; then
-        ee "[!!!] Hostname change did not work, you need to do it manually. Exiting."
+        ee "Hostname change did not work, you need to do it manually. Exiting."
         exit
     fi
-    else ee "[**] Hostname (${check_hostname}) is correct."
+    else ec "Hostname (${check_hostname}) is correct."
 fi
 
 # ensure ssh is enabled
 echo
 sleep 3
 
-ee "[*] Checking SSHd status..."
+es "Checking SSHd status..."
 check_sshd="$(systemctl is-active ssh)"
 if [ "${check_sshd}" = "inactive" ]; then
-  ee "[***] SSHd is not running, starting."
-  systemctl start ssh | tee -a $log
+  ew "SSHd is not running, starting."
+  systemctl start ssh | slog
   sleep 3
   check_new_sshd="$(systemctl is-active ssh)"
   if [ "${check_new_sshd}" = "inactive" ]; then
-      ee "[!!!] SSHD is not starting, check your configuration. Exiting."
-  else ee "[*] SSHd successfully started."
+      ee "SSHD is not starting, check your configuration. Exiting."
+  else es "SSHd successfully started."
   fi
-else ee "[**] SSH is running."
+else ec "SSH is running."
 fi
 echo
 sleep 3
 
-# check to see if docker.io is installed
-ee "[*] Checking if 'docker' is installed..."
-dpkg -s docker.io | tee -a $log > /dev/null
-if [ $? -eq 0 ]; then
-    ee "[**] docker is installed, moving on."
-else
-    ee "[***] docker is not installed, installing from repo."
-    apt install docker.io -y | tee -a $log > /dev/null
-    # Verify docker is now installe
-    dpkg -s docker.io | tee -a $log > /dev/null
-    if [ $? -eq 0 ]; then
-       ee "[*] docker is now installed."
-    else
-       ee "[!!!] docker installation failed, check logs. Exiting."
-        exit
-    fi
-fi
-echo
-sleep 3
-# check to see if golang-go is installed
-ee "[*] Checking if 'golang' is installed..."
-for go_pkgs in golang golang-go
-do
-   dpkg -s $go_pkgs | tee -a $log &> /dev/null
-if [ $? -eq 0 ]; then
-    ee "[**] golang packge $go_pkgs is installed, moving on."
-else
-    ee "[***] golang package $go_pkgs is not installed, installing from repo."
-    apt install $go_pkgs -y | tee -a $log &> /dev/null
-    # Verify golang is now installed
-    dpkg -s $go_pkgs | tee -a $log &> /dev/null
-    if [ $? -eq 0 ]; then
-       ee "[*] golang package $go_pkgs is now installed."
-    else
-       ee "[!!!] golang package $go_pkgs installation failed, check logs. Exiting."
-        exit
-    fi
-fi
-done
-
-echo
-sleep 3
-# check to see if docker-compose is  installed
-ee "[*] Checking if 'docker-compose' is installed..."
-dpkg -s docker-compose | tee -a $log &> /dev/null
-if [ $? -eq 0 ]; then
-    ee "[**] docker-compose is installed, moving on."
-else
-    ee "[***] docker-compose is not installed, installing from repo."
-    apt install docker-compose -y | tee -a $log &> /dev/null
-    # Verify docker-compose is now installe
-    dpkg -s docker-compose | tee -a $log &> /dev/null
-    if [ $? -eq 0 ]; then
-       ee "[*] docker-compose is now installed."
-    else
-       ee "[!!!] docker-compose installation failed, check logs. Exiting."
-        exit
-    fi
-fi
-echo
-sleep 3
-# check to see if jq is  installed # needed for API processing
-ee "[*] Checking if 'jq' is installed..."
-dpkg -s jq | tee -a $log &> /dev/null
-if [ $? -eq 0 ]; then
-    ee "[**] jq is installed, moving on."
-else
-    ee "[***] jq is not installed, installing from repo."
-    apt install jq -y | tee -a $log &> /dev/null
-    # Verify docker-compose is now installe
-    dpkg -s jq | tee -a $log &> /dev/null
-    if [ $? -eq 0 ]; then
-       ee "[*] jq is now installed."
-    else
-       ee "[!!!] jq installation failed, check logs. Exiting."
-        exit
-    fi
-fi
+check_installed docker.io
+check_installed golang
+check_installed golang-go
+check_installed docker-compose
+check_installed jq
 
 echo
 sleep 3
 #ensure rts user exists on the system, and if not create it.
-ee "[*] Checking to see if rts user exists..."
-getent passwd rts | tee -a $log > /dev/null
+es "Checking to see if rts user exists..."
+getent passwd rts | slog
 if [ $? -eq 0 ]; then
-    ee "[**] 'rts' user  exists"
+    ec "'rts' user  exists"
 else
-    ee "[***] 'rts' user does not exist, creating.."
-    ee "[*] The 'rts' user will be the primary *SHARED* account that your team uses to access this instance of kali. Make sure you use a generic team password."
+    ew "'rts' user does not exist, creating.."
+    es "The 'rts' user will be the primary *SHARED* account that your team uses to access this instance of kali. Make sure you use a generic team password."
     read -r -s -p "[*] What password would you like for the 'rts' account? -> " rtspassword
-    useradd rts -s /bin/bash -m -g adm -G dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,bluetooth,wireshark,scanner,kaboxer,docker | tee -a $log
-    echo "rts:$rtspassword" | chpasswd | tee -a $log
-    ee "[**] User created."
+    useradd rts -s /bin/bash -m -g adm -G dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,bluetooth,wireshark,scanner,kaboxer,docker | slog
+    echo "rts:$rtspassword" | chpasswd | slog
+    ec "User created."
 fi
 echo
 sleep 3
 # check to make sure root belongs to docker group
-ee "[*] Checking root and rts user permissions for docker..."
+es "Checking root and rts user permissions for docker..."
 check_USER="root"
 check_GROUP="docker"
 if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
-    ee "[**] $check_USER belongs to $check_GROUP"
+    ec "$check_USER belongs to $check_GROUP"
 else
-    ee "[***] $check_USER does not belong to $check_GROUP, adding."
-    usermod –aG $check_GROUP $check_USER | tee -a $log
-    ee "[*] $check_USER added to $check_GROUP group"
+    ew "$check_USER does not belong to $check_GROUP, adding."
+    usermod –aG $check_GROUP $check_USER | slog
+    ec "$check_USER added to $check_GROUP group"
 fi
 
 check_USER="rts"
 if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
-    ee "[**] $check_USER belongs to $check_GROUP"
+    ec "$check_USER belongs to $check_GROUP"
 else
-    ee "[***] $check_USER does not belong to $check_GROUP, adding."
-    usermod -aG $check_GROUP $check_USER | tee -a $log
-    ee "[*] $check_USER added to $check_GROUP group."
+    ew "$check_USER does not belong to $check_GROUP, adding."
+    usermod -aG $check_GROUP $check_USER | slog
+    ec "$check_USER added to $check_GROUP group."
 fi
 echo
 sleep 2
 # If script was run by non-rts user in non /home/rts/rts/ directory this is a problem that we will now fix"
 if [ "${initial_user}" != "rts" ] || [ "${initial_working_dir}" != "${install_path}" ]; then
-	ee "[*] Copying files from current location to ${install_path}"
+	es "Copying files from current location to ${install_path}"
         if [ ! -d "${install_path}" ]
            then
-               mkdir ${install_path} | tee -a $log
-               chown -R rts:adm ${install_path} | tee -a $log
+               mkdir ${install_path} | slog
+               chown -R rts:adm ${install_path} | slog
 	   else
-	       rm -rf ${install_path} | tee -a $log # I understand this clobbers a previous install directory - but if you already have it installed, why are you running this again? Clean install? 
-               mkdir ${install_path} | tee -a $log 
-               chown -R rts:adm ${install_path} | tee -a $log
+	       rm -rf ${install_path} | slog # I understand this clobbers a previous install directory - but if you already have it installed, why are you running this again? Clean install? 
+               mkdir ${install_path} | slog
+               chown -R rts:adm ${install_path} | slog
         fi
 #        sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
-	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | tee -a $log
-	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | tee -a $log
-	sudo -u rts cp ${initial_working_dir}/{.env,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh} ${install_path} | tee -a $log
-        ee "[*] Changing working directory to ${install_path}"
+	sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | slog
+	sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | slog
+	sudo -u rts cp ${initial_working_dir}/{.env,config.json,docker-compose.yml,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh} ${install_path} | slog
+	es "Changing working directory to ${install_path}"
         cd ${install_path}
         pwd
-        ee "[**] Assuming rts user level."
-else ee "[**] User and path look good to go."
+        ec "Assuming rts user level."
+else ec "User and path look good to go."
 fi
 echo
 sleep 3
 #lets start crack-a-lackin
 
 #check for internet access
-ee "[*] Checking for Internet access"
+es "Checking for Internet access"
 if nc -zw1 google.com 443; then
-  ee "[**] Internet Connectivity checks successful."
-else ee "[!!!] Internet connectivity is *REQUIRED* to build RTS. Fix, and restart script."
+  ec "Internet Connectivity checks successful."
+else ee "Internet connectivity is *REQUIRED* to build RTS. Fix, and restart script."
 fi
 echo
 sleep 2
@@ -282,180 +400,179 @@ sudo_1=$(sudo -u rts whoami)
 sudo_2=$(sudo -u rts pwd)
 #echo "sudo_1 test = $sudo_1"
 #echo "sudo_2 test = $sudo_2"
-ee "[*] Dropping priveleges down to rts user account."
+es "Dropping priveleges down to rts user account."
 if [ "${sudo_1}" = "rts" ]; then
-   ee "[*] User Privs look good, continuing."
+   es "User Privs look good, continuing."
    if [ "${sudo_2}" = "${install_path}" ]; then
-      ee "[*] Build path looks good, continuing with the build."
+      es "Build path looks good, continuing with the build."
    else
-        ee "[!!!] Something is wrong and we are not in the right path. Exiting."
+        ee "Something is wrong and we are not in the right path. Exiting."
         exit
    fi
 else
-   ee "[!!!] Something is wrong and we are not the right user. Exiting."
+   ee "Something is wrong and we are not the right user. Exiting."
    exit
 fi
 echo
-ee "[*] Cloning Reconmap..."
-sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap | tee -a $log &>/dev/null
-sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent | tee -a $log &>/dev/null
-sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconmap-cli | tee -a $log &>/dev/null
+es "Cloning Reconmap..."
+sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap 2>&1 | slog
+if [ $? -eq 0 ]; then
+   ec "reconmap clone successful."
+else
+   ee "reconmap clone failed, exiting. Check your internet connectivity or github access."
+   exit
+fi
+sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent 2>&1 | slog
+if [ $? -eq 0 ]; then
+   ec "reconmap-agent clone successful."
+else
+   ee "reconmap-agent clone failed, exiting. Check your internet connectivity or github access."
+   exit
+fi
+sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconmap-cli 2>&1 | slog
+if [ $? -eq 0 ]; then
+   ec "reconmap-cli  clone successful."
+else
+   ee "reconmap-cli clone failed, exiting. Check your internet connectivity or github access."
+   exit
+fi
 #sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
-sudo -u rts cp ./config.json ${install_path}/reconmap/ | tee -a $log &>/dev/null
-sudo -u rts cp ./environment.js ${install_path}/reconmap/ | tee -a $log &>/dev/null
-sudo -u rts rm ${install_path}/config.json | tee -a $log &> /dev/null
-sudo -u rts rm ${install_path}/environment.js | tee -a $log &> /dev/null
+sudo -u rts cp ${initial_working_dir}/config.json ${install_path}/reconmap/ | slog
+sudo -u rts cp ${initial_working_dir}/environment.js ${install_path}/reconmap/ | slog
+sudo -u rts rm ${install_path}/config.json | slog
+sudo -u rts rm ${install_path}/environment.js | slog
 # copy in patched terminal_handler for kali linux
-sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ | tee -a $log &>/dev/null
+sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ | slog
 
 if [ $? -eq 0 ]; then
-   ee "[**] Clone successful, movin' on."
+   ec "Reconmap setup successful."
 else
-   ee "[!!!] Clone failed, exiting. Check your internet connectivity or github access."
+   ee "Reconmap setup failed, exiting. Check your internet connectivity or github access."
    exit
 fi
 echo
-ee "[*] Starting reconmap-agent build"
-sudo -u rts make -C ${install_path}/reconmap-agent/ | tee -a $log &> /dev/null
+es "Starting reconmap-agent build"
+sudo -u rts make -C ${install_path}/reconmap-agent/ | slog
 if [ $? -eq 0 ]; then
-   ee "[**] Reconmap-agent build successful, movin' on."
+   ec "Reconmap-agent build successful."
 else
-   ee "[!!!] Reconmap-agent build failed, exiting. Something is wrong with the build or script."
+   ee "Reconmap-agent build failed, exiting. Something is wrong with the build or script."
    exit
 fi
 echo
-ee "[*] Starting reconmap-cli build"
-sudo -u rts make -C ${install_path}/reconmap-cli/ | tee -a $log &> /dev/null
+es "Starting reconmap-cli build"
+sudo -u rts make -C ${install_path}/reconmap-cli/ 2>&1 | slog
 if [ $? -eq 0 ]; then
-   ee "[**] Reconmap-cli build successful, movin' on."
+   ec "Reconmap-cli build successful."
 else
-   ee "[!!!] Reconmap-cli build failed, exiting. Something is wrong with the build or script."
+   ee "Reconmap-cli build failed, exiting. Something is wrong with the build or script."
    exit
 fi
 echo
-ee "[*] Copying reconmapd & rmap to install path."
-sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/ | tee -a $log &> /dev/null
-sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/ | tee -a $log &> /dev/null
+es "Copying reconmapd & rmap to install path."
+sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/ | slog
+sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/ | slog
 echo
 
-ee "[*] Copying website data to install path."
-sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | tee -a $log &> /dev/null
+es "Copying website data to install path."
+sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | tee -a $log > /dev/null 2>&1
 echo
 
-ee "[*] Starting Docker Compose Build"
+es "Starting Docker Compose Build"
 read -p "[**] Everything seems good to go to continue the docker-compose build. Continue? [y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-   ee "[*] DO EET DO EET"
+   ec "tail -f /tmp/rts.log to follow along (build can take quite some time)"
    sleep 3
 else
-   ee "[*] Not Cool!"
+   ee "Not Cool!"
    exit
 fi
 
 echo
-ee "[*] Starting stage 1 of build"
-sleep 5
-sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build | tee -a $log
+es "Stage 1 - Docker Container Building..."
+sleep 3
+sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build 2>&1 | slog &
+pid=$! # get pid of working process
+echo -n "[*] Building ${spin[0]}"
+while kill -0 $pid > /dev/null 2>&1;
+do
+  for i in "${spin[@]}"
+  do
+    echo -ne "\b$i"
+    sleep 0.1
+  done
+done
+echo
 if [ $? -eq 0 ]; then
-   ee "[**] Stage 1 complete, moving to stage 2."
+   ec "Stage 1 complete, moving to stage 2."
 else
-   ee "[!!!] Stage 1 failure, please post an issue on the RTS github or check logs. Exiting."
+   ee "Stage 1 failure, please post an issue on the RTS github or check logs. Exiting."
    exit
 fi
 sleep 5
-ee "[*] Starting stage 2 of build"
+es "Stage 2 - Pulling docker images..."
 sleep 5
-sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d | tee -a $log
+sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d 2>&1 | slog &
+pid=$! # get pid of working process
+echo -n "[*] Pulling images ${spin[0]}"
+while kill -0 $pid > /dev/null 2>&1;
+do
+  for i in "${spin[@]}"
+  do
+    echo -ne "\b$i"
+    sleep 0.1
+  done
+done
+echo
 if [ $? -eq 0 ]; then
-   ee "[**] Stage 2 complete, finalizing."
+   ec "Stage 2 complete, finalizing."
 else
-   ee "[!!!] Stage 2 failure, please post an issue on the RTS github or check logs. Exiting."
+   ee "Stage 2 failure, please post an issue on the RTS github or check logs. Exiting."
    exit
 fi
 echo
 sleep 5
-ee "[*] Generating Matrix/Synapse configuration and restarting."
-sudo -u rts docker-compose run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate | tee -a $log >/dev/null
+es "Generating Matrix/Synapse configuration and restarting."
+sudo -u rts docker-compose run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate 2>&1 | slog
 if [ $? -eq 0 ]; then
-    ee "[**] Matrix/Synapse configuration generated."
+    ec "Matrix/Synapse configuration generated."
 else
-   ee "[!!!] Matrix/Synapse configuration failed. Please post an issue on the RTS github or check logs. Exiting."
+   ee "Matrix/Synapse configuration failed. Please post an issue on the RTS github or check logs. Exiting."
    exit
 fi
 echo
 sleep 5
-sudo -u rts docker-compose restart | tee -a $log
+sudo -u rts docker-compose restart 2>&1 | slog
 if [ $? -eq 0 ]; then
-   ee "[**] Docker Compose restart complete, finalizing."
+   ec "Docker Compose restart complete, finalizing."
 else
-   ee "[!!!] Docker Compose restart failed, please post an issue on the RTS github or check logs. Exiting."
+   ee "Docker Compose restart failed, please post an issue on the RTS github or check logs. Exiting."
    exit
 fi
 echo
-ee "[*] Adding in services to /etc/hosts"
-if grep -qF "${ip_address} www.rts.lan" /etc/hosts; then
-  ee "[**] www.rts.lan found."
-else
-  ee "[***] adding in www.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} www.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} gitea.rts.lan" /etc/hosts; then
-  ee "[**] gitea.rts.lan found."
-else
-  ee "[***] adding in gitea.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} gitea.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} nextcloud.rts.lan" /etc/hosts; then
-  ee "[**] nextcloud.rts.lan found."
-else
-  ee "[***] adding in nextcloud.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} nextcloud.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} ivre.rts.lan" /etc/hosts; then
-  ee "[**] ivre.rts.lan found."
-else
-  ee "[***] adding in ivre.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} ivre.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} hastebin.rts.lan" /etc/hosts; then
-  ee "[**] hastebin.rts.lan found."
-else
-  ee "[***] adding in hastebin.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} hastebin.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} matrix.rts.lan" /etc/hosts; then
-  ee "[**] matrix.rts.lan found."
-else
-  ee "[***] adding in matrix.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} matrix.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} element.rts.lan" /etc/hosts; then
-  ee "[**] element.rts.lan found."
-else
-  ee "[***] adding in element.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} element.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} reconmap.rts.lan" /etc/hosts; then
-  ee "[**] reconmap.rts.lan found."
-else
-  ee "[***] adding in reconmap.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} reconmap.rts.lan" >> /etc/hosts
-fi
-if grep -qF "${ip_address} ssh.rts.lan" /etc/hosts; then
-  ee "[**] ssh.rts.lan found."
-else
-  ee "[***] adding in ssh.rts.lan with ip ${ip_address} into /etc/hosts"
-  echo "${ip_address} ssh.rts.lan" >> /etc/hosts
-fi
-ee "[**] Finished updating /etc/hosts."
+es "Adding in services to /etc/hosts"
+add_hosts www.rts.lan
+add_hosts gitea.rts.lan
+add_hosts nextcloud.rts.lan
+add_hosts ivre.rts.lan
+add_hosts hastebin.rts.lan
+add_hosts matrix.rts.lan
+add_hosts element.rts.lan
+add_hosts reconmap.rts.lan
+add_hosts ssh.rts.lan
+
+ec "Finished updating /etc/hosts."
 echo
-ee "[*] Sleeping 30 seconds to allow services to initialize."
+es "Sleeping 30 seconds to allow services to initialize."
 sleep 30
-ee "[*] Starting Configuration of webservices..."
+es "Starting Configuration of webservices..."
 ### GITEA config CURL ####
-ee "[*] Congifuring Gitea"
+es "Congifuring Gitea"
 curl -s 'http://gitea.rts.lan/' \
+  -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0' \
+  -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
+  -H 'Accept-Language: en-US,en;q=0.5' \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
   -H 'Origin: null' \
@@ -465,18 +582,18 @@ curl -s 'http://gitea.rts.lan/' \
   -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.41' \
   -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
   -H 'Accept-Language: en-US,en;q=0.9' \
-  -H 'Cookie: i_like_gitea=c213e135068e43fa' \
-  --data-raw "db_type=PostgreSQL&db_host=gitea-db%3A5432&db_user=gitea&db_passwd=gitea&db_name=gitea&ssl_mode=disable&db_schema=&charset=utf8&db_path=%2Fdata%2Fgitea%2Fgitea.db&app_name=RTS+The+Red+Team+Server&repo_root_path=%2Fdata%2Fgit%2Frepositories&lfs_root_path=%2Fdata%2Fgit%2Flfs&run_user=git&domain=localhost&ssh_port=22&http_port=3000&app_url=http%3A%2F%2Fgitea.rts.lan&log_root_path=%2Fdata%2Fgitea%2Flog&smtp_host=&smtp_from=&smtp_user=&smtp_passwd=&enable_federated_avatar=on&enable_open_id_sign_in=on&enable_open_id_sign_up=on&default_allow_create_organization=on&default_enable_timetracking=on&no_reply_address=noreply.localhost&password_algorithm=pbkdf2&admin_name=rts&admin_passwd=$url_encoded_pass&admin_confirm_passwd=$url_encoded_pass&admin_email=root%40localhost" \
+  -H 'Cookie: i_like_gitea=63542a430923887a; gitea_awesome=rts; gitea_incredible=5d08bd126b945c61dec7e1ec09bde03f8f0ac2865321719d63d04596fb91f8; lang=en-US; _csrf=KuOvKkDGWFXDe67yuX5yzfXXxPQ6MTY0OTAwMjY2NjA2MDAyNDc5MQ' \
+  --data-raw "db_type=postgres&db_host=gitea-db%3A5432&db_user=gitea&db_passwd=gitea&db_name=gitea&ssl_mode=disable&db_schema=&charset=utf8&db_path=%2Fdata%2Fgitea%2Fgitea.db&app_name=RTS+The+Red+Team+Server&repo_root_path=%2Fdata%2Fgit%2Frepositories&lfs_root_path=%2Fdata%2Fgit%2Flfs&run_user=git&domain=localhost&ssh_port=22&http_port=3000&app_url=http%3A%2F%2Fgitea.rts.lan&log_root_path=%2Fdata%2Fgitea%2Flog&smtp_host=&smtp_from=&smtp_user=&smtp_passwd=&enable_federated_avatar=on&enable_open_id_sign_in=on&enable_open_id_sign_up=on&default_allow_create_organization=on&default_enable_timetracking=on&no_reply_address=noreply.localhost&password_algorithm=pbkdf2&admin_name=rts&admin_passwd=$url_encoded_pass&admin_confirm_passwd=$url_encoded_pass&admin_email=root%40localhost" \
   --compressed \
-  --insecure | tee -a $log > /dev/null
+  --insecure | slog
 if [ $? -eq 0 ]; then
-   ee "[**] Gitea Configured."
+   ec "Gitea Configured."
 else
-  ee "[!!!] Gitea configuration failed, please post an issue on the RTS github. Exiting."
+  ee "Gitea configuration failed, please post an issue on the RTS github. Exiting."
   exit
 fi
 echo
-ee "[*] Configuring Nextcloud"
+es "Configuring Nextcloud"
 curl -s 'http://nextcloud.rts.lan/index.php' \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
@@ -491,62 +608,108 @@ curl -s 'http://nextcloud.rts.lan/index.php' \
   --data-raw "install=true&adminlogin=rts&adminpass=$url_encoded_pass&adminpass-clone=$url_encoded_pass&directory=%2Fvar%2Fwww%2Fhtml%2Fdata&dbtype=mysql&dbuser=nextcloud&dbpass=rts_passw0rd&dbpass-clone=rts_passw0rd&dbname=nextcloud&dbhost=nextcloud_db&install-recommended-apps=on" \
   --compressed \
   --insecure \
-  --keepalive-time 300 | tee -a $log > /dev/null
+  --keepalive-time 300 | slog
 if [ $? -eq 0 ]; then
-   ee "[**] NextCloud Configured."
+   ec "NextCloud Configured."
 else
-   ee "[!!!] NextCloud configuration failed, please post an issue on the RTS github. Exiting."
+   ee "NextCloud configuration failed, please post an issue on the RTS github. Exiting."
    exit
 fi
 echo
-ee "[*] Configuring and starting reconmapd agent service in the background."
-REDIS_HOST=localhost REDIS_PORT=6379 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd | tee -a $log > /dev/null 2>&1 &
+es "Configuring and starting reconmapd agent service in the background."
+REDIS_HOST=localhost REDIS_PORT=6379 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd > /dev/null 2>&1 &
 echo
-ee "[*] Configuring rmap."
-sudo -u rts ${install_path}/rmap config --api-url http://rts.lan:5510 | tee -a $log
-sudo -u rts ${install_path}/rmap login -u admin -p admin123 | tee -a $log
-# add install_path to the base path 
+es "Configuring rmap."
+sudo -u rts ${install_path}/rmap configure set --api-url http://rts.lan:5510 | slog
+sudo -u rts ${install_path}/rmap login -u admin -p admin123 | slog
+# add install_path to the base path
 export PATH=$PATH:${install_path}
 echo
-ee "[****************************************************]"
-ee "[****************Service Information ****************]"
-ee "[****************************************************]"
-ee
-ee "Linux hosts file:"
-ee "/etc/hosts"
-ee "Windows hosts file:"
-ee "c:\windows\system32\drivers\etc\hosts"
-ee
-ee "Copy and Paste the following into your respective systems hosts file:"
+mkdir /opt/rts/red-share
+## insecure!!!!
+sudo chmod 777 /etc/samba/smb.conf
+# add code to check to see if the red-share is already in the file, if it is skip this.
+# also add code to check and add to /etc/fstab to map the drive constantly.
+sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.backup
+if grep -Fq "[red-share]" /etc/samba/smb.conf
+        then
+                es "Samba Already configured, you are good to go."
+        else
+                sudo echo "[red-share]" >> /etc/samba/smb.conf
+                sudo echo "comment = Redteam Share" >> /etc/samba/smb.conf
+                sudo echo "path = /opt/rts/red-share" >> /etc/samba/smb.conf
+                sudo echo "public = yes" >> /etc/samba/smb.conf
+                sudo echo "writeable = yes" >> /etc/samba/smb.conf
+                # spin up a simple http.server
+                python3 -m http.server 8080 &
+                sudo systemctl restart smbd.service
+                sudo systemctl restart nmbd.service
+                echo "[*] Samba server setup!"
+fi
+sleep 3
+echo
+## This is where we ask the user if they want to mirror additional tools and if so, start the process.
+es "RTS can mirror some popular tools and set up some additional scripts/toolkits."
+read -p "[*] Would you like to review and possibly install, or skip for now?-> " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+   additional_content
+else
+   ec "Skipping for now"
+fi
+
+### I'd love to be able to whack all the default next cloud shit and install a text file that has all of the features of RTS listed for easy reference.
+clear
+echo
+es "[****************************************************]"
+es "[****************Service Information ****************]"
+es "[****************************************************]"
+es
+es "Linux hosts file:"
+es "/etc/hosts"
+es "Windows hosts file:"
+es "c:\windows\system32\drivers\etc\hosts"
+es
+es "Copy and Paste the following into your respective systems hosts file:"
 echo
 ip_address=$(ip route get 1 | awk '{print $(NF-2);exit}')
 for whatever in ip_address
 do
-  echo $ip_address rts.lan | tee -a $log
-  echo $ip_address www.rts.lan | tee -a $log
-  echo $ip_address gitea.rts.lan | tee -a $log
-  echo $ip_address nextcloud.rts.lan | tee -a $log
-  echo $ip_address ivre.rts.lan | tee -a $log
-  echo $ip_address hastebin.rts.lan | tee -a $log
-  echo $ip_address matrix.rts.lan | tee -a $log
-  echo $ip_address element.rts.lan | tee -a $log
-  echo $ip_address reconmap.rts.lan | tee -a $log
-  echo $ip_address ssh.rts.lan | tee -a $log
+  echo $ip_address rts.lan | elog
+  echo $ip_address www.rts.lan | elog
+  echo $ip_address gitea.rts.lan | elog
+  echo $ip_address nextcloud.rts.lan |elog
+  echo $ip_address ivre.rts.lan | elog
+  echo $ip_address hastebin.rts.lan | elog
+  echo $ip_address matrix.rts.lan | elog
+  echo $ip_address element.rts.lan | elog
+  echo $ip_address reconmap.rts.lan | elog
+  echo $ip_address ssh.rts.lan | elog
 done
 echo
-ee "[***] Convenant is accessible at http://rts.lan:7443"
-
 # Some quick configuration for reconmap
-chmod -R 777 ${install_path}/reconmap/logs | tee -a $log
-chmod -R 777 ${install_path}/reconmap/data/attachments | tee -a $log
-ee "[*] The username and password for Gitea and Nextcloud are:"
-ee "rts/$web_password"
-ee "[*] The username and password for Reconmap is:"
-ee "admin/admin123"
-ee "[*] Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
-ee "[*] Log file moved from /tmp/rts.log to ${install_path}/rts.log"
-ee "[***] This concludes RTS installation."
-ee "Hack the Planet!"
+chmod -R 777 ${install_path}/reconmap/logs | slog
+chmod -R 777 ${install_path}/reconmap/data/attachments | slog
+ec "========================================================[**]"
+ec "Main website: http://www.rts.lan"
+ec "Gitea:        http://gitea.rts.lan"
+ec "Nextcloud:    http://nextcloud.rts.lan"
+ec "IVRE Scanner: http://ivre.rts.lan"
+ec "Hastebin:     http://hastebin.rts.lan"
+ec "Element Chat: http://element.rts.lan"
+ec "Reconmap:     http://reconmap.rts.lan"
+ec "SSH -Web-:    http://ssh.rts.lan"
+ec "Convenant C2: https://rts.lan:7443"
+ec "========================================================[**]"
+echo
+ec "The username and password for Gitea and Nextcloud are:"
+ew "rts/$web_password"
+ec "The username and password for Reconmap is:"
+ew "admin/admin123"
+es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
+es "Log file moved from /tmp/rts.log to ${install_path}/rts.log"
+ec "This concludes RTS installation."
+ec "Hack the Planet!"
 mv /tmp/rts.log /opt/rts/
 chown rts:adm /opt/rts/rts.log
 
@@ -568,4 +731,4 @@ chown rts:adm /opt/rts/rts.log
 # GITEA API ACCESS
 # http://gitea.rts.lan/api/v1/users/rts/tokens
 # curl -XPOST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$web_password http://gitea.rts.lan/api/v1/users/rts/tokens
-
+set +o pipefail
