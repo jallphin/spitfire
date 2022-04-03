@@ -1,6 +1,17 @@
 #!/bin/bash
-
-echo "#### NIWC Pacific Adversarial Cyber Team - Red Team Server Setup Script ####"
+echo
+echo
+cat << EOF
+    '########::'########::'######::
+    ##.... ##:... ##..::'##... ##:
+    ##:::: ##:::: ##:::: ##:::..::
+    ########::::: ##::::. ######::
+    ##.. ##:::::: ##:::::..... ##:
+    ##::. ##::::: ##::::'##::: ##:
+    ##:::. ##:::: ##::::. ######::
+    ..:::::..:::::..::::::......:::
+EOF
+echo      "#### Red Team Server Setup Script ####"
 echo
 echo "[*]   = Status"
 echo "[**]  = Completed"

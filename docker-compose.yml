@@ -183,6 +183,7 @@ services:
   ivreclient:
     image: ivre/client
     container_name: ivreclient
+    command: tail -F anything
     volumes:
       - ./ivre/ivre-share:/ivre-share
     depends_on:
