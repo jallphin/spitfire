@@ -186,7 +186,7 @@ services:
     container_name: ivreclient
     command: tail -F anything
     volumes:
-      - ./ivre/ivre-share:/ivre-share
+      - /opt/rts/red-share:/red-share
     depends_on:
       - ivredb
   ivreagent:

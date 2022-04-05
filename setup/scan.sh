@@ -42,7 +42,7 @@ FAIL=0
 
 
 # Use IVRE to scan the target(s)
-docker exec -t -w /ivre-share ivreclient ivre runscans --output=XML --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
+docker exec -t -w /red-share/ivre ivreclient ivre runscans --output=XML --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
 #echo "docker exec -t ivreclient ivre runscans --categories $1 --$2 $3"
 #docker exec -t ivreclient ivre runscans --categories $1 --$2 ${3} ${4}
 # Wait for the job to complete and provide status updates
@@ -66,7 +66,7 @@ fi
 #docker run -t ivreclient ivre scan2db -c $1 -s RedBot -r scans/$1/up >/dev/null 2>/dev/null &
 #echo "docker exec -t ivreclient ivre scan2db -c $1 -s RedTeam -r scans/$1/up"
 echo -e "[*] Updating database for IVRE scan $3 $4 with PID $!"
-docker exec -w /ivre-share -t ivreclient ivre scan2db -c $1 -s ACT -r /ivre-share/scans/$1/up 1>/dev/null 2>/dev/null &
+docker exec -w /red-share/ivre -t ivreclient ivre scan2db -c $1 -s ACT -r /red-share/ivre/scans/$1/up 1>/dev/null 2>/dev/null &
 for push_job in `jobs -p`
 do
 	wait $push_job || let "FAIL+=1"
@@ -76,7 +76,7 @@ done
 if [[ "$FAIL" == "0" ]];
 then
 	echo -e "[*] Updating the database views....\n"
-	docker exec -w /ivre-share -t ivreclient ivre db2view 1>/dev/null 2>/dev/null
+	docker exec -w /red-share/ivre -t ivreclient ivre db2view 1>/dev/null 2>/dev/null
 	echo -e "[**] IVRE database updated sucessfully with IVRE Recon scan on $3 $4 with PID $!"
 	echo -e "[**] IVRE Recon scan results at http://ivre.rts.lan/#category:$1"
 else

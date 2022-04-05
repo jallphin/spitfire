@@ -246,6 +246,11 @@ else
 fi
 
 }
+
+function setup_notes() {
+tee -a /opt/rts/red-share/rts.txt
+}
+
 es "Starting sanity checks and initial setup"
 
 es "Checking root status..."
@@ -475,8 +480,12 @@ sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/ | slog
 echo
 
 es "Copying website data to install path."
-sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | tee -a $log > /dev/null 2>&1
+sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | slog
 echo
+
+sudo -u rts mkdir ${install_path}/red-share | slog
+sudo -u rts mkdir ${install_path/red-share/ivre | slog
+sudo -u chmod -R 777 ${install_path/red-share | slog
 
 es "Starting Docker Compose Build"
 read -p "[**] Everything seems good to go to continue the docker-compose build. Continue? [y/n] " -n 1 -r
@@ -594,6 +603,8 @@ else
 fi
 echo
 es "Configuring Nextcloud"
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable files_external 2>&1 | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null 2>&1 | slog
 curl -s 'http://nextcloud.rts.lan/index.php' \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
@@ -641,7 +652,7 @@ if grep -Fq "[red-share]" /etc/samba/smb.conf
                 sudo echo "public = yes" >> /etc/samba/smb.conf
                 sudo echo "writeable = yes" >> /etc/samba/smb.conf
                 # spin up a simple http.server
-                python3 -m http.server 8080 &
+                python3 -m http.server 8081 &
                 sudo systemctl restart smbd.service
                 sudo systemctl restart nmbd.service
                 echo "[*] Samba server setup!"
@@ -692,44 +703,39 @@ chmod -R 777 ${install_path}/reconmap/logs | slog
 chmod -R 777 ${install_path}/reconmap/data/attachments | slog
 
 # add in external storage to nextcloud (yaye!)
-docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable files_external | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null | slog
 # copy nuke.sh to ivre-share so nuke-ivre.sh works
 mv /opt/rts/nuke.sh /opt/rts/ivre/ivre-share/
-ec "========================================================[**]"
-ec "Main website: http://www.rts.lan"
-ec "Gitea:        http://gitea.rts.lan"
-ec "Nextcloud:    http://nextcloud.rts.lan"
-ec "IVRE Scanner: http://ivre.rts.lan"
-ec "Hastebin:     http://hastebin.rts.lan"
-ec "Element Chat: http://element.rts.lan"
-ec "Reconmap:     http://reconmap.rts.lan"
-ec "SSH -Web-:    http://ssh.rts.lan"
-ec "Convenant C2: https://rts.lan:7443"
-ec "========================================================[**]"
-echo
-ec "The username and password for Gitea and Nextcloud are:"
-ew "rts/$web_password"
-ec "The username and password for Reconmap is:"
-ew "admin/admin123"
-es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
-es "Log file moved from /tmp/rts.log to ${install_path}/rts.log"
-es "scan.sh -> Scan script to order IVRE to scan a host/network/range."
-es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database."
-es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box."
-es "rmap -> Reconmap CLI interface. Refer to its github for instructions."
+ec "========================================================[**]" | setup_notes
+ec "Main website: http://www.rts.lan" | setup_notes
+ec "Gitea:        http://gitea.rts.lan" | setup_notes
+ec "Nextcloud:    http://nextcloud.rts.lan" | setup_notes
+ec "IVRE Scanner: http://ivre.rts.lan" | setup_notes
+ec "Hastebin:     http://hastebin.rts.lan" | setup_notes
+ec "Element Chat: http://element.rts.lan" | setup_notes
+ec "Reconmap:     http://reconmap.rts.lan" | setup_notes
+ec "SSH -Web-:    http://ssh.rts.lan" | setup_notes
+ec "Convenant C2: https://rts.lan:7443" | setup_notes
+ec "========================================================[**]" | setup_notes
+echo | setup_notes
+ec "RTS is installed to ${install_path}. Scripts and setup data live here." | setup_notes
+ec "The shared directory for everything is ${install_path}/red-share and is accessible from NextCloud, locally, SMB, and even via the website at the link." | setup_notes
+ec "${install_path}/red-share is intended to be the central point for red teams to share data across the team. Please utilize it for artifact, scan, reporting data." | setup_notes
+ec "The username and password for Gitea and Nextcloud are:" | setup_notes
+ew "rts/$web_password" | setup_notes
+ec "The username and password for Reconmap is:" | setup_notes
+ew "admin/admin123" | setup_notes
+#es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications." | setup_notes
+es "Log file moved from /tmp/rts.log to ${install_path}/rts.log" | setup_notes
+es "scan.sh -> Scan script to order IVRE to scan a host/network/range." | setup_notes
+es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database." | setup_notes
+es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." | setup_notes
+es "rmap -> Reconmap CLI interface. Refer to its github for instructions." | setup_notes
 ec "This concludes RTS installation."
 ec "Hack the Planet!"
 mv /tmp/rts.log /opt/rts/
 chown rts:adm /opt/rts/rts.log
-
-# Also need to get nginx server up and operational for the rest of the website. Then we're done.
-
-# I think it's a good idea to set up a shared local folder for nextcloud. For this you have to
-# A.) enable the "external storage" under apps
-# B.) use something like "/opt/pentest-storage-data/" and chmod 777 that sucker
-# C.) make sure you mount that directory in the docker-compose.yml for nextcloud under volumes, which means its need to be setup before hand
-# D.) figure out a way to programatically make those changes instead of manually do it via the user with curl.
-
 
 # Other issues:
 # 1.) the recommapd path sucks. It spawns a new bash shell, so it doesn't know where rmap is installed even if in same directory. This will require a change to rts user .bashrc to add in whatever directory
