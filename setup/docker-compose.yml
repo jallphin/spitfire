@@ -18,8 +18,8 @@ version: '3'
 volumes:
   nextcloud:
   nextcloud_db:
-  synapse-data: 
-  postgres-data: 
+  synapse-data:
+  postgres-data:
 
 #networks:
 #  gitea:
@@ -59,6 +59,7 @@ services:
       - nextcloud_db
     volumes:
       - nextcloud:/var/www/html
+      - /opt/rts/red-share:/red-share
     restart: always
     environment:
       - VIRTUAL_HOST=nextcloud.rts.lan

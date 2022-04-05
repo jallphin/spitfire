@@ -690,6 +690,9 @@ echo
 # Some quick configuration for reconmap
 chmod -R 777 ${install_path}/reconmap/logs | slog
 chmod -R 777 ${install_path}/reconmap/data/attachments | slog
+
+# add in external storage to nextcloud (yaye!)
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null
 # copy nuke.sh to ivre-share so nuke-ivre.sh works
 mv /opt/rts/nuke.sh /opt/rts/ivre/ivre-share/
 ec "========================================================[**]"
