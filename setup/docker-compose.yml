@@ -59,7 +59,7 @@ services:
       - nextcloud_db
     volumes:
       - nextcloud:/var/www/html
-      - /opt/rts/red-share:/red-share
+      - ./red-share:/red-share #this is an issue because I ask the user where they want to install and break some shit. Need to fix this. Probably make a local directory and copy to proper location
     restart: always
     environment:
       - VIRTUAL_HOST=nextcloud.rts.lan
@@ -186,7 +186,7 @@ services:
     container_name: ivreclient
     command: tail -F anything
     volumes:
-      - /opt/rts/red-share:/red-share
+      - ./red-share:/red-share #same thing as above for next cloud, need to map this to another directory and then copy to final destination. 
     depends_on:
       - ivredb
   ivreagent:

@@ -32,7 +32,9 @@ ublue='\e[4;34m'        # Blue
 upurple='\e[4;35m'      # Purple
 ucyan='\e[4;36m'        # Cyan
 uwhite='\e[4;37m'       # White
+
 set -o pipefail
+
 nextcloud_db_user=nextcloud
 nextcloud_db_host=nextcloud-db
 nextcloud_d_pass=rts_passw0rd
@@ -245,10 +247,6 @@ else
    return
 fi
 
-}
-
-function setup_notes() {
-tee -a /opt/rts/red-share/rts.txt
 }
 
 es "Starting sanity checks and initial setup"
@@ -483,9 +481,10 @@ es "Copying website data to install path."
 sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | slog
 echo
 
+
 sudo -u rts mkdir ${install_path}/red-share | slog
-sudo -u rts mkdir ${install_path/red-share/ivre | slog
-sudo -u chmod -R 777 ${install_path/red-share | slog
+sudo -u rts mkdir ${install_path}/red-share/ivre | slog
+sudo -u rts chmod -R 777 ${install_path}/red-share | slog
 
 es "Starting Docker Compose Build"
 read -p "[**] Everything seems good to go to continue the docker-compose build. Continue? [y/n] " -n 1 -r
@@ -517,6 +516,7 @@ if [ $? -eq 0 ]; then
    ec "Stage 1 complete, moving to stage 2."
 else
    ee "Stage 1 failure, please post an issue on the RTS github or check logs. Exiting."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
    exit
 fi
 sleep 5
@@ -538,6 +538,7 @@ if [ $? -eq 0 ]; then
    ec "Stage 2 complete, finalizing."
 else
    ee "Stage 2 failure, please post an issue on the RTS github or check logs. Exiting."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
    exit
 fi
 echo
@@ -548,6 +549,7 @@ if [ $? -eq 0 ]; then
     ec "Matrix/Synapse configuration generated."
 else
    ee "Matrix/Synapse configuration failed. Please post an issue on the RTS github or check logs. Exiting."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
    exit
 fi
 echo
@@ -557,6 +559,7 @@ if [ $? -eq 0 ]; then
    ec "Docker Compose restart complete, finalizing."
 else
    ee "Docker Compose restart failed, please post an issue on the RTS github or check logs. Exiting."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
    exit
 fi
 echo
@@ -599,12 +602,10 @@ if [ $? -eq 0 ]; then
    ec "Gitea Configured."
 else
   ee "Gitea configuration failed, please post an issue on the RTS github. Exiting."
-  exit
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
 fi
 echo
-es "Configuring Nextcloud"
-docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable files_external 2>&1 | slog
-docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null 2>&1 | slog
+es "Completing Nextcloud initial setup..."
 curl -s 'http://nextcloud.rts.lan/index.php' \
   -H 'Connection: keep-alive' \
   -H 'Cache-Control: max-age=0' \
@@ -621,10 +622,23 @@ curl -s 'http://nextcloud.rts.lan/index.php' \
   --insecure \
   --keepalive-time 300 | slog
 if [ $? -eq 0 ]; then
-   ec "NextCloud Configured."
+   ec "Initial NextCloud setup completed."
 else
-   ee "NextCloud configuration failed, please post an issue on the RTS github. Exiting."
-   exit
+   ee "Initial NextCloud setup failed, please post an issue on the RTS github."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
+fi
+echo
+es "Configuring Nextcloud for RTS..."
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable files_external 2>&1 | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null 2>&1 | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 enable_sharing true | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 previews true | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 filesystem_check_changes 1 | slog
+if [ $? -eq 0 ]; then
+   ec "RTS NextCloud Configuration completed."
+else
+   ee "RTS NextCloud Configuration failed, please post an issue on the RTS github."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
 fi
 echo
 es "Configuring and starting reconmapd agent service in the background."
@@ -636,7 +650,6 @@ sudo -u rts ${install_path}/rmap login -u admin -p admin123 | slog
 # add install_path to the base path
 export PATH=$PATH:${install_path}
 echo
-mkdir /opt/rts/red-share
 ## insecure!!!!
 sudo chmod 777 /etc/samba/smb.conf
 # add code to check to see if the red-share is already in the file, if it is skip this.
@@ -651,12 +664,14 @@ if grep -Fq "[red-share]" /etc/samba/smb.conf
                 sudo echo "path = /opt/rts/red-share" >> /etc/samba/smb.conf
                 sudo echo "public = yes" >> /etc/samba/smb.conf
                 sudo echo "writeable = yes" >> /etc/samba/smb.conf
-                # spin up a simple http.server
-                python3 -m http.server 8081 &
                 sudo systemctl restart smbd.service
                 sudo systemctl restart nmbd.service
                 echo "[*] Samba server setup!"
 fi
+
+# spin up a simple http.server
+python3 -m http.server 8081 &
+
 sleep 3
 echo
 ## This is where we ask the user if they want to mirror additional tools and if so, start the process.
@@ -701,41 +716,63 @@ echo
 # Some quick configuration for reconmap
 chmod -R 777 ${install_path}/reconmap/logs | slog
 chmod -R 777 ${install_path}/reconmap/data/attachments | slog
-
-# add in external storage to nextcloud (yaye!)
-docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable files_external | slog
-docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:create --config datadir=/red-share -- red-share local null::null | slog
-# copy nuke.sh to ivre-share so nuke-ivre.sh works
-mv /opt/rts/nuke.sh /opt/rts/ivre/ivre-share/
-ec "========================================================[**]" | setup_notes
-ec "Main website: http://www.rts.lan" | setup_notes
-ec "Gitea:        http://gitea.rts.lan" | setup_notes
-ec "Nextcloud:    http://nextcloud.rts.lan" | setup_notes
-ec "IVRE Scanner: http://ivre.rts.lan" | setup_notes
-ec "Hastebin:     http://hastebin.rts.lan" | setup_notes
-ec "Element Chat: http://element.rts.lan" | setup_notes
-ec "Reconmap:     http://reconmap.rts.lan" | setup_notes
-ec "SSH -Web-:    http://ssh.rts.lan" | setup_notes
-ec "Convenant C2: https://rts.lan:7443" | setup_notes
-ec "========================================================[**]" | setup_notes
-echo | setup_notes
-ec "RTS is installed to ${install_path}. Scripts and setup data live here." | setup_notes
-ec "The shared directory for everything is ${install_path}/red-share and is accessible from NextCloud, locally, SMB, and even via the website at the link." | setup_notes
-ec "${install_path}/red-share is intended to be the central point for red teams to share data across the team. Please utilize it for artifact, scan, reporting data." | setup_notes
-ec "The username and password for Gitea and Nextcloud are:" | setup_notes
-ew "rts/$web_password" | setup_notes
-ec "The username and password for Reconmap is:" | setup_notes
-ew "admin/admin123" | setup_notes
-#es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications." | setup_notes
-es "Log file moved from /tmp/rts.log to ${install_path}/rts.log" | setup_notes
-es "scan.sh -> Scan script to order IVRE to scan a host/network/range." | setup_notes
-es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database." | setup_notes
-es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." | setup_notes
-es "rmap -> Reconmap CLI interface. Refer to its github for instructions." | setup_notes
+mv ${install_path}/nuke.sh ${install_path}/red-share/ivre/
+ec "========================================================[**]"
+ec "Main website: http://www.rts.lan"
+ec "Gitea:        http://gitea.rts.lan"
+ec "Nextcloud:    http://nextcloud.rts.lan"
+ec "IVRE Scanner: http://ivre.rts.lan"
+ec "Hastebin:     http://hastebin.rts.lan"
+ec "Element Chat: http://element.rts.lan"
+ec "Reconmap:     http://reconmap.rts.lan"
+ec "SSH -Web-:    http://ssh.rts.lan/wetty"
+ec "Convenant C2: https://rts.lan:7443"
+ec "========================================================[**]"
+echo
+ec "RTS is installed to ${install_path}. Scripts and setup data live here."
+ec "The shared directory for everything is ${install_path}/red-share and is accessible from NextCloud, locally, SMB, and even via the website at the link."
+ec "${install_path}/red-share is intended to be the central point for red teams to share data across the team. Please utilize it for artifact, scan, reporting data."
+ec "The username and password for Gitea and Nextcloud are:"
+ew "rts/$web_password"
+ec "The username and password for Reconmap is:"
+ew "admin/admin123"
+es "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications."
+es "Log file moved from /tmp/rts.log to ${install_path}/rts.log"
+es "scan.sh -> Scan script to order IVRE to scan a host/network/range."
+es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database."
+es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box."
+es "rmap -> Reconmap CLI interface. Refer to its github for instructions."
 ec "This concludes RTS installation."
 ec "Hack the Planet!"
-mv /tmp/rts.log /opt/rts/
-chown rts:adm /opt/rts/rts.log
+mv /tmp/rts.log ${install_path}
+chown rts:adm ${install_path}/rts.log
+echo "========================================================[**]" > ${install_path}/red-share/rts.txt
+echo "Main website: http://www.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "Gitea:        http://gitea.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "Nextcloud:    http://nextcloud.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "IVRE Scanner: http://ivre.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "Hastebin:     http://hastebin.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "Element Chat: http://element.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "Reconmap:     http://reconmap.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "SSH -Web-:    http://ssh.rts.lan/wetty" >> ${install_path}/red-share/rts.txt
+echo "Convenant C2: https://rts.lan:7443" >> ${install_path}/red-share/rts.txt
+echo "========================================================[**]" >> ${install_path}/red-share/rts.txt
+echo >> ${install_path}/red-share/rts.txt
+echo "RTS is installed to ${install_path}. Scripts and setup data live here." >> ${install_path}/red-share/rts.txt
+echo "The shared directory for everything is ${install_path}/red-share and is accessible from NextCloud, locally, SMB, and even via the website at the link." >> ${install_path}/red-share/rts.txt
+echo "${install_path}/red-share is intended to be the central point for red teams to share data across the team. Please utilize it for artifact, scan, reporting data." >> ${install_path}/red-share/rts.txt
+echo "The username and password for Gitea and Nextcloud are:" >> ${install_path}/red-share/rts.txt
+echo "rts/$web_password" >> ${install_path}/red-share/rts.txt
+echo "The username and password for Reconmap is:" >> ${install_path}/red-share/rts.txt
+echo "admin/admin123" >> ${install_path}/red-share/rts.txt
+echo "Be sure to visit http://nextcloud.rts.lan/index.php/core/apps/recommended in your browser to install recommended applications." >> ${install_path}/red-share/rts.txt
+echo "Log file moved from /tmp/rts.log to ${install_path}/rts.log" >> ${install_path}/red-share/rts.txt
+echo "scan.sh -> Scan script to order IVRE to scan a host/network/range." >> ${install_path}/red-share/rts.txt
+echo "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database." >> ${install_path}/red-share/rts.txt
+echo "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." >> ${install_path}/red-share/rts.txt
+echo "rmap -> Reconmap CLI interface. Refer to its github for instructions." >> ${install_path}/red-share/rts.txt
+echo "This concludes RTS installation." >> ${install_path}/red-share/rts.txt
+echo "Hack the Planet!" >> ${install_path}/red-share/rts.txt
 
 # Other issues:
 # 1.) the recommapd path sucks. It spawns a new bash shell, so it doesn't know where rmap is installed even if in same directory. This will require a change to rts user .bashrc to add in whatever directory

@@ -42,7 +42,7 @@ FAIL=0
 
 
 # Use IVRE to scan the target(s)
-docker exec -t -w /red-share/ivre ivreclient ivre runscans --output=XML --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
+docker exec -t -w /red-share/ivre ivreclient ivre runscans --output=XMLFork --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
 #echo "docker exec -t ivreclient ivre runscans --categories $1 --$2 $3"
 #docker exec -t ivreclient ivre runscans --categories $1 --$2 ${3} ${4}
 # Wait for the job to complete and provide status updates
@@ -66,7 +66,7 @@ fi
 #docker run -t ivreclient ivre scan2db -c $1 -s RedBot -r scans/$1/up >/dev/null 2>/dev/null &
 #echo "docker exec -t ivreclient ivre scan2db -c $1 -s RedTeam -r scans/$1/up"
 echo -e "[*] Updating database for IVRE scan $3 $4 with PID $!"
-docker exec -w /red-share/ivre -t ivreclient ivre scan2db -c $1 -s ACT -r /red-share/ivre/scans/$1/up 1>/dev/null 2>/dev/null &
+docker exec -w /red-share/ivre -t ivreclient ivre scan2db -c $1 -s Scanner_Script -r /red-share/ivre/scans/$1/up 1>/dev/null 2>/dev/null &
 for push_job in `jobs -p`
 do
 	wait $push_job || let "FAIL+=1"
