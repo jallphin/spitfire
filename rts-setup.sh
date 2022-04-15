@@ -634,6 +634,10 @@ docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_exte
 docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 enable_sharing true | slog
 docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 previews true | slog
 docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ files_external:option 1 filesystem_check_changes 1 | slog
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:enable breezedark
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ config:app:set breezedark theme_automatic_activation_enabled --value=1
+docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ config:app:set breezedark theme_enabled --value=1
+
 if [ $? -eq 0 ]; then
    ec "RTS NextCloud Configuration completed."
 else
