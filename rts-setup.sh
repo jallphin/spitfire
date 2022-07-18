@@ -285,9 +285,9 @@ fi
 echo
 es "Checking hostname status..."
 # check to see if hostname is set correctly
-check_hostname="$(hostname)"
+check_hostname="$(hostname -f)"
 hosts_line="127.0.1.1	rts.lan	  rts"
-if [ "${check_hostname}" != "rts" ]; then
+if [ "${check_hostname}" != "rts.lan" ]; then
     ee "Hostname is not set correctly (currently set to $check_hostname), setting to rts.lan"
     hostnamectl set-hostname rts | slog
     sed -i".bak" "/$check_hostname/d" /etc/hosts | slog
@@ -351,7 +351,7 @@ if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
     ec "$check_USER belongs to $check_GROUP"
 else
     ew "$check_USER does not belong to $check_GROUP, adding."
-    usermod –aG $check_GROUP $check_USER | slog
+    sudo usermod –aG $check_GROUP $check_USER | slog
     ec "$check_USER added to $check_GROUP group"
 fi
 
@@ -360,7 +360,7 @@ if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
     ec "$check_USER belongs to $check_GROUP"
 else
     ew "$check_USER does not belong to $check_GROUP, adding."
-    usermod -aG $check_GROUP $check_USER | slog
+    sudo usermod -aG $check_GROUP $check_USER | slog
     ec "$check_USER added to $check_GROUP group."
 fi
 echo
