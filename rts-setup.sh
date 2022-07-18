@@ -351,7 +351,7 @@ if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
     ec "$check_USER belongs to $check_GROUP"
 else
     ew "$check_USER does not belong to $check_GROUP, adding."
-    sudo usermod –aG $check_GROUP $check_USER | slog
+    sudo usermod -a -G $check_GROUP $check_USER | slog
     ec "$check_USER added to $check_GROUP group"
 fi
 
@@ -360,7 +360,7 @@ if id -nG "$check_USER" | grep -qw "$check_GROUP" ; then
     ec "$check_USER belongs to $check_GROUP"
 else
     ew "$check_USER does not belong to $check_GROUP, adding."
-    sudo usermod -aG $check_GROUP $check_USER | slog
+    sudo usermod -a -G $check_GROUP $check_USER | slog
     ec "$check_USER added to $check_GROUP group."
 fi
 echo
