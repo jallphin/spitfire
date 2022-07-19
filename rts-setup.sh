@@ -417,66 +417,68 @@ else
    exit
 fi
 echo
-es "Cloning Reconmap..."
-sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap 2>&1 | slog
-if [ $? -eq 0 ]; then
-   ec "reconmap clone successful."
-else
-   ee "reconmap clone failed, exiting. Check your internet connectivity or github access."
-   exit
-fi
-sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent 2>&1 | slog
-if [ $? -eq 0 ]; then
-   ec "reconmap-agent clone successful."
-else
-   ee "reconmap-agent clone failed, exiting. Check your internet connectivity or github access."
-   exit
-fi
-sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconmap-cli 2>&1 | slog
-if [ $? -eq 0 ]; then
-   ec "reconmap-cli  clone successful."
-else
-   ee "reconmap-cli clone failed, exiting. Check your internet connectivity or github access."
-   exit
-fi
-#sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
-sudo -u rts cp ${initial_working_dir}/config.json ${install_path}/reconmap/ | slog
-sudo -u rts cp ${initial_working_dir}/environment.js ${install_path}/reconmap/ | slog
-sudo -u rts rm ${install_path}/config.json | slog
-sudo -u rts rm ${install_path}/environment.js | slog
+#################### START Disabling Reconmap because the entire project is broken #########################################
+#es "Cloning Reconmap..."
+#sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap 2>&1 | slog
+#if [ $? -eq 0 ]; then
+#   ec "reconmap clone successful."
+#else
+#   ee "reconmap clone failed, exiting. Check your internet connectivity or github access."
+#   exit
+#fi
+#sudo -u rts git clone https://github.com/reconmap/agent.git ${install_path}/reconmap-agent 2>&1 | slog
+#if [ $? -eq 0 ]; then
+#   ec "reconmap-agent clone successful."
+#else
+#   ee "reconmap-agent clone failed, exiting. Check your internet connectivity or github access."
+#   exit
+#fi
+#sudo -u rts git clone https://github.com/reconmap/cli.git ${install_path}/reconmap-cli 2>&1 | slog
+#if [ $? -eq 0 ]; then
+#   ec "reconmap-cli  clone successful."
+#else
+#   ee "reconmap-cli clone failed, exiting. Check your internet connectivity or github access."
+#   exit
+#fi
+######## This is old ###### #sudo -u rts cp ./agent-dockerfile ${install_path}/reconmap-agent/Dockerfile >/dev/null
+#sudo -u rts cp ${initial_working_dir}/config.json ${install_path}/reconmap/ | slog
+#sudo -u rts cp ${initial_working_dir}/environment.js ${install_path}/reconmap/ | slog
+#sudo -u rts rm ${install_path}/config.json | slog
+#sudo -u rts rm ${install_path}/environment.js | slog
 # copy in patched terminal_handler for kali linux
-sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ | slog
+#sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ | slog
 
-if [ $? -eq 0 ]; then
-   ec "Reconmap setup successful."
-else
-   ee "Reconmap setup failed, exiting. Check your internet connectivity or github access."
-   exit
-fi
+#if [ $? -eq 0 ]; then
+#   ec "Reconmap setup successful."
+#else
+#   ee "Reconmap setup failed, exiting. Check your internet connectivity or github access."
+#   exit
+#fi
+#echo
+#es "Starting reconmap-agent build"
+#sudo -u rts make -C ${install_path}/reconmap-agent/ | slog
+#if [ $? -eq 0 ]; then
+#   ec "Reconmap-agent build successful."
+#else
+#   ee "Reconmap-agent build failed, exiting. Something is wrong with the build or script."
+#   exit
+#fi
+#echo
+#es "Starting reconmap-cli build"
+#sudo -u rts make -C ${install_path}/reconmap-cli/ 2>&1 | slog
+#if [ $? -eq 0 ]; then
+#   ec "Reconmap-cli build successful."
+#else
+#   ee "Reconmap-cli build failed, exiting. Something is wrong with the build or script."
+#   exit
+#fi
+#echo
+#es "Copying reconmapd & rmap to install path."
+#sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/ | slog
+#sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/ | slog
+#echo
+################# END COMMENTING OUT RECONMAP BUILD ##################################
 echo
-es "Starting reconmap-agent build"
-sudo -u rts make -C ${install_path}/reconmap-agent/ | slog
-if [ $? -eq 0 ]; then
-   ec "Reconmap-agent build successful."
-else
-   ee "Reconmap-agent build failed, exiting. Something is wrong with the build or script."
-   exit
-fi
-echo
-es "Starting reconmap-cli build"
-sudo -u rts make -C ${install_path}/reconmap-cli/ 2>&1 | slog
-if [ $? -eq 0 ]; then
-   ec "Reconmap-cli build successful."
-else
-   ee "Reconmap-cli build failed, exiting. Something is wrong with the build or script."
-   exit
-fi
-echo
-es "Copying reconmapd & rmap to install path."
-sudo -u rts cp ${install_path}/reconmap-agent/reconmapd ${install_path}/ | slog
-sudo -u rts cp ${install_path}/reconmap-cli/rmap ${install_path}/ | slog
-echo
-
 es "Copying website data to install path."
 sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | slog
 echo
@@ -674,8 +676,17 @@ if grep -Fq "[red-share]" /etc/samba/smb.conf
 fi
 
 # spin up a simple http.server
+es "Spinning up simple python HTTP server for web sharing."
 python3 -m http.server 8081 &
-
+ec "Completed"
+echo
+es "Installing Orange-Cyberdefenses Arsenal 'What was that command again?' tool. Use the alias 'a' to run."
+python3 -m pip install arsenal-cli
+sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bash_aliases
+sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.zshrc
+sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bashrc
+ec "Completed"
+echo
 sleep 3
 echo
 ## This is where we ask the user if they want to mirror additional tools and if so, start the process.

@@ -204,66 +204,70 @@ services:
     expose:
       - 7777
     restart: always
-    volumes: 
+    volumes:
       - ./hastebin/data:/opt/haste/data
     environment:
       - VIRTUAL_HOST=hastebin.rts.lan
+
+############################# BEGIN DISABLING RECONMAP UNTIL PROJECT FIXED #########################
 #### RECONMAP #####
-  reconmap-web-client:
-    container_name: reconmap-web-client
-    image: quay.io/reconmap/web-client:master
-    volumes:
-      - ./reconmap/environment.js:/usr/share/nginx/html/environment.js
-    #ports:
-    expose:
-      - 80
-    #  - 80:5500
-    environment:
-      - VIRTUAL_HOST=reconmap.rts.lan
-      - VIRTUAL_PORT=5500
+#  reconmap-web-client:
+#    container_name: reconmap-web-client
+#    image: quay.io/reconmap/web-client:master
+#    volumes:
+#      - ./reconmap/environment.js:/usr/share/nginx/html/environment.js
+#    #ports:
+#    expose:
+#      - 80
+#    #  - 80:5500
+#    environment:
+#      - VIRTUAL_HOST=reconmap.rts.lan
+#      - VIRTUAL_PORT=5500
+#
+#  reconmap-redis:
+#    container_name: reconmap-redis
+#    image: redis:6.0
+#    command: redis-server --requirepass REconDIS
+#    ports:
+#      - 6379:6379
+#    #expose:
+#    #  - 6379
+#    volumes:
+#      - ./reconmap/data-redis:/data
+#
+#  rmap-mysql:
+#    container_name: rmap-mysql
+#    image: quay.io/reconmap/rest-api-db:latest
+#    cap_add:
+#      - SYS_NICE
+#    volumes:
+#      - ./reconmap/data-mysql:/var/lib/mysql
+#    ports:
+#      - 3306:3306
+#    # expose:
+#    #  - 3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: reconmuppet
+#      MYSQL_DATABASE: reconmap
+#      MYSQL_USER: reconmapper
+#      MYSQL_PASSWORD: reconmapped
+#
+#  reconmap-api:
+#    container_name: reconmap-api
+#    image: quay.io/reconmap/rest-api:latest
+#    volumes:
+#      - "./reconmap/config.json:/var/www/webapp/config.json"
+#      - "./reconmap/logs:/var/www/webapp/logs/"
+#      - "./reconmap/data:/var/www/webapp/data/"
+#    ports:
+#      - 5510:5510
+#    environment:
+#      REDIS_HOST: reconmap-redis
+#      REDIS_PORT: 6379
+#      REDIS_USER: default
+#      REDIS_PASSWORD: REconDIS
+############## END DISABLING OF RECONMAP UNTIL KEYCLOAK INTEGRATION #####################
 
-  reconmap-redis:
-    container_name: reconmap-redis
-    image: redis:6.0
-    command: redis-server --requirepass REconDIS
-    ports:
-      - 6379:6379
-    #expose:
-    #  - 6379
-    volumes:
-      - ./reconmap/data-redis:/data
-
-  rmap-mysql:
-    container_name: rmap-mysql
-    image: quay.io/reconmap/rest-api-db:latest
-    cap_add:
-      - SYS_NICE
-    volumes:
-      - ./reconmap/data-mysql:/var/lib/mysql
-    ports:
-      - 3306:3306
-    # expose:
-    #  - 3306
-    environment:
-      MYSQL_ROOT_PASSWORD: reconmuppet
-      MYSQL_DATABASE: reconmap
-      MYSQL_USER: reconmapper
-      MYSQL_PASSWORD: reconmapped
-
-  reconmap-api:
-    container_name: reconmap-api
-    image: quay.io/reconmap/rest-api:latest
-    volumes:
-      - "./reconmap/config.json:/var/www/webapp/config.json"
-      - "./reconmap/logs:/var/www/webapp/logs/"
-      - "./reconmap/data:/var/www/webapp/data/"
-    ports:
-      - 5510:5510
-    environment:
-      REDIS_HOST: reconmap-redis
-      REDIS_PORT: 6379
-      REDIS_USER: default
-      REDIS_PASSWORD: REconDIS
 
 #  reconmap-agent:
 #    container_name: rmap-agent
