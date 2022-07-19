@@ -16,6 +16,7 @@ What if you could bring along a small, portable server that had:
 7. Centralized Vulnerability Management and Reporting
 8. Cloud based artifact storage and later retrieval
 9. Convienent "pastebin" functionality for working and collaborting on the fly
+10. Command shortcut script to help redteams remember proper syntax
 
 # Welcome to RTS
 
@@ -36,7 +37,7 @@ When RTS is deployed this way, it provides a convienent, deployable nerve center
 2. Matrix Synapse HomeServer (https://github.com/matrix-org/synapse)
 3. Element Web Client (https://github.com/vector-im/element-web)
 4. IVRE Recon Framework (https://github.com/ivre/ivre)
-5. Reconmap Framework (https://github.com/reconmap)
+5. Reconmap Framework (https://github.com/reconmap) **Disabled until further notice due to app breakage**
 6. Convenant C2 Framework (https://github.com/cobbr/Covenant) (still in work)
 7. Nextcloud (https://github.com/nextcloud)
 8. Gitea (https://github.com/go-gitea/gitea)
@@ -46,6 +47,7 @@ When RTS is deployed this way, it provides a convienent, deployable nerve center
 12. Nginx (https://github.com/nginx)
 13. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
 14. Opensource Penetration Testing Standards
+15. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
 
 
 # Get Started
