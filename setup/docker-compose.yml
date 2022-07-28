@@ -6,12 +6,14 @@
 # 443	 - covenant
 # 2020   - reconmapd (this actually run locally because of issues with docker, check rts-setup.sh)
 # 3306   - rmap-sql
+# 5000	 - PCF (Penetration Testing Framework)
 # 5510	 - rmap-agent
 # 6379	 - rmap-redis
 # 7443	 - covenant
 # 8080	 - covenant
-# 9000	 - the-hive4 
-# 9001	 - cortex (part of the hive)
+# 9000	 - the-hive4 disabled
+# 9001	 - cortex (part of the hive) disabled
+# 9000	 - portainer
 
 version: '3'
 
@@ -334,6 +336,31 @@ services:
     environment:
       - VIRTUAL_HOST=www.rts.lan
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./portainer-data:/data
+    ports:
+      - 9000:9000
+    environment:
+      - VIRTUAL_HOST=portainer.rts.lan
+      - VIRTUAL_PORT=9000
+  
+  pcf:
+     build: ./pcf/.
+     container_name: pcf
+     ports:
+       - 5000:5000
+     volumes:
+       - ./pcf:/pcf
+     environment:
+       - VIRTUAL_HOST=pcf.rts.lan
 
 ### The HIVE4 ###
 #  cassandra:
