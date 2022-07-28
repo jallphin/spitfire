@@ -38,17 +38,23 @@ When RTS is deployed this way, it provides a convienent, deployable nerve center
 3. Element Web Client (https://github.com/vector-im/element-web)
 4. IVRE Recon Framework (https://github.com/ivre/ivre)
 5. Reconmap Framework (https://github.com/reconmap) **Disabled until further notice due to app breakage**
-6. Convenant C2 Framework (https://github.com/cobbr/Covenant) (still in work)
-7. Nextcloud (https://github.com/nextcloud)
-8. Gitea (https://github.com/go-gitea/gitea)
-9. Hastebin (https://github.com/toptal/haste-server)
-10. LOLBins (https://lolbas-project.github.io/)
-11. GTFOBins (https://gtfobins.github.io/)
-12. Nginx (https://github.com/nginx)
-13. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
-14. Opensource Penetration Testing Standards
-15. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
-
+6. Penetration Testing Collaboration Framework - PCF (https://gitlab.com/invuls/pentest-projects/pcf)
+7. Convenant C2 Framework (https://github.com/cobbr/Covenant)
+8. Nextcloud (https://github.com/nextcloud)
+9. Gitea (https://github.com/go-gitea/gitea)
+10. Hastebin (https://github.com/toptal/haste-server)
+11. LOLBins (https://lolbas-project.github.io/)
+12. GTFOBins (https://gtfobins.github.io/)
+13. Nginx (https://github.com/nginx)
+14. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
+15. Opensource Penetration Testing Standards
+16. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
+17. Hacktricks (https://github.com/carlospolop/hacktricks)
+18. Payload All The Things (https://github.com/swisskyrepo/PayloadsAllTheThings)
+19. Cobalt Strike Community Kit (https://github.com/Cobalt-Strike/community_kit)
+20. Daniel Miessler's SecLists (https://github.com/danielmiessler/SecLists)
+21. Portainer.io (https://github.com/portainer/portainer) - For managing the containers and stack. 
+22. Automated scanning and enumeration script using IVRE (with screenshots and collaborative scratchpad), nuclei and auto imports them into PCF for collaboration. 
 
 # Get Started
 While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
