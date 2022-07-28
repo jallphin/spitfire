@@ -46,19 +46,20 @@ When RTS is deployed this way, it provides a convienent, deployable nerve center
 7. Convenant C2 Framework (https://github.com/cobbr/Covenant)
 8. Nextcloud (https://github.com/nextcloud)
 9. Gitea (https://github.com/go-gitea/gitea)
-10. Hastebin (https://github.com/toptal/haste-server)
-11. LOLBins (https://lolbas-project.github.io/)
-12. GTFOBins (https://gtfobins.github.io/)
-13. Nginx (https://github.com/nginx)
-14. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
-15. Opensource Penetration Testing Standards
-16. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
-17. Hacktricks (https://github.com/carlospolop/hacktricks)
-18. Payload All The Things (https://github.com/swisskyrepo/PayloadsAllTheThings)
-19. Cobalt Strike Community Kit (https://github.com/Cobalt-Strike/community_kit)
-20. Daniel Miessler's SecLists (https://github.com/danielmiessler/SecLists)
-21. Portainer.io (https://github.com/portainer/portainer) - For managing the containers and stack. 
-22. Automated scanning and enumeration script using IVRE (with screenshots and collaborative scratchpad), nuclei and auto imports them into PCF for collaboration. 
+10. CyberChef (https://github.com/gchq/CyberChef) 
+11. Hastebin (https://github.com/toptal/haste-server)
+12. LOLBins (https://lolbas-project.github.io/)
+13. GTFOBins (https://gtfobins.github.io/)
+14. Nginx (https://github.com/nginx)
+15. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
+16. Opensource Penetration Testing Standards
+17. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
+18. Hacktricks (https://github.com/carlospolop/hacktricks)
+19. Payload All The Things (https://github.com/swisskyrepo/PayloadsAllTheThings)
+20. Cobalt Strike Community Kit (https://github.com/Cobalt-Strike/community_kit)
+21. Daniel Miessler's SecLists (https://github.com/danielmiessler/SecLists)
+22. Portainer.io (https://github.com/portainer/portainer) - For managing the containers and stack. 
+23. Automated scanning and enumeration script using IVRE (with screenshots and collaborative scratchpad), nuclei and auto imports them into PCF for collaboration. 
 
 # Get Started
 While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
