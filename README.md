@@ -1,4 +1,5 @@
-![alt text](https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true)
+<img align="right" width="100" height="100" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
+
 
 # Red Team Server (RTS)
 Deployable Nerve Center for Pentest Engagements 
