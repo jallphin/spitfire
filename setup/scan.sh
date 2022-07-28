@@ -7,8 +7,9 @@ IFS=""
 #echo $ip1 "--" $ip2
 
 display_usage() {
-	echo -e "[*] IVRE Recon Scan Usage - redbot recon <name_of_scan> range <start address> <end address> | Example: redteam range 10.1.1.1 10.1.1.15"
-	echo -e "[*] IVRE Recon Scan Usage - redbot recon <name_of_scan> network <network with mask> | Example: redteam network 10.1.1.1/32"
+	echo -e "[*] IVRE Scan Tool Usage:"
+	echo -e "[*] <name_of_scan> range <start address> <end address> | Example: redteam range 10.1.1.1 10.1.1.15"
+	echo -e "[*] <name_of_scan> network <network with mask> | Example: redteam network 10.1.1.1/32"
 	}
 
 # if less than two arguments supplied, display usage

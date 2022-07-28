@@ -417,6 +417,16 @@ else
    exit
 fi
 echo
+#### Install PCF (Pentest Collaboration Framework) ####
+es "Cloning PCF - Pentest Collaboration Framework - ..."
+sudo -u rts git clone https://gitlab.com/invuls/pentest-projects/pcf.git ${install_path} 2>%1 | slog
+if [ $? -eq 0 ]; then
+	ec "PCF clone successful."
+else
+	ee "PCF clone failed, exiting. Check your internet connectivity or github access"
+	exit
+fi
+
 #################### START Disabling Reconmap because the entire project is broken #########################################
 #es "Cloning Reconmap..."
 #sudo -u rts git clone https://github.com/reconmap/reconmap.git ${install_path}/reconmap 2>&1 | slog
