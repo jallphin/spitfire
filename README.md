@@ -1,5 +1,6 @@
-<img align="right" width="100" height="100" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
-
+<p align="center">
+<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
+</p>
 
 # Red Team Server (RTS)
 Deployable Nerve Center for Pentest Engagements 
