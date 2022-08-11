@@ -240,16 +240,6 @@ cd /opt/rts/
 git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git > /dev/null 2>&1  | slog
 chmod +x /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
 /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
-pid=$! # get pid of working process
-echo -n "[*] Cloning Cobalt Strike Community Kit ${spin[0]}"
-while kill -0 $pid > /dev/null 2>&1;
-do
-  for i in "${spin[@]}"
-  do
-    echo -ne "\b$i"
-    sleep 0.1
-  done
-done
 echo
 if [ $? -eq 0 ]; then
    ec "Cobalt Strike Community Kit clone complete."
@@ -708,11 +698,11 @@ fi
 
 # spin up a simple http.server
 es "Spinning up simple python HTTP server for web sharing."
-sudo -u rts python3 -m http.server 8081 &
+python3 -m http.server 8081 &
 ec "Completed"
 echo
 es "Installing Orange-Cyberdefenses Arsenal 'What was that command again?' tool. Use the alias 'a' to run."
-sudo -u rts python3 -m pip install arsenal-cli | slog 2>&1 
+sudo -u rts python3 -m pip install arsenal-cli 2>&1 | slog
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bash_aliases
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.zshrc
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bashrc
@@ -729,6 +719,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 else
    ec "Skipping for now"
 fi
+sudo -u rts docker-compose restart 2>&1 | slog
 
 ### I'd love to be able to whack all the default next cloud shit and install a text file that has all of the features of RTS listed for easy reference.
 clear
