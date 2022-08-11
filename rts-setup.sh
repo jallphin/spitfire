@@ -175,7 +175,7 @@ es "Cobalt Strike Community Kit"
 es "Cobalt Strike Arsenal (not official, 3rd party)"
 es "Veil Evasion Framework"
 es "----------------------------------------------------------------------------------------------"
-read -p "[*] Do you want to install these additional tools? --> " -n 1 -r
+read -p "[*] Do you want to install these additional tools? (y/n)--> " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
    es "Installing now"
@@ -235,10 +235,29 @@ es "Mirroring Veil Evasion Framework"
 eval $veil
 ec "Done mirroring, expanding cobalt-strike community kit into red-share..."
 ew "This will launch Cobalt Strikes custom installation script"
+sleep 3
 cd /opt/rts/
 git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git > /dev/null 2>&1  | slog
 chmod +x /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
 /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
+pid=$! # get pid of working process
+echo -n "[*] Cloning Cobalt Strike Community Kit ${spin[0]}"
+while kill -0 $pid > /dev/null 2>&1;
+do
+  for i in "${spin[@]}"
+  do
+    echo -ne "\b$i"
+    sleep 0.1
+  done
+done
+echo
+if [ $? -eq 0 ]; then
+   ec "Cobalt Strike Community Kit clone complete."
+else
+   ee "Community Kit clone failure, please post an issue on the RTS github or check logs. Exiting."
+   ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
+   exit
+fi
 mv /opt/rts/cobaltstrike_community_kit /opt/rts/red-share/cobaltstrike_community_kit | slog
 ec "Finished."
 sleep 3
@@ -419,7 +438,7 @@ fi
 echo
 #### Install PCF (Pentest Collaboration Framework) ####
 es "Cloning PCF - Pentest Collaboration Framework - ..."
-sudo -u rts git clone https://gitlab.com/invuls/pentest-projects/pcf.git ${install_path} 2>%1 | slog
+sudo -u rts git clone https://gitlab.com/invuls/pentest-projects/pcf.git ${install_path}/pcf 2>%1 | slog
 if [ $? -eq 0 ]; then
 	ec "PCF clone successful."
 else
@@ -585,6 +604,8 @@ add_hosts matrix.rts.lan
 add_hosts element.rts.lan
 add_hosts reconmap.rts.lan
 add_hosts ssh.rts.lan
+add_hosts portainer.rts.lan
+add_hosts pcf.rts.lan
 
 ec "Finished updating /etc/hosts."
 echo
@@ -657,12 +678,12 @@ else
    ee "The last command to run that failed was ["!:0"] with arguments ["!:*"]"
 fi
 echo
-es "Configuring and starting reconmapd agent service in the background."
-REDIS_HOST=localhost REDIS_PORT=6379 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd > /dev/null 2>&1 &
+#es "Configuring and starting reconmapd agent service in the background."
+#REDIS_HOST=localhost REDIS_PORT=6379 REDIS_PASSWORD=REconDIS ${install_path}/reconmapd > /dev/null 2>&1 &
 echo
-es "Configuring rmap."
-sudo -u rts ${install_path}/rmap configure set --api-url http://rts.lan:5510 | slog
-sudo -u rts ${install_path}/rmap login -u admin -p admin123 | slog
+#es "Configuring rmap."
+#sudo -u rts ${install_path}/rmap configure set --api-url http://rts.lan:5510 | slog
+#sudo -u rts ${install_path}/rmap login -u admin -p admin123 | slog
 # add install_path to the base path
 export PATH=$PATH:${install_path}
 echo
@@ -687,11 +708,11 @@ fi
 
 # spin up a simple http.server
 es "Spinning up simple python HTTP server for web sharing."
-python3 -m http.server 8081 &
+sudo -u rts python3 -m http.server 8081 &
 ec "Completed"
 echo
 es "Installing Orange-Cyberdefenses Arsenal 'What was that command again?' tool. Use the alias 'a' to run."
-python3 -m pip install arsenal-cli
+sudo -u rts python3 -m pip install arsenal-cli | slog 2>&1 
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bash_aliases
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.zshrc
 sudo -u rts echo "alias a='/home/rts/.local/bin/arsenal'" >> /home/rts/.bashrc
@@ -701,7 +722,7 @@ sleep 3
 echo
 ## This is where we ask the user if they want to mirror additional tools and if so, start the process.
 es "RTS can mirror some popular tools and set up some additional scripts/toolkits."
-read -p "[*] Would you like to review and possibly install, or skip for now?-> " -n 1 -r
+read -p "[*] Would you like to review and possibly install, or skip for now? (y/n)--> " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
    additional_content
@@ -736,11 +757,13 @@ do
   echo $ip_address element.rts.lan | elog
   echo $ip_address reconmap.rts.lan | elog
   echo $ip_address ssh.rts.lan | elog
+  echo $ip_address portainer.rts.lan | elog
+  echo $ip_address pcf.rts.lan | elog
 done
 echo
 # Some quick configuration for reconmap
-chmod -R 777 ${install_path}/reconmap/logs | slog
-chmod -R 777 ${install_path}/reconmap/data/attachments | slog
+#chmod -R 777 ${install_path}/reconmap/logs | slog
+#chmod -R 777 ${install_path}/reconmap/data/attachments | slog
 mv ${install_path}/nuke.sh ${install_path}/red-share/ivre/
 ec "========================================================[**]"
 ec "Main website: http://www.rts.lan"
@@ -752,6 +775,8 @@ ec "Element Chat: http://element.rts.lan"
 ec "Reconmap:     http://reconmap.rts.lan"
 ec "SSH -Web-:    http://ssh.rts.lan/wetty"
 ec "Convenant C2: https://rts.lan:7443"
+ec "Portainer     https://portainer.rts.lan"
+ec "PCF		  https://pcf.rts.lan (Pentest Collab)"
 ec "========================================================[**]"
 echo
 ec "RTS is installed to ${install_path}. Scripts and setup data live here."
@@ -781,6 +806,8 @@ echo "Element Chat: http://element.rts.lan" >> ${install_path}/red-share/rts.txt
 echo "Reconmap:     http://reconmap.rts.lan" >> ${install_path}/red-share/rts.txt
 echo "SSH -Web-:    http://ssh.rts.lan/wetty" >> ${install_path}/red-share/rts.txt
 echo "Convenant C2: https://rts.lan:7443" >> ${install_path}/red-share/rts.txt
+echo "Portainer     https://portainer.rts.lan" >> ${install_path}/red-share/rts.txt
+echo "PCF           https://pcf.rts.lan" >> ${install_path}/red-share/rts.txt
 echo "========================================================[**]" >> ${install_path}/red-share/rts.txt
 echo >> ${install_path}/red-share/rts.txt
 echo "RTS is installed to ${install_path}. Scripts and setup data live here." >> ${install_path}/red-share/rts.txt
