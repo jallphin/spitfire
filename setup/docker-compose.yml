@@ -14,6 +14,16 @@
 # 9000	 - the-hive4 disabled
 # 9001	 - cortex (part of the hive) disabled
 # 9000	 - portainer
+# 8888   - caldera
+# 8443   - caldera
+# 7010   - caldera    
+# 7011   - caldera
+# 7012   - caldera
+# 8853   - caldera
+# 8022   - caldera
+# 2222   - caldera
+# 5432   - metasploit / postgreql integration
+
 
 version: '3'
 
@@ -188,7 +198,7 @@ services:
     container_name: ivreclient
     command: tail -F anything
     volumes:
-      - ./red-share:/red-share #same thing as above for next cloud, need to map this to another directory and then copy to final destination. 
+      - ./red-share:/red-share  
     depends_on:
       - ivredb
   ivreagent:
@@ -211,6 +221,30 @@ services:
     environment:
       - VIRTUAL_HOST=hastebin.rts.lan
 
+##### MITRE CALDERA ######
+  caldera:
+    build:
+      context: /opt/rts/caldera/.
+      dockerfile: Dockerfile
+      args:
+        TZ: "UTC" #TZ sets timezone for ubuntu setup
+        WIN_BUILD: "true" #WIN_BUILD is used to enable windows build in sandcat plugin
+    image: caldera:latest
+    ports:
+      - "8888:8888"
+      - "8443:8443"
+      - "7010:7010"
+      - "7011:7011/udp"
+      - "7012:7012"
+      - "8853:8853"
+      - "8022:8022"
+      - "2222:2222"
+    volumes:
+      - ./:/usr/src/app
+    command: --log DEBUG    
+    environment:
+      - VIRTUAL_HOST=caldera.rts.lan
+      - VIRTUAL_PORT=8888
 ############################# BEGIN DISABLING RECONMAP UNTIL PROJECT FIXED #########################
 #### RECONMAP #####
 #  reconmap-web-client:

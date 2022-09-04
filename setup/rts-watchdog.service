@@ -1,0 +1,8 @@
+[Unit]
+Description=Red Team Server Watchdog 
+
+[Service]
+ExecStart=/opt/rts/watchdog.sh
+
+[Install]
+WantedBy=multi-user.target

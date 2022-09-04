@@ -37,7 +37,7 @@ set -o pipefail
 
 nextcloud_db_user=nextcloud
 nextcloud_db_host=nextcloud-db
-nextcloud_d_pass=rts_passw0rd
+nextcloud_db_pass=rtspassw0rd
 gitea_db_host=gitea-db
 gitea_db_type=postgres
 gitea_db_user=gitea
@@ -62,7 +62,7 @@ function rawurlencode() {
      esac
      encoded+="${o}"
   done
-  echo "${encoded}"    # You can either set a return variable (FASTER) 
+  echo "${encoded}"    # You can either set a return variable (FASTER)
   REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
 
 }
@@ -180,7 +180,7 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
    es "Installing now"
    sleep 3
-   auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:h3llfury http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
+   auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
    if [ $? -eq 0 ]; then
         ec "Gitea auth token acquired."
      else
@@ -466,6 +466,25 @@ fi
 #sudo -u rts rm ${install_path}/environment.js | slog
 # copy in patched terminal_handler for kali linux
 #sudo -u rts cp ${initial_working_dir}/terminal_handler.go ${install_path}/reconmap-agent/internal/ | slog
+es "Installing MITRE Caldera..."
+sudo -u rts git clone https://github.com/mitre/caldera.git --recursive ${install_path}/caldera 2>&1 | slog &
+pid=$! # get pid of working process
+echo -n "[*] Cloning  ${spin[0]}"
+while kill -0 $pid > /dev/null 2>&1;
+do
+  for i in "${spin[@]}"
+  do
+    echo -ne "\b$i"
+    sleep 0.1
+  done
+done
+echo
+if [ $? -eq 0 ]; then
+	ec "MITRE Caldera clone successful."
+else
+	ee "MITRE Caldera clone failed. Exiting. Check your internet connectivity or github access."
+	exit
+fi
 
 #if [ $? -eq 0 ]; then
 #   ec "Reconmap setup successful."
