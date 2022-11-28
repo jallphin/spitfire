@@ -1175,8 +1175,8 @@ install_package() {
 			sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install contacts | slog
 			sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install calendar | slog
 			sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install mail | slog
-			sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install richdocuments | slog
-			sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install richdocumentscode | slog
+			#sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install richdocuments | slog #### This is causing massive delays on disconnected standalone networks
+			#sudo -u rts docker exec -t nextcloud_app runuser -u www-data -- /var/www/html/occ app:install richdocumentscode | slog #### This is causing massive delays on disconnected standalone networks
 			sudo -u rts docker exec -e OC_PASS="${rts_password}" -t nextcloud_app runuser -u www-data -- /var/www/html/occ user:add --password-from-env --display-name="rts" --group="admin" rts | slog
 			if [ $? -eq 0 ]; then ec "nextcloud init completed."; else ee "initial nextcloud setup failed, please post an issue on the RTS github."; fi
 			sleep 5
