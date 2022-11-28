@@ -1412,6 +1412,12 @@ install() {
   		fi
 	else ec "ssh is running."; sleep 1.5; clear_menu "2"
 	fi
+	#check for internet access
+	es "checking for internet access"
+	if nc -zw1 google.com 443; then
+  		ec "internet connectivity checks successful."; sleep 1.5; clear_menu "2"
+	else ee "internet connectivity is *REQUIRED* to build RTS. Fix, and restart script." ; exit 1
+	fi
 	check_installed docker.io
 	check_installed golang
 	check_installed golang-go
@@ -1471,12 +1477,6 @@ install() {
         pwd
         ec "assuming rts user level."; sleep 1.5; clear_menu "4"
 	else ec "user and path look good to go."; sleep 1.5; clear_menu "3"
-	fi
-	#check for internet access
-	es "checking for internet access"
-	if nc -zw1 google.com 443; then
-  		ec "internet connectivity checks successful."; sleep 1.5; clear_menu "2"
-	else ee "internet connectivity is *REQUIRED* to build RTS. Fix, and restart script." ; exit 1
 	fi
 	sudo_1=$(sudo -u rts whoami)
 	sudo_2=$(sudo -u rts pwd)
