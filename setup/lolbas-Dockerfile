@@ -1,0 +1,22 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk add alpine-sdk gcc git libressl-dev make ruby ruby-bigdecimal ruby-dev ruby-etc ruby-json ruby-webrick
+RUN gem install bundler kramdown kramdown-parser-gfm rexml
+RUN git clone https://github.com/LOLBAS-Project/LOLBAS-Project.github.io /opt/LOLBAS
+WORKDIR /opt/LOLBAS
+RUN bundle add webrick
+RUN bundle update --bundler || echo "continue"
+RUN bundle update kramdown
+RUN bundle update
+RUN make bundle
+#make serve-public
+#RUN bundle exec jekyll serve --host 0.0.0.0 -P 10050 &
+RUN git clone https://github.com/gtfobins/gtfobins.github.io /opt/gtfobins
+WORKDIR /opt/gtfobins
+RUN bundle add webrick
+RUN bundle update --bundler || echo "continue"
+RUN bundle update 
+RUN make bundle
+#RUN bundle exec jekyll serve --host 0.0.0.0 -P 10060 &
+

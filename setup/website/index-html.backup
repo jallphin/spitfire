@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=2">
+<link rel="stylesheet" href="./w3.css">
+<title>Red Team Server</title>
+<link rel="icon" type="image/x-icon" href="./red-team-logo-small.png">
+</head>
+<body style="background-color:#000">
+
+<!-- Navigation -->
+<nav class="w3-bar w3-black" style="display:flex;justify-content:center">
+	<a href="http://ivre.rts.lan" class="w3-button w3-bar-item w3-center" target="_blank" rel="noopener noreferrer">IVRE</a>
+	<a href="http://gitea.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Gitea</a>
+	<a href="http://nextcloud.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Nextcloud</a>
+	<a href="http://hastebin.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Hastebin</a>
+	<a href="http://element.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Chat</a>
+	<!-- <a href="http://reconmap.rts.lan" class="w3-button w3-bar-item"target="_blank" rel="noopener noreferrer">Reconmap</a> -->
+	<a href="http://pcf.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PCF</a>
+	<a href="http://portainer.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Portainer</a>
+	<a href="http://ssh.rts.lan/wetty" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>
+	<a href="https://rts.lan:7443" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Covenant</a>
+        <a href="http://www.rts.lan/cyberchef" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">CyberChef</a>
+        <a href="http://www.rts.lan:8081/" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Red-Share</a>
+        <div class="w3-dropdown-hover">
+         <button class="w3-button">References</button>
+         <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-black">  
+        	<a href="http://www.rts.lan/cheatsheets" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Cheatsheets</a>
+        	<a href="http://www.rts.lan/ptes" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PTES</a>
+        	<a href="http://www.rts.lan/gtfobins" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">GTFOBins</a>
+         	<a href="http://www.rts.lan/lolbins" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">LOLBins</a>
+		<a href="http://gitea.rts.lan/rts/hacktricks" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">HackTricks</a>
+		<a href="http://gitea.rts.lan/rts/payload_all_the_things" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">Payload All The Things</a>
+         </div>
+        </div>
+</nav>
+<br><br><br><br><br><br><br>
+<section>
+  <img class="center" alt="RTS Logo" style="width: 372.083px; height: 406px;" src="RTS_logo.png">
+</section>
+<!---
+<section class="w3-container w3-center w3-content" style="max-width:600px">
+  <h1 style="display:inline;color:#fff" class="w3-wide">R</h1><p style="display:inline;color:#fff"><i>ed&nbsp;</i>
+  <h1 style="display:inline;color:#fff" class="w3-wide">T</h1><p style="display:inline;color:#fff"><i>eam&nbsp;</i>
+  <h1 style="display:inline;color:#fff" class="w3-wide">S</h1><p style="display:inline;color:#fff"<i>erver</i></p></p></p>
+  <!-- <p class="w3-opacity"><i>Red Team Server</i></p> --> 
+--->
+</section>
+<section class="w3-container w3-content w3-center" style="max-width:600px">
+<p class="w3-center">
+Select a tool from the menu above.</p>
+</section>
+
+
+<section class="w3-row-padding w3-center w3-black">
+  <article>
+    <h4>Brought to you by NIWC Pacific ACT</h4>
+    <p style="width:400px; text-align:center; margin:0 auto">Developed by NIWC Pacific ACT Deputy Lead&nbsp;&nbsp; imperat0r (James Allphin)
+Adversarial Cyber Team, Naval Information Warfare Center Pacific, San Diego, CA <p>
+  </article>
+<!--  <article class="w3-third">
+    <h4>Engineered to help Red Teamers</h4>
+    <p style="width:350px; text-align:center; margin:0 auto">This server acts as a portal to commonly used tools and web services that Red Teams need to use but typically can't access due to operating in restricted environments. </p>
+  </article>
+  <article class="w3-third">
+    <h4>Portable</h4>
+    <p style="width:350px; text-align:center; margin:0 auto">RTS is portable, and can be installed in a wide variety of hardware and virtual machines, so you can bring it with you wherever your team needs to go. </p>
+  </article> -->
+</section>
+
+</body>
+</html>
+
