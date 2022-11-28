@@ -636,7 +636,7 @@ check_installed() {
     	ec "${1} is installed."
 	else
     	ew "${1} is not installed, installing from repo."
-    	apt install ${1} -y 2>&1 | slog
+    	DEBIAN_FRONTEND=noninteractive apt install ${1} -y 2>&1 | slog
     	# Verify package is now installe
     	dpkg -s ${1} 2>&1 | slog
     		if [ $? -ne 0 ]; then
