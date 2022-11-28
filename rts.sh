@@ -640,7 +640,7 @@ check_installed() {
     	# Verify package is now installe
     	dpkg -s ${1} 2>&1 | slog
     		if [ $? -ne 0 ]; then
-       			ee "{1} installation failed, check logs. Exiting."
+       			ee "${1} installation failed, check logs. Exiting."
         		exit 1
     		fi
 	fi
@@ -689,7 +689,7 @@ main_menu() {
       "3") clear_menu "10"; select_aux ;;
 	  "4") clear_menu "10"; select_c2_frameworks ;;
       "5") clear_menu "10"; list_packages ;;
-      "7") clear_menu "10"; install_location ;;
+      "6") clear_menu "10"; install_location ;;
       "7") clear_menu "10"; set_passwords ;;
       "8") clear_menu "10"; install ;;
       "x") quit_ ;;
