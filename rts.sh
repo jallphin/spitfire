@@ -541,7 +541,7 @@ grey="#b3b3b3"
 auth_token=""
 static_auth_token=""
 
-declare -A packages=( [matrix server]=1 [matrix web]=1 [IVRE]=1 [gitea]=1 [nextcloud]=1 [cyberchef]=1 [portainer.io]=1 [pentest collab framework]=1 [hastebin]=1 [guacamole]=1 )
+declare -A packages=( [matrix server]=1 [matrix web]=1 [IVRE]=1 [gitea]=1 [nextcloud]=1 [cyberchef]=1 [portainer.io]=1 [pentest collab framework]=1 [hastebin]=1 [guacamole]=0 )
 declare -A references=( [lolbas/gtfobins]=1 [hacktricks]=1 [payload all the things]=1 [cheatsheets]=1 [pentest standards]=1 [MITRE att&ck navigator]=0 [MITRE att&ck reference]=0 )
 declare -A auxiliary=( [cobalt strike community kit]=1 [seclists]=1 [hatecrack]=1 [slowloris]=1 [ghostpack]=1 [veil]=1 [cobalt strike elevate kit]=1 [cobalt strike c2 profiles]=1 [cobalt strike arsenal]=1 )
 declare -A c2frameworks=( [covenant]=1 [MITRE caldera]=0 [sliver]=1 [powershell empire/starkiller]=1 )
@@ -1441,6 +1441,7 @@ install() {
 	check_installed golang-go
 	check_installed docker-compose
 	check_installed jq
+	check_installed metasploit-framework
 	#clear_menu "14"
 	#ensure rts user exists on the system, and if not create it.
 	es "checking to see if rts user exists"
@@ -1583,7 +1584,7 @@ install() {
 }
 post_install() {
 	print_line
-	ew "configuring post installation configuration"
+	ew "starting post installation configuration"
 	print_line
 	export PATH=$PATH:${install_path}
 	if grep -q "#RTS Path" /home/rts/.bashrc; then true ; else echo "#RTS Path" >> /home/rts/.bashrc; echo "export PATH=$PATH:${install_path}" >> /home/rts/.bashrc; fi
@@ -1623,6 +1624,24 @@ post_install() {
 	sed -i '/<!-- mainsed -->/a <a href="http://rts.lan:8081" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">red-share</a>' ${install_path}/website/index.html | slog
     clear_menu "2"
 	sleep 3
+	ew "configuring metasploit database for shared connectivity"
+    msfdb init
+    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
+    sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             all            scram-sha-256/g" /etc/postgresql/14/main/pg_hba.conf
+    sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';"
+    systemctl restart postgresql
+	mv /usr/share/metaspoit-framework/config/database.yml /usr/share/metasploit-framework/config/database.orig 
+	echo "production:" > /usr/share/metasploit-framework/config/database.yml
+	echo "  adapter: postgresql" >> /usr/share/metasploit-framework/config/database.yml
+	echo "  database: msf" >> /usr/share/metasploit-framework/config/database.yml
+	echo "  username: msf" >> /usr/share/metasploit-framework/config/database.yml
+	echo "  password: ${rts_password}" >> /usr/share/metasploit-framework/config/database.yml
+	echo "  host: rts.lan" >> /usr/share/metasploit-framework/config/database.yml
+	echo "  port: 5432" >> /usr/share/metasploit-framework/config/database.yml 
+	echo "  pool: 5" >> /usr/share/metasploit-framework/config/database.yml 
+	echo "  timeout: 5" >> /usr/share/metasploit-framework/config/database.yml
+    ec "metasploit database configuration complete. Use: db_connect msf:${rts_password}@rts.lan:5432/msf when inside Metasploit Framework to connect to RTS's database."
+
 	ew "bringing up the environment for initialization"
 	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml down --remove-orphans 2>&1 | slog
 	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d 2>&1 | slog
@@ -1651,6 +1670,7 @@ post_install() {
 	#ec "The username and password for Reconmap is:"
 	#ew "admin/admin123"
 	es "Log file moved from /tmp/rts.log to ${install_path}/rts.log" | tee -a ${install_path}/red-share/rts.txt
+	es "MSF Database Connection string: db_connect msf:${rts_password}@rts.lan:5432/msf" | tee -a ${install_path}/red-share/rts.txt
 	es "scan.sh -> Scan script to order IVRE to scan a host/network/range." | tee -a ${install_path}/red-share/rts.txt
 	es "nuke-ivre.sh -> orders IVRE to completely reset/wipe its database." | tee -a ${install_path}/red-share/rts.txt
 	es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." | tee -a ${install_path}/red-share/rts.txt
