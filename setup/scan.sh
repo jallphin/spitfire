@@ -43,7 +43,7 @@ FAIL=0
 
 
 # Use IVRE to scan the target(s)
-docker exec -t -w /red-share/ivre ivreclient ivre runscans --output=XMLFork --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
+docker exec -t -w /red-share/ivre ivreclient ivre runscans --nmap-template="htb" --output=XMLFork --categories $1 --$2 ${3} ${4} 1>/dev/null 2>/dev/null &
 #echo "docker exec -t ivreclient ivre runscans --categories $1 --$2 $3"
 #docker exec -t ivreclient ivre runscans --categories $1 --$2 ${3} ${4}
 # Wait for the job to complete and provide status updates
