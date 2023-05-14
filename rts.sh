@@ -1148,10 +1148,15 @@ install_package() {
 			if [ $? -eq 0 ]; then ec "gitea configured."; else ee "gitea configuration failed, please post an issue on the RTS github. exiting."; fi
 			# if this is a reinstall, we need to delete the old token and get a new one. This is a just in case to make sure gitea works. 
 			sleep 30 # 30 seconds to allow configuration above to kick in before we request user token. 
-			delete_token=$(curl -s -X DELETE -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens/rts > /dev/null)
-			token_delete=$delete_token
-			sleep 1
-			auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
+			### START OLD TOKEN CODE
+			#delete_token=$(curl -s -X DELETE -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens/rts > /dev/null)
+			#token_delete=$delete_token
+			#sleep 1
+			#auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
+			#static_auth_token=$auth_token
+			### END OLD TOKEN CODE
+			auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			sleep 5
 			static_auth_token=$auth_token
 			sleep 1
 			clear_menu "7"
