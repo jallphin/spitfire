@@ -24,9 +24,9 @@ It consists of:
 - Apache Guacamole access (via Apache Guacamole)
 
 # Screenshots
-<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-1.png?raw=true">
-<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-2.png?raw=true">
-<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-web-page-1?raw=true">
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-1.png?raw=true">
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-2.png?raw=true">
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-web-page-1.png?raw=true">
 
 ## Getting Started
 While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
