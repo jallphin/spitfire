@@ -110,5 +110,15 @@ RTS can also be deployed as a virtual machine for easier deployments:
 3. PEASS-NG Privelege Escalation Tools (https://github.com/carlospolop/PEASS-ng)
 4. Wetty Terminal Access in a webpage (https://github.com/butlerx/wetty)
 
+# Troubleshooting
+## Environment does not come up (docker problems)
+Typically, if an install fails its because one of the upstream packages has changed and I haven't had time to update it yet.
+If this happens, especially with something in docker-compose.yml the easiest fix is to just not install it in the menu, and add it in later with your custom fixes.
+You can do this by simply re-running ```rts.sh``` and de-selecting the offending packages. The setup script should not stomp on a previous installation, so it should just adjust it.
+The script dynamically updates ```docker-compose.yml``` at runtime, so deselecting the package from the script menu will simply remove it from ```docker-compose.yml```
+## Gitea Mirroring
+The second largest issue is with the Gitea package - as they often update the API and this breaks a number of things with the installation. This is the first thing you should check if nothing is being mirrored to Gitea.
+Usually it is a problem with the 'auth-token'. 
+
 # Thanks / Credit
 Thanks to all of the above authors of the software linked above. Without your outstanding hard work, ingenunity and selfless dedication to open source software none of this would be possible. With that being said, if you would like direct credit here, please reach out to me with your name, preferred contact method (if any), citations you may want to be included, and/or any other links to your work and I will put them here. 

@@ -1289,7 +1289,7 @@ install_package() {
 			eval $cobalt_strike_community_kit
 			git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git ${install_path}/cobalt_strike_community_kit/ > /dev/null 2>&1  | slog
 			chmod +x /opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
-			/opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh | slog
+			/opt/rts/cobalt_strike_community_kit/community_kit_downloader.sh 2>&1 | slog
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_community_kit" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs community kit</a>' ${install_path}/website/index.html
 			clear_menu "1"
 			;;
@@ -1396,7 +1396,7 @@ install_package() {
 			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $sliver
 			sleep 3
-			curl https://sliver.sh/install|sudo bash
+			curl https://sliver.sh/install|sudo bash 2>&1 > /dev/null | slog
 			sleep 5
 			clear_menu "2"
 			;;
@@ -1601,6 +1601,20 @@ install() {
 			clear_menu "1"
 		fi
 	done
+	sleep 3
+	clear_menu "4"
+	print_line
+	ew "installing c2 frameworks"
+	print_line
+	for key in "${!c2frameworks[@]}"
+	do
+		if [[ ${c2frameworks[$key]} -eq 1 ]]; then # if the ref is to be installed
+			install_package "$key"
+		else
+			es "Skipping $key"
+			clear_menu "1"
+		fi
+	done
 	ec "installation complete."
 	sleep 5
 	clear_menu "4"
@@ -1652,27 +1666,27 @@ post_install() {
 	es "Downloading all binaries for PEASS-NG to /opt/peassng-bins/"
 	sudo mkdir /opt/peassng-bins
 	sudo chmod 777 /opt/peassng-bins
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_arm64 -O /opt/peassng-bins/linpeas_darwin_arm64 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_fat.sh -O /opt/peassng-bins/linpeas_fat.sh 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_386 -O /opt/peassng-bins/linpeas_linux_386 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_amd64 -O /opt/peassng-bins/linpeas_linux_amd64 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm -O /opt/peassng-bins/linpeas_linux_arm 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm64 -O /opt/peassng-bins/linpeas_linux_arm64 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEAS.bat -O /opt/peassng-bins/winPEAS.bat 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany.exe -O /opt/peassng-bins/winPEASany.exe 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany_ofs.exe -O /opt/peassng-bins/winPEASany_ofs.exe 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64.exe -O /opt/peassng-bins/winPEASx64.exe 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe 2>&1 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_arm64 -O /opt/peassng-bins/linpeas_darwin_arm64 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_fat.sh -O /opt/peassng-bins/linpeas_fat.sh 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_386 -O /opt/peassng-bins/linpeas_linux_386 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_amd64 -O /opt/peassng-bins/linpeas_linux_amd64 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm -O /opt/peassng-bins/linpeas_linux_arm 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm64 -O /opt/peassng-bins/linpeas_linux_arm64 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEAS.bat -O /opt/peassng-bins/winPEAS.bat 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany.exe -O /opt/peassng-bins/winPEASany.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany_ofs.exe -O /opt/peassng-bins/winPEASany_ofs.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64.exe -O /opt/peassng-bins/winPEASx64.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe 2>&1 | slog
+	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe 2>&1 | slog
 	## Installing wetty as a service:
 	es "installing wetty SSH service"
 	sudo -u rts echo $docker_compose_wetty | base64 -d >> ${install_path}/docker-compose.yml
 	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build wetty 2>&1 | slog
 	check_exit_code "$?" "wetty" | slog
-	sed -i '/<!-- mainsed -->/a <a href="http://ssh.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>' ${install_path}/website/index.html
+	sed -i '/<!-- mainsed -->/a <a href="http://ssh.rts.lan/wetty" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>' ${install_path}/website/index.html
 	add_hosts "ssh.rts.lan"
 	sleep 3
 	# Install 'glow' markdown reader for command line.
