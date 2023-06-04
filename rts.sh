@@ -1102,7 +1102,7 @@ install_package() {
 		"IVRE")
 			es "installing IVRE"
 			sudo -u rts echo $docker_compose_ivre | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent ivreuwsgi ivredoku  2>&1
 			sed -i '/<!-- mainsed -->/a <a href="http://ivre.rts.lan" class="w3-button w3-bar-item w3-center" target="_blank" rel="noopener noreferrer">IVRE</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "IVRE" | slog
 			add_hosts "ivre.rts.lan"
@@ -1149,13 +1149,6 @@ install_package() {
 			if [ $? -eq 0 ]; then ec "gitea configured."; else ee "gitea configuration failed, please post an issue on the RTS github. exiting."; fi
 			# if this is a reinstall, we need to delete the old token and get a new one. This is a just in case to make sure gitea works. 
 			sleep 30 # 30 seconds to allow configuration above to kick in before we request user token. 
-			### START OLD TOKEN CODE
-			#delete_token=$(curl -s -X DELETE -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens/rts > /dev/null)
-			#token_delete=$delete_token
-			#sleep 1
-			#auth_token=$(curl -s -X POST -H "Content-Type: application/json"  -k -d '{"name":"rts"}' -u rts:$url_encoded_pass http://gitea.rts.lan/api/v1/users/rts/tokens | jq -e '.sha1' | tr -d '"')
-			#static_auth_token=$auth_token
-			### END OLD TOKEN CODE
 			auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			sleep 5
 			static_auth_token=$auth_token
@@ -1261,6 +1254,7 @@ install_package() {
 			;;
 		"hacktricks")
 			es "installing hacktricks"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			hacktricks="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/hacktricks.git\", \"description\": \"hacktricks.xyz\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hacktricks\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $hacktricks
 			sed -i '/<!-- refsed -->/a <a href="http://gitea.rts.lan/rts/hacktricks" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">hacktricks</a>' ${install_path}/website/index.html
@@ -1268,6 +1262,7 @@ install_package() {
 			;;
 		"payload all the things")
 			es "installing payload all the things"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			payload_all_the_things="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/swisskyrepo/PayloadsAllTheThings.git\", \"description\": \"A list of useful payloads\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"payload_all_the_things\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $payload_all_the_things 
 			sed -i '/<!-- refsed -->/a <a href="http://gitea.rts.lan/rts/payload_all_the_things" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">payload all the things</a>' ${install_path}/website/index.html
@@ -1285,6 +1280,7 @@ install_package() {
 			;;
 		"cobalt strike community kit")
 			es "installing cobalt strike community kit"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			cobalt_strike_community_kit="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/community_kit.git\", \"description\": \"Cobalt Strike Community Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_community_kit\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_community_kit
 			git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git ${install_path}/cobalt_strike_community_kit/ > /dev/null 2>&1  | slog
@@ -1295,6 +1291,7 @@ install_package() {
 			;;
 		"seclists")
 			es "installing seclists"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			seclists="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/danielmiessler/SecLists.git\", \"description\": \"SecLists\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"SecLists\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $seclists
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/seclists" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">seclists</a>' ${install_path}/website/index.html
@@ -1312,6 +1309,7 @@ install_package() {
 			;;
 		"hatecrack")
 			es "installing hatecrack"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			hatecrack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/trustedsec/hate_crack.git\", \"description\": \"TrustedSec HateCrack\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hatecrack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $hatecrack
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/hatecrack" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">hatecrack</a>' ${install_path}/website/index.html
@@ -1319,6 +1317,7 @@ install_package() {
 			;;
 		"slowloris")
 			es "installing slowloris"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			slowloris="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/gkbrk/slowloris.git\", \"description\": \"Slowloris DOS\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"slowloris\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $slowloris
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/slowloris" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">slowloris</a>' ${install_path}/website/index.html 
@@ -1326,6 +1325,7 @@ install_package() {
 			;;
 		"ghostpack")
 			es "installing ghostpack"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			ghostpack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git\", \"description\": \"Ghostpacks C# Binaries\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"ghostpack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $ghostpack
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/ghostpack" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">ghostpack</a>' ${install_path}/website/index.html
@@ -1333,6 +1333,7 @@ install_package() {
 			;;
 		"veil")
 			es "installing veil evasion framework"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			veil="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Veil-Framework/Veil.git\", \"description\": \"Veil Evasion Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"veil-evasion\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $veil
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/veil-evasion" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">veil evasion</a>' ${install_path}/website/index.html
@@ -1340,6 +1341,7 @@ install_package() {
 			;;
 		"cobalt strike elevate kit")
 			es "installing cobalt strike elevate kit"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			cobalt_strike_elevate="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/ElevateKit.git\", \"description\": \"Cobalt Strike Elevate Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_elevate\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_elevate
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_elevate" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs elevate kit</a>' ${install_path}/website/index.html
@@ -1347,6 +1349,7 @@ install_package() {
 			;;
 		"cobalt strike c2 profiles")
 			es "installing cobalt strike c2 profiles"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			cobalt_strike_c2_profiles="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/Malleable-C2-Profiles.git\", \"description\": \"Cobalt Strike Malleable C2 Profiles\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_malleable-c2\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_c2_profiles
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_malleable-c2" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs c2 profiles</a>' ${install_path}/website/index.html
@@ -1354,6 +1357,7 @@ install_package() {
 			;;
 		"cobalt strike arsenal")
 			es "installing cobalt strike arsenal"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			cobalt_strike_arsenal="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/mgeeky/cobalt-arsenal.git\", \"description\": \"Cobalt Strike Battle Tested Arsenal\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_arsenal\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_arsenal
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_arsenal" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs arsenal</a>' ${install_path}/website/index.html
@@ -1384,19 +1388,20 @@ install_package() {
 	    "powershell empire/starkiller")
 			es "installing Powershell Empire"
 			sudo -u rts echo $docker_compose_empire | base64 -d >> ${install_path}/docker-compose.yml
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build empire 2>&1 | slog
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull empire 2>&1 | slog
 			check_exit_code "$?" "empire" | slog
-			sed -i '/<!-- mainsed -->/a <a href="http://empire.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">EMPIRE</a>' ${install_path}/website/index.html
+			sed -i '/<!-- mainsed -->/a <a href="http://empire.rts.lan/index.html" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">EMPIRE</a>' ${install_path}/website/index.html
 			add_hosts "empire.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
 		"sliver")
 			es "installing sliver C2 locally and in gitea, no webpage link"
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $sliver
 			sleep 3
-			curl https://sliver.sh/install|sudo bash 2>&1 > /dev/null | slog
+			curl https://sliver.sh/install | sudo bash 2>&1 > /dev/null | slog
 			sleep 5
 			clear_menu "2"
 			;;
@@ -1648,7 +1653,7 @@ post_install() {
 	fi
 	sudo systemctl start smbd.service
     sudo systemctl start nmbd.service
-	clear_menu "1"
+	#clear_menu "1"
 	mv ${install_path}/nuke.sh ${install_path}/red-share/ivre/
 	es "configuring rts services"
 	rts_python_web_server="W1VuaXRdCkRlc2NyaXB0aW9uPVJUUyBQeXRob24gU2VydmVyCkFmdGVyPW5ldHdvcmsudGFyZ2V0CgpbU2VydmljZV0KVHlwZT1zaW1wbGUKVXNlcj1yb290CldvcmtpbmdEaXJlY3Rvcnk9L29wdC9ydHMvcmVkLXNoYXJlCkV4ZWNTdGFydD0vdXNyL2Jpbi9weXRob24zIC1tIGh0dHAuc2VydmVyIC1kIC9vcHQvcnRzL3JlZC1zaGFyZSA4MDgxClJlc3RhcnQ9b24tYWJvcnQKCltJbnN0YWxsXQpXYW50ZWRCeT1tdWx0aS11c2VyLnRhcmdldAo="
@@ -1659,12 +1664,13 @@ post_install() {
 	sleep 3
 	# installing privesc toolage
 	es "Mirroring PEASS-ng"
+	static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 	peassng="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/PEASS-ng.git\", \"description\": \"PEASS-NG\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"PEASS-NG\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 	eval $peassng
 	sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/PEASS-NG" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PEASS-NG</a>' ${install_path}/website/index.html
 	### Downloading and saving all the binaries for PEASS-NG
 	es "Downloading all binaries for PEASS-NG to /opt/peassng-bins/"
-	sudo mkdir /opt/peassng-bins
+	if [ ! -d "/opt/peassng-bins" ]; then sudo mkdir /opt/peassng-bins | slog; fi
 	sudo chmod 777 /opt/peassng-bins
 	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh 2>&1 | slog
 	wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 2>&1 | slog
@@ -1691,23 +1697,27 @@ post_install() {
 	sleep 3
 	# Install 'glow' markdown reader for command line.
 	# Debian/Ubuntu
-	sudo mkdir -p /etc/apt/keyrings
-	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg 2>&1 | slog
+	sudo mkdir -p /etc/apt/keyrings 2>&1 | slog
+	sudo rm /etc/apt/keyrings/charm.gpg 2>&1 | slog
+	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg -q --dearmor -o /etc/apt/keyrings/charm.gpg 2>&1 | slog
 	echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-	sudo apt update && sudo apt install glow 2>&1 | slog
+	sudo apt update && sudo apt install -y glow 2>&1 | slog
 
 	es "starting rts services"
-	sudo systemctl restart rts-web-server.service | slog
-	sudo systemctl restart rts-watchdog.service | slog
+	sudo systemctl enable rts-web-server.service | slog
+	sudo systemctl enable rts-watchdog.service | slog
+	sudo systemctl start rts-web-server.service | slog
+	sudo systemctl start rts-watchdog.service | slog
 	sed -i '/<!-- mainsed -->/a <a href="http://rts.lan:8081" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">red-share</a>' ${install_path}/website/index.html | slog
-    clear_menu "2"
+    #clear_menu "2"
 	sleep 3
 	ew "configuring metasploit database for shared connectivity"
-    msfdb init
+    msfdb init 2>&1 | slog
     sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
     sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             all            scram-sha-256/g" /etc/postgresql/14/main/pg_hba.conf
     sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';"
-    systemctl restart postgresql
+    sudo systemctl enable postgresql
+	sudo systemctl restart postgresql
 	mv /usr/share/metaspoit-framework/config/database.yml /usr/share/metasploit-framework/config/database.orig 
 	echo "production:" > /usr/share/metasploit-framework/config/database.yml
 	echo "  adapter: postgresql" >> /usr/share/metasploit-framework/config/database.yml
@@ -1745,6 +1755,7 @@ post_install() {
 	ec "${install_path}/red-share is intended to be the central point for red teams to share data across the team. Please utilize it for artifact, scan, reporting data."| tee -a ${install_path}/red-share/rts.txt
 	ec "The username and password for Gitea and Nextcloud are:" | tee -a ${install_path}/red-share/rts.txt
 	ew "rts/$rts_password" | tee -a ${install_path}/red-share/rts.txt
+	ec "The username and password for Starkiller (Powershell Empire) is empireadmin/password123" | tee -a ${install_path}/red-share/rts.txt
 	#ec "The username and password for Reconmap is:"
 	#ew "admin/admin123"
 	es "Log file moved from /tmp/rts.log to ${install_path}/rts.log" | tee -a ${install_path}/red-share/rts.txt
