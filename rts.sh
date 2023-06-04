@@ -1393,7 +1393,7 @@ install_package() {
 			clear_menu "2"
 			;;
 		"sliver")
-			es "installing sliver C2 (locally and in gitea, no webpage link)"
+			es "installing sliver C2 locally and in gitea, no webpage link"
 			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $sliver
 			sleep 3
@@ -1646,7 +1646,7 @@ post_install() {
 	sleep 3
 	# installing privesc toolage
 	es "Mirroring PEASS-ng"
-	peassng="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/PEASS-ng.git", \"description\": \"PEASS-NG\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"PEASS-NG\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+	peassng="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/PEASS-ng.git\", \"description\": \"PEASS-NG\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"PEASS-NG\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 	eval $peassng
 	sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/PEASS-NG" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PEASS-NG</a>' ${install_path}/website/index.html
 	### Downloading and saving all the binaries for PEASS-NG
