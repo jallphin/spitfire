@@ -541,6 +541,11 @@ grey="#b3b3b3"
 auth_token=""
 static_auth_token=""
 
+#### TO ADD A PACKAGE #####
+# First, add it to a category below 
+# Second, you have to add it into the relevant menu function so you can toggle it
+# Third, in the install packages function, add the code to actually install it (in the huge case test)
+
 declare -A packages=( [matrix server]=1 [matrix web]=1 [IVRE]=1 [gitea]=1 [nextcloud]=1 [cyberchef]=1 [portainer.io]=1 [pentest collab framework]=1 [hastebin]=1 [guacamole]=0 )
 declare -A references=( [lolbas/gtfobins]=1 [hacktricks]=1 [payload all the things]=1 [cheatsheets]=1 [pentest standards]=1 [MITRE att&ck navigator]=0 [MITRE att&ck reference]=0 )
 declare -A auxiliary=( [cobalt strike community kit]=1 [seclists]=1 [hatecrack]=1 [slowloris]=1 [ghostpack]=1 [veil]=1 [cobalt strike elevate kit]=1 [cobalt strike c2 profiles]=1 [cobalt strike arsenal]=1 )
@@ -1401,7 +1406,7 @@ install_package() {
 			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $sliver
 			sleep 3
-			curl https://sliver.sh/install | sudo bash 2>&1 > /dev/null | slog
+			curl -s https://sliver.sh/install &>/dev/null | sudo bash &>/dev/null | slog
 			sleep 5
 			clear_menu "1"
 			;;
