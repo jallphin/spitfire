@@ -2,6 +2,7 @@
 <img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
 </p>
 
+<p alight="left">
 # Red Team Server (RTS)
 Deployable Nerve Center for Pentest Engagements 
 
@@ -122,3 +123,4 @@ Usually it is a problem with the 'auth-token'.
 
 # Thanks / Credit
 Thanks to all of the above authors of the software linked above. Without your outstanding hard work, ingenunity and selfless dedication to open source software none of this would be possible. With that being said, if you would like direct credit here, please reach out to me with your name, preferred contact method (if any), citations you may want to be included, and/or any other links to your work and I will put them here. 
+</p>
