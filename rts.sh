@@ -1082,32 +1082,32 @@ install_package() {
 		"matrix server")
 			es "installing matrix synapse server"
 			sudo -u rts echo $docker_compose_matrix_chat | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull synapse synapse-db 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull synapse synapse-db 2>&1 | slog
 			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate 2>&1 | slog
 			check_exit_code "$?" "matrix synapse server" | slog
 			add_hosts "matrix.rts.lan"
 			sleep 5
-			clear_menu "4"
+			clear_menu "2"
 			;;
 		"matrix web")
 			es "installing matrix web client"
 			sudo -u rts echo $docker_compose_element | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull element-web 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull element-web 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://element.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">matrix chat</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "matrix web client" | slog
 			add_hosts "element.rts.lan"
 			sleep 5
-			clear_menu "3"
+			clear_menu "2"
 			;;
 		"IVRE")
 			es "installing IVRE"
 			sudo -u rts echo $docker_compose_ivre | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent ivreuwsgi ivredoku  2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent ivreuwsgi ivredoku 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://ivre.rts.lan" class="w3-button w3-bar-item w3-center" target="_blank" rel="noopener noreferrer">IVRE</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "IVRE" | slog
 			add_hosts "ivre.rts.lan"
 			sleep 5
-			clear_menu "8"
+			clear_menu "2"
 			;;
 		"covenant")
 			es "installing covenant" 
@@ -1122,7 +1122,7 @@ install_package() {
 		"gitea")
 			es "installing gitea"
 			sudo -u rts echo $docker_compose_gitea | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull gitea-server gitea-db 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull gitea-server gitea-db 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://gitea.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">gitea</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "gitea" | slog
 			add_hosts "gitea.rts.lan"
@@ -1153,12 +1153,12 @@ install_package() {
 			sleep 5
 			static_auth_token=$auth_token
 			sleep 1
-			clear_menu "7"
+			clear_menu "4"
 			;;
 		"nextcloud")
 			es "installing nextcloud"
 			sudo -u rts echo $docker_compose_nextcloud | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull nextcloud_db nextcloud_app 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull nextcloud_db nextcloud_app 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://nextcloud.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">nextcloud</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "nextcloud" | slog
 			add_hosts "nextcloud.rts.lan"
@@ -1198,17 +1198,17 @@ install_package() {
 			sudo -u rts docker exec -e OC_PASS="${rts_password}" -t nextcloud_app runuser -u www-data -- /var/www/html/occ user:add --password-from-env --display-name="rts" --group="admin" rts | slog
 			if [ $? -eq 0 ]; then ec "nextcloud init completed."; else ee "initial nextcloud setup failed, please post an issue on the RTS github."; fi
 			sleep 5
-			clear_menu "6"
+			clear_menu "4"
 			;;
 		"cyberchef")
 			es "installing cyberchef"
 			sudo -u rts echo $docker_compose_cyberchef | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull cyberchef 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull cyberchef 2>&1 | slog 
 			sed -i '/<!-- mainsed -->/a <a href="http://cyberchef.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cyberchef</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "cyberchef" | slog
 			add_hosts "cyberchef.rts.lan"
 			sleep 5
-			clear_menu "3"
+			clear_menu "2"
 			;;
 		"portainer.io")
 			es "installing portainer.io"
@@ -1240,7 +1240,7 @@ install_package() {
 			check_exit_code "$?" "pcf" | slog
 			add_hosts "pcf.rts.lan"
 			sleep 5
-			clear_menu "3"
+			clear_menu "2"
 			;;
 		"lolbas/gtfobins")
 			es "installing lolbas/gtfobins"
@@ -1250,7 +1250,7 @@ install_package() {
 			sed -i '/<!-- refsed -->/a <a href="http://rts.lan:10060" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">gtfobins</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "lolbas/gtfobins" | slog
 			sleep 5
-			clear_menu "3"
+			clear_menu "2"
 			;;
 		"hacktricks")
 			es "installing hacktricks"
