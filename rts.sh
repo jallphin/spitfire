@@ -1676,6 +1676,12 @@ post_install() {
 	sed -i '/<!-- mainsed -->/a <a href="http://ssh.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>' ${install_path}/website/index.html
 	add_hosts "ssh.rts.lan"
 	sleep 3
+	# Install 'glow' markdown reader for command line.
+	# Debian/Ubuntu
+	sudo mkdir -p /etc/apt/keyrings
+	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+	echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+	sudo apt update && sudo apt install glow
 
 	es "starting rts services"
 	sudo systemctl restart rts-web-server.service | slog
