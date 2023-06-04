@@ -1518,7 +1518,7 @@ install() {
 		# sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 		sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | slog
 		sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | slog
-		if [ -d "${install_path}/lolbas" ]; then rm -rf ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
+		if [ -d "${install_path}/lolbas" ]; then rm -rf ${install_path}/lolbas && mkdir ${install_path}/lolbas && sudo chown rts:adm ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
 		sudo -u rts cp ${initial_working_dir}/{.env,config.json,watchdog.sh,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh,attacknav-Dockerfile,lolbas-Dockerfile,ivre.conf} ${install_path} | slog
 		sudo -u rts mv ${install_path}/lolbas-Dockerfile ${install_path}/lolbas/
 		es "changing working directory to ${install_path}"
