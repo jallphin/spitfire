@@ -1213,7 +1213,7 @@ install_package() {
 		"portainer.io")
 			es "installing portainer.io"
 			sudo -u rts echo $docker_compose_portainer| base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull portainer 2>&1
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull portainer 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://portainer.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">portainer</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "portainer.io" | slog
 			add_hosts "portainer.rts.lan"
