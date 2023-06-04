@@ -1741,7 +1741,7 @@ post_install() {
 	es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." | tee -a ${install_path}/red-share/rts.txt
 	es "sudo systemctl stop rts-watchdog.service to stop the watchdog service" | tee -a ${install_path}/red-share/rts.txt
 	es "sudo systemctl stop rts-web-server.service to stop the python http.server on port 8081" | tee -a ${install_path}/red-share/rts.txt
-	es "Privesc tools (PEASS-NG and all binaries) saved to Gitea PEASS-NG & /opt/peassng-bins respectively." | tee -a ${install_path}/red-share/rts.txt
+	es "Privesc tools PEASS-NG and all binaries saved to Gitea PEASS-NG & /opt/peassng-bins respectively." | tee -a ${install_path}/red-share/rts.txt
 	es "A copy of this text has been placed in ${install_path}/red-share/rts.txt" | tee -a ${install_path}/red-share/rts.txt
 	#es "rmap -> Reconmap CLI interface. Refer to its github for instructions."
 	ec "This concludes RTS installation." | tee -a ${install_path}/red-share/rts.txt
