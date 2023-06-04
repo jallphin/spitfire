@@ -1668,7 +1668,14 @@ post_install() {
 	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe | slog
 	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe | slog
 	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe | slog
-
+	## Installing wetty as a service:
+	es "installing wetty SSH service"
+	sudo -u rts echo $docker_compose_wetty | base64 -d >> ${install_path}/docker-compose.yml
+	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build wetty 2>&1 | slog
+	check_exit_code "$?" "wetty" | slog
+	sed -i '/<!-- mainsed -->/a <a href="http://ssh.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>' ${install_path}/website/index.html
+	add_hosts "ssh.rts.lan"
+	sleep 3
 
 	es "starting rts services"
 	sudo systemctl restart rts-web-server.service | slog
