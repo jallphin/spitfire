@@ -1218,7 +1218,7 @@ install_package() {
 			check_exit_code "$?" "portainer.io" | slog
 			add_hosts "portainer.rts.lan"
 			sleep 5
-			clear_menu "3"
+			clear_menu "2"
 			;;
 		"MITRE caldera")
 			es "installing MITRE caldera (long install)" 
