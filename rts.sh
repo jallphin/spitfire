@@ -1149,9 +1149,9 @@ install_package() {
 			if [ $? -eq 0 ]; then ec "gitea configured."; else ee "gitea configuration failed, please post an issue on the RTS github. exiting."; fi
 			# if this is a reinstall, we need to delete the old token and get a new one. This is a just in case to make sure gitea works. 
 			sleep 30 # 30 seconds to allow configuration above to kick in before we request user token. 
-			auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
 			sleep 5
-			static_auth_token=$auth_token
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml restart gitea-server gitea-db 2>&1 | slog
 			sleep 1
 			clear_menu "4"
 			;;
