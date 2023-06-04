@@ -24,8 +24,11 @@ It consists of:
 - Apache Guacamole access (via Apache Guacamole)
 
 # Screenshots
+### RTS Setup Script
 <img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-1.png?raw=true">
+### RTS Setup Script (Menus)
 <img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-2.png?raw=true">
+### RTS Homepage
 <img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-web-page-1.png?raw=true">
 
 ## Getting Started
