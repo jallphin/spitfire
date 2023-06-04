@@ -1250,7 +1250,7 @@ install_package() {
 			sed -i '/<!-- refsed -->/a <a href="http://rts.lan:10060" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">gtfobins</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "lolbas/gtfobins" | slog
 			sleep 5
-			clear_menu "2"
+			clear_menu "1"
 			;;
 		"hacktricks")
 			es "installing hacktricks"
@@ -1403,7 +1403,7 @@ install_package() {
 			sleep 3
 			curl https://sliver.sh/install | sudo bash 2>&1 > /dev/null | slog
 			sleep 5
-			clear_menu "2"
+			clear_menu "1"
 			;;
 		*)
 			echo "somethings wrong, cannot contiue" 
