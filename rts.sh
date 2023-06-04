@@ -1107,7 +1107,7 @@ install_package() {
 			check_exit_code "$?" "IVRE" | slog
 			add_hosts "ivre.rts.lan"
 			sleep 5
-			clear_menu "6"
+			clear_menu "8"
 			;;
 		"covenant")
 			es "installing covenant" 
@@ -1552,6 +1552,7 @@ install() {
 	#chmod 775 /opt/rts/docker-compose.yml
 	sleep 1.5; clear_menu "1"
 	ew "start crack-a-lackin"
+	sleep 1.5; clear_menu "1"
 	# Now we need to check the associaitive array to determine which packages are installed.
 	# Populate docker-compose preamble
 	echo $docker_compose_preamble | base64 -d > ${install_path}/docker-compose.yml

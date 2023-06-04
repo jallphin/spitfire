@@ -23,6 +23,11 @@ It consists of:
 - Web based SSH access (via wetty)
 - Apache Guacamole access (via Apache Guacamole)
 
+# Screenshots
+<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/rts-menu-1.png?raw=true">
+<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/rts-menu-2.png?raw=true">
+<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/rts-web-page-1?raw=true">
+
 ## Getting Started
 While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
 
@@ -110,6 +115,7 @@ RTS can also be deployed as a virtual machine for easier deployments:
 2. Glow Markdown Command Line Reader (https://github.com/charmbracelet/glow)
 3. PEASS-NG Privelege Escalation Tools (https://github.com/carlospolop/PEASS-ng)
 4. Wetty Terminal Access in a webpage (https://github.com/butlerx/wetty)
+5. Properly configures Metasploit for shared database connectivity - allowing team collaboration. 
 
 # Troubleshooting
 ## Environment does not come up (docker problems)
