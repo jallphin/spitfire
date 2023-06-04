@@ -558,14 +558,15 @@ docker_compose_hastebin="IyMjIyMgSGFzdGViaW4gIyMjIyMKICBoYXN0ZWJpbndlYjoKICAgIGN
 docker_compose_caldera="IyMjIyMgTUlUUkUgQ2FsZGVyYSAjIyMjIwogIGNhbGRlcmE6CiAgICBjb250YWluZXJfbmFtZTogY2FsZGVyYQogICAgYnVpbGQ6CiAgICAgIGNvbnRleHQ6IC4vY2FsZGVyYS8KICAgICAgZG9ja2VyZmlsZTogRG9ja2VyZmlsZQogICAgICBhcmdzOgogICAgICAgIFRaOiAiVVRDIiAjVFogc2V0cyB0aW1lem9uZSBmb3IgdWJ1bnR1IHNldHVwCiAgICAgICAgV0lOX0JVSUxEOiAidHJ1ZSIgI1dJTl9CVUlMRCBpcyB1c2VkIHRvIGVuYWJsZSB3aW5kb3dzIGJ1aWxkIGluIHNhbmRjYXQgcGx1Z2luCiAgICBpbWFnZTogY2FsZGVyYTpsYXRlc3QKICAgIHBvcnRzOgogICAgICAtICI4ODg4Ojg4ODgiCiAgICAgIC0gIjg0NDM6ODQ0MyIKICAgICAgLSAiNzAxMDo3MDEwIgogICAgICAtICI3MDExOjcwMTEvdWRwIgogICAgICAtICI3MDEyOjcwMTIiCiAgICAgIC0gIjg4NTM6ODg1MyIKICAgICAgLSAiODAyMjo4MDIyIgogICAgICAtICIyMjIyOjIyMjIiCiAgICB2b2x1bWVzOgogICAgICAtIC4vY2FsZGVyYTovdXNyL3NyYy9hcHAKICAgIGNvbW1hbmQ6IC0taW5zZWN1cmUgLS1sb2cgREVCVUcKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1jYWxkZXJhLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODg4OAo="
 docker_compose_element="IyMjIyMgRWxlbWVudCBXZWIgQ2xpZW50IGZvciBTeW5hcHNlICMjIyMjCiAgZWxlbWVudC13ZWI6CiAgICBjb250YWluZXJfbmFtZTogZWxlbWVudC13ZWIKICAgIGltYWdlOiBnaGNyLmlvL2J1YnVudHV4L2VsZW1lbnQtd2ViCiAgICBleHBvc2U6CiAgICAgIC0gODAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1lbGVtZW50LnJ0cy5sYW4K"
 docker_compose_wetty="IyMjIyMgd2V0dHkgLSB0ZXJtaW5hbCBiYXNlZCBzc2ggIyMjIyMgIAogIHdldHR5OgogICAgZXhwb3NlOgogICAgICAtIDgwCiAgICBpbWFnZTogd2V0dHlvc3Mvd2V0dHkKICAgIGNvbW1hbmQ6IC0tc3NoLWhvc3Q9IiR7cnRzX2lwX2FkZHJlc3N9IiAtLXNzaC11c2VyPXJ0cwogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPXNzaC5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTMwMDAK"
-docker_compose_covenant="IyMjIyMgQ292ZW5hbnQgQzIgSW5mcmFzdHJ1Y3R1cmUgIyMjIyMgLSBjb25maWd1cmVkIGZvciBodHRwcyBvbiBwb3J0IDc0NDMsIG5vdCBwcm94aWVkLCBodHRwIGxpc3RlbmVycyB0byA4MCwgaHR0dHBzIGxpc3RlbmVycyB0byA0NDMKICBjb3ZlbmFudDoKICAgIGJ1aWxkOiAuL2NvdmVuYW50Ly4KICAgIGNvbnRhaW5lcl9uYW1lOiBjb3ZlbmFudAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVFo9UGFjaWZpYy9Mb3NfQW5nZWxlcwogICAgcG9ydHM6CiAgICAgIC0gNzQ0Mzo3NDQzCiAgICAgIC0gNDQzOjQ0MwogICAgICAtIDgwODg6ODAKICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCg=="
 docker_compose_portainer="IyMjIyMgUG9ydGFpbmVyLmlvIENvbnRhaW5lciBNYWludGVuYW5jZSAjIyMjIwogIHBvcnRhaW5lcjoKICAgIGltYWdlOiBwb3J0YWluZXIvcG9ydGFpbmVyLWNlOmxhdGVzdAogICAgY29udGFpbmVyX25hbWU6IHBvcnRhaW5lcgogICAgcmVzdGFydDogdW5sZXNzLXN0b3BwZWQKICAgIHNlY3VyaXR5X29wdDoKICAgICAgLSBuby1uZXctcHJpdmlsZWdlczp0cnVlCiAgICB2b2x1bWVzOgogICAgICAtIC9ldGMvbG9jYWx0aW1lOi9ldGMvbG9jYWx0aW1lOnJvCiAgICAgIC0gL3Zhci9ydW4vZG9ja2VyLnNvY2s6L3Zhci9ydW4vZG9ja2VyLnNvY2s6cm8KICAgICAgLSAuL3BvcnRhaW5lci1kYXRhOi9kYXRhCiAgICBleHBvc2U6CiAgICAgIC0gOTAwMAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPXBvcnRhaW5lci5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTkwMDAK"
 docker_compose_pcf="IyMjIyMgUGVuZXRyYXRpb24gVGVzdGluZyBDb2xsYWJvcmF0aW9uIEZyYW1ld29yayAjIyMjIwogIHBjZjoKICAgICBidWlsZDogLi9wY2YvLgogICAgIGNvbnRhaW5lcl9uYW1lOiBwY2YKICAgICBleHBvc2U6CiAgICAgICAtIDUwMDAKICAgICB2b2x1bWVzOgogICAgICAgLSAuL3BjZjovcGNmCiAgICAgZW52aXJvbm1lbnQ6CiAgICAgICAtIFZJUlRVQUxfSE9TVD1wY2YucnRzLmxhbgogICAgICAgLSBWSVJUVUFMX1BPUlQ9NTAwMAo="
 docker_compose_attacknav="IyMjIyMgTUlUUkUgQXR0JmNrIE5hdmlnYXRvciAjIyMjIwogIGF0dGFjay1uYXYtbm9kZToKICAgIGNvbnRhaW5lcl9uYW1lOiBhdHRhY2stbmF2LW5vZGUKICAgIGJ1aWxkOgogICAgICBjb250ZXh0OiAuL2F0dGFjay1uYXZpZ2F0b3IKICAgICAgZG9ja2VyZmlsZTogRG9ja2VyZmlsZQogICAgZXhwb3NlOgogICAgICAtIDQyMDAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1hdHRhY2stbmF2LnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9NDIwMAo="
 docker_compose_attackweb="IyMjIyBNSVRSRSBBVFRBQ0sgV0VCIFNJVEUgIyMjIwogIGF0dGFjay13ZWI6CiAgICBjb250YWluZXJfbmFtZTogYXR0YWNrLXdlYgogICAgYnVpbGQ6IC4vYXR0YWNrLXdlYnNpdGUKICAgIGV4cG9zZToKICAgICAgLSA4MAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPWF0dGFjay5ydHMubGFuCg=="
 docker_compose_cyberchef="IyMjIyMgQ3liZXJDaGVmICMjIyMjCiAgY3liZXJjaGVmOgogICAgaW1hZ2U6IG1wZXBwaW5nL2N5YmVyY2hlZjpsYXRlc3QKICAgIGNvbnRhaW5lcl9uYW1lOiBjeWJlcmNoZWYKICAgIHBvcnRzOgogICAgICAtIDgwMDAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1jeWJlcmNoZWYucnRzLmxhbgogICAgICAtIFZJUlRVQUxfUE9SVD04MDAwCg=="
 docker_compose_lolbas="IyMjIyMgTE9MQkFTIGFuZCBHVEZPYmlucyBSZWZlcmVuY2VzIFdlYnNlcnZlciAjIyMjIwogIGxvbGJhczoKICAgIGNvbnRhaW5lcl9uYW1lOiBsb2xiYXMtZ3RmbwogICAgYnVpbGQ6CiAgICAgIGNvbnRleHQ6IC4vbG9sYmFzCiAgICAgIGRvY2tlcmZpbGU6IGxvbGJhcy1Eb2NrZXJmaWxlCiAgICBwb3J0czoKICAgICAgLSAnMTAwNTA6MTAwNTAnCiAgICAgIC0gJzEwMDYwOjEwMDYwJwogICAgY29tbWFuZDogPgogICAgICAvYmluL3NoIC1jICdjZCAvb3B0L0xPTEJBUyAmJgogICAgICAoIGJ1bmRsZSBleGVjIGpla3lsbCBzZXJ2ZSAtLWhvc3QgMC4wLjAuMCAtUCAxMDA1MCAmKSAmJgogICAgICBjZCAvb3B0L2d0Zm9iaW5zICYmCiAgICAgIGJ1bmRsZSBleGVjIGpla3lsbCBzZXJ2ZSAtLWhvc3QgMC4wLjAuMCAtUCAxMDA2MCcK"
-docker_compose_empire="IyMjIyMgQkMtU2VjdXJpdGllcyBQb3dlcnNoZWxsIEVtcGlyZSAjIyMjIwogIGVtcGlyZToKICAgIGNvbnRhaW5lcl9uYW1lOiBlbXBpcmUKICAgIGltYWdlOiBiY3NlY3VyaXR5L2VtcGlyZTpsYXRlc3QKICAgIHBvcnRzOgogICAgICAtIDEzMzc6MTMzNwogICAgICAtIDUwMDA6NTAwMAogICAgdm9sdW1lczoKICAgICAgLSAuL2VtcGlyZTovZGF0YQo="
+docker_compose_empire="IyMjIyMgQkMtU2VjdXJpdGllcyBQb3dlcnNoZWxsIEVtcGlyZSAjIyMjIw0KICBlbXBpcmU6DQogICAgY29udGFpbmVyX25hbWU6IGVtcGlyZQ0KICAgIGltYWdlOiBiY3NlY3VyaXR5L2VtcGlyZTpsYXRlc3QNCiAgICBwb3J0czoNCiAgICAgIC0gMTMzNzoxMzM3DQogICAgICAtIDUwMDA6NTAwMA0KICAgIHZvbHVtZXM6DQogICAgICAtIC4vZW1waXJlOi9kYXRhDQogICAgZW52aXJvbm1lbnQ6DQogICAgICAtIFZJUlRVQUxfSE9TVD1lbXBpcmUucnRzLmxhbg0KICAgICAgLSBWSVJUVUFMX1BPUlQ9MTMzNwo=="
+docker_compose_covenant="IyMjIyMgQ29udmVuYW50IEMyICMjIyMjIw0KICBjb3ZlbmFudDoNCiAgICBidWlsZDogLi9jb3ZlbmFudC8uDQogICAgY29udGFpbmVyX25hbWU6IGNvdmVuYW50DQogICAgZW52aXJvbm1lbnQ6DQogICAgICAtIFRaPVBhY2lmaWMvTG9zX0FuZ2VsZXMNCiAgICBwb3J0czoNCiAgICAgIC0gNzQ0Mzo3NDQzDQogICAgICAtIDQ0Mzo0NDMNCiAgICAgIC0gODA4MDo4MA0KICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCgo="
+
 # Cobalt Strike Community kit has its own setup script, which we'll need to replicate for our local gitea instance. Best way is probably to download the tracked_repos.txt from gitea, and then use a for loop to clone those bad boys. Thing is, they are tracked...
 # so mirroring is good to keep the list up to date, but how to pull the rest of the repos? something to ponder later, I guess.
 # So after some thought, ask the user if he wants to download the community kit, and if so clone all of them locally using the script. A simple clone from Internet -> execute script -> done.
@@ -1381,6 +1382,25 @@ install_package() {
 			sleep 5
 			clear_menu "2"
 			;;
+	    "powershell empire/starkiller")
+			es "installing Powershell Empire"
+			sudo -u rts echo $docker_compose_empire | base64 -d >> ${install_path}/docker-compose.yml
+			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build empire 2>&1 | slog
+			check_exit_code "$?" "empire" | slog
+			sed -i '/<!-- mainsed -->/a <a href="http://empire.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">EMPIRE</a>' ${install_path}/website/index.html
+			add_hosts "empire.rts.lan"
+			sleep 5
+			clear_menu "2"
+			;;
+		"sliver")
+			es "installing sliver C2 (locally and in gitea, no webpage link)"
+			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+			eval $sliver
+			sleep 3
+			curl https://sliver.sh/install|sudo bash
+			sleep 5
+			clear_menu "2"
+			;;
 		*)
 			echo "somethings wrong, cannot contiue" 
 			echo "Returning."
@@ -1624,6 +1644,32 @@ post_install() {
 	sudo -u root echo $rts_watch_dog | base64 -d > /etc/systemd/system/rts-watchdog.service | slog
 	sudo systemctl daemon-reload
 	sleep 3
+	# installing privesc toolage
+	es "Mirroring PEASS-ng"
+	peassng="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/PEASS-ng.git", \"description\": \"PEASS-NG\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"PEASS-NG\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
+	eval $peassng
+	sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/PEASS-NG" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PEASS-NG</a>' ${install_path}/website/index.html
+	### Downloading and saving all the binaries for PEASS-NG
+	es "Downloading all binaries for PEASS-NG to /opt/peassng-bins/"
+	sudo mkdir /opt/peassng-bins
+	sudo chmod 777 /opt/peassng-bins
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_arm64 -O /opt/peassng-bins/linpeas_darwin_arm64 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_fat.sh -O /opt/peassng-bins/linpeas_fat.sh | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_386 -O /opt/peassng-bins/linpeas_linux_386 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_amd64 -O /opt/peassng-bins/linpeas_linux_amd64 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm -O /opt/peassng-bins/linpeas_linux_arm | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm64 -O /opt/peassng-bins/linpeas_linux_arm64 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEAS.bat -O /opt/peassng-bins/winPEAS.bat | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany.exe -O /opt/peassng-bins/winPEASany.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany_ofs.exe -O /opt/peassng-bins/winPEASany_ofs.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64.exe -O /opt/peassng-bins/winPEASx64.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe | slog
+
+
 	es "starting rts services"
 	sudo systemctl restart rts-web-server.service | slog
 	sudo systemctl restart rts-watchdog.service | slog
@@ -1682,6 +1728,7 @@ post_install() {
 	es "nuke-docker.sh -> completely destroys docker environment for fresh install on same box." | tee -a ${install_path}/red-share/rts.txt
 	es "sudo systemctl stop rts-watchdog.service to stop the watchdog service" | tee -a ${install_path}/red-share/rts.txt
 	es "sudo systemctl stop rts-web-server.service to stop the python http.server on port 8081" | tee -a ${install_path}/red-share/rts.txt
+	es "Privesc tools (PEASS-NG and all binaries) saved to Gitea PEASS-NG & /opt/peassng-bins respectively." | tee -a ${install_path}/red-share/rts.txt
 	es "A copy of this text has been placed in ${install_path}/red-share/rts.txt" | tee -a ${install_path}/red-share/rts.txt
 	#es "rmap -> Reconmap CLI interface. Refer to its github for instructions."
 	ec "This concludes RTS installation." | tee -a ${install_path}/red-share/rts.txt
