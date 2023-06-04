@@ -1518,7 +1518,7 @@ install() {
 		# sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
 		sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | slog
 		sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | slog
-		if [ -d "${install_path}/lolbas" ]; then rm ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
+		if [ -d "${install_path}/lolbas" ]; then rm -rf ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
 		sudo -u rts cp ${initial_working_dir}/{.env,config.json,watchdog.sh,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh,attacknav-Dockerfile,lolbas-Dockerfile,ivre.conf} ${install_path} | slog
 		sudo -u rts mv ${install_path}/lolbas-Dockerfile ${install_path}/lolbas/
 		es "changing working directory to ${install_path}"
@@ -1701,14 +1701,14 @@ post_install() {
 	sudo mkdir -p /etc/apt/keyrings 2>&1 | slog
 	sudo rm /etc/apt/keyrings/charm.gpg 2>&1 | slog
 	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg -q --dearmor -o /etc/apt/keyrings/charm.gpg 2>&1 | slog
-	echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-	sudo apt update && sudo apt install -y glow 2>&1 | slog
+	echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list &>/dev/null
+	sudo apt update &>/dev/null && sudo apt install -y glow &>/dev/null
 
 	es "starting rts services"
-	sudo systemctl enable rts-web-server.service | slog
-	sudo systemctl enable rts-watchdog.service | slog
-	sudo systemctl start rts-web-server.service | slog
-	sudo systemctl start rts-watchdog.service | slog
+	sudo systemctl enable rts-web-server.service &>/dev/null | slog
+	sudo systemctl enable rts-watchdog.service &>/dev/null | slog
+	sudo systemctl start rts-web-server.service &>/dev/null | slog
+	sudo systemctl start rts-watchdog.service &>/dev/null | slog
 	sed -i '/<!-- mainsed -->/a <a href="http://rts.lan:8081" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">red-share</a>' ${install_path}/website/index.html | slog
     #clear_menu "2"
 	sleep 3
@@ -1716,9 +1716,9 @@ post_install() {
     msfdb init 2>&1 | slog
     sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
     sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             all            scram-sha-256/g" /etc/postgresql/14/main/pg_hba.conf
-    sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';"
-    sudo systemctl enable postgresql
-	sudo systemctl restart postgresql
+    sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';" &>/dev/null
+    sudo systemctl enable postgresql &>/dev/null
+	sudo systemctl restart postgresql &>/dev/null
 	mv /usr/share/metaspoit-framework/config/database.yml /usr/share/metasploit-framework/config/database.orig 
 	echo "production:" > /usr/share/metasploit-framework/config/database.yml
 	echo "  adapter: postgresql" >> /usr/share/metasploit-framework/config/database.yml
