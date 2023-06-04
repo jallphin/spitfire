@@ -1373,7 +1373,6 @@ install_package() {
 			;;
 		"MITRE att&ck reference")
 			es "installing MITRE att&ck ref (long install)"
-			sudo -u rts echo $docker_compose_attackweb | base64 -d >> ${install_path}/docker-compose.yml
 			if [ -d "${install_path}/attack-website" ]; then sudo -u rts git -C ${install_path}/attack-website/ pull 2>&1 | slog; else sudo -u rts git clone https://github.com/mitre-attack/attack-website.git ${install_path}/attack-website 2>&1 | slog; fi
 			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build attack-web 2>&1 | slog
 			sed -i '/<!-- refsed -->/a <a href="http://attack.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">att&ck reference</a>' ${install_path}/website/index.html
@@ -1653,21 +1652,21 @@ post_install() {
 	es "Downloading all binaries for PEASS-NG to /opt/peassng-bins/"
 	sudo mkdir /opt/peassng-bins
 	sudo chmod 777 /opt/peassng-bins
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_arm64 -O /opt/peassng-bins/linpeas_darwin_arm64 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_fat.sh -O /opt/peassng-bins/linpeas_fat.sh | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_386 -O /opt/peassng-bins/linpeas_linux_386 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_amd64 -O /opt/peassng-bins/linpeas_linux_amd64 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm -O /opt/peassng-bins/linpeas_linux_arm | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm64 -O /opt/peassng-bins/linpeas_linux_arm64 | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEAS.bat -O /opt/peassng-bins/winPEAS.bat | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany.exe -O /opt/peassng-bins/winPEASany.exe | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany_ofs.exe -O /opt/peassng-bins/winPEASany_ofs.exe | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64.exe -O /opt/peassng-bins/winPEASx64.exe | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe | slog
-	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas.sh -O /opt/peassng-bins/linpeas.sh 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_amd64 -O /opt/peassng-bins/linpeas_darwin_amd64 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_darwin_arm64 -O /opt/peassng-bins/linpeas_darwin_arm64 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_fat.sh -O /opt/peassng-bins/linpeas_fat.sh 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_386 -O /opt/peassng-bins/linpeas_linux_386 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_amd64 -O /opt/peassng-bins/linpeas_linux_amd64 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm -O /opt/peassng-bins/linpeas_linux_arm 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/linpeas_linux_arm64 -O /opt/peassng-bins/linpeas_linux_arm64 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEAS.bat -O /opt/peassng-bins/winPEAS.bat 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany.exe -O /opt/peassng-bins/winPEASany.exe 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASany_ofs.exe -O /opt/peassng-bins/winPEASany_ofs.exe 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64.exe -O /opt/peassng-bins/winPEASx64.exe 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx64_ofs.exe -O /opt/peassng-bins/winPEASx64_ofs.exe 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86.exe -O /opt/peassng-bins/winPEASx86.exe 2>&1 | slog
+	wget https://github.com/carlospolop/PEASS-ng/releases/download/20230604-b0985b44/winPEASx86_ofs.exe -O /opt/peassng-bins/winPEASx86_ofs.exe 2>&1 | slog
 	## Installing wetty as a service:
 	es "installing wetty SSH service"
 	sudo -u rts echo $docker_compose_wetty | base64 -d >> ${install_path}/docker-compose.yml
@@ -1679,9 +1678,9 @@ post_install() {
 	# Install 'glow' markdown reader for command line.
 	# Debian/Ubuntu
 	sudo mkdir -p /etc/apt/keyrings
-	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+	curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg 2>&1 | slog
 	echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-	sudo apt update && sudo apt install glow
+	sudo apt update && sudo apt install glow 2>&1 | slog
 
 	es "starting rts services"
 	sudo systemctl restart rts-web-server.service | slog
