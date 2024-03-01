@@ -1154,7 +1154,7 @@ install_package() {
 			if [ $? -eq 0 ]; then ec "gitea configured."; else ee "gitea configuration failed, please post an issue on the RTS github. exiting."; fi
 			# if this is a reinstall, we need to delete the old token and get a new one. This is a just in case to make sure gitea works. 
 			sleep 30 # 30 seconds to allow configuration above to kick in before we request user token. 
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t rts1 --scopes all | cut -d" " -f 6)
 			sleep 5
 			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml restart gitea-server gitea-db 2>&1 | slog
 			sleep 1
@@ -1259,7 +1259,7 @@ install_package() {
 			;;
 		"hacktricks")
 			es "installing hacktricks"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t hacktricks --scopes all | cut -d" " -f 6)
 			hacktricks="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/hacktricks.git\", \"description\": \"hacktricks.xyz\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hacktricks\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $hacktricks
 			sed -i '/<!-- refsed -->/a <a href="http://gitea.rts.lan/rts/hacktricks" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">hacktricks</a>' ${install_path}/website/index.html
@@ -1267,7 +1267,7 @@ install_package() {
 			;;
 		"payload all the things")
 			es "installing payload all the things"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t patt --scopes all | cut -d" " -f 6)
 			payload_all_the_things="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/swisskyrepo/PayloadsAllTheThings.git\", \"description\": \"A list of useful payloads\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"payload_all_the_things\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $payload_all_the_things 
 			sed -i '/<!-- refsed -->/a <a href="http://gitea.rts.lan/rts/payload_all_the_things" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">payload all the things</a>' ${install_path}/website/index.html
@@ -1285,7 +1285,7 @@ install_package() {
 			;;
 		"cobalt strike community kit")
 			es "installing cobalt strike community kit"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t csck --scopes all | cut -d" " -f 6)
 			cobalt_strike_community_kit="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/community_kit.git\", \"description\": \"Cobalt Strike Community Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_community_kit\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_community_kit
 			git clone http://gitea.rts.lan/rts/cobalt_strike_community_kit.git ${install_path}/cobalt_strike_community_kit/ > /dev/null 2>&1  | slog
@@ -1296,7 +1296,7 @@ install_package() {
 			;;
 		"seclists")
 			es "installing seclists"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t seclists --scopes all | cut -d" " -f 6)
 			seclists="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/danielmiessler/SecLists.git\", \"description\": \"SecLists\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"SecLists\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $seclists
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/seclists" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">seclists</a>' ${install_path}/website/index.html
@@ -1314,7 +1314,7 @@ install_package() {
 			;;
 		"hatecrack")
 			es "installing hatecrack"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t hatecrack --scopes all | cut -d" " -f 6)
 			hatecrack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/trustedsec/hate_crack.git\", \"description\": \"TrustedSec HateCrack\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"hatecrack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $hatecrack
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/hatecrack" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">hatecrack</a>' ${install_path}/website/index.html
@@ -1322,7 +1322,7 @@ install_package() {
 			;;
 		"slowloris")
 			es "installing slowloris"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t slowloris --scopes all | cut -d" " -f 6)
 			slowloris="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/gkbrk/slowloris.git\", \"description\": \"Slowloris DOS\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"slowloris\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $slowloris
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/slowloris" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">slowloris</a>' ${install_path}/website/index.html 
@@ -1330,7 +1330,7 @@ install_package() {
 			;;
 		"ghostpack")
 			es "installing ghostpack"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t ghostpack --scopes all | cut -d" " -f 6)
 			ghostpack="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/r3motecontrol/Ghostpack-CompiledBinaries.git\", \"description\": \"Ghostpacks C# Binaries\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"ghostpack\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $ghostpack
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/ghostpack" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">ghostpack</a>' ${install_path}/website/index.html
@@ -1338,7 +1338,7 @@ install_package() {
 			;;
 		"veil")
 			es "installing veil evasion framework"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t veil --scopes all | cut -d" " -f 6)
 			veil="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Veil-Framework/Veil.git\", \"description\": \"Veil Evasion Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"veil-evasion\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $veil
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/veil-evasion" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">veil evasion</a>' ${install_path}/website/index.html
@@ -1346,7 +1346,7 @@ install_package() {
 			;;
 		"cobalt strike elevate kit")
 			es "installing cobalt strike elevate kit"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t csek --scopes all | cut -d" " -f 6)
 			cobalt_strike_elevate="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/ElevateKit.git\", \"description\": \"Cobalt Strike Elevate Kit\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_elevate\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_elevate
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_elevate" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs elevate kit</a>' ${install_path}/website/index.html
@@ -1354,7 +1354,7 @@ install_package() {
 			;;
 		"cobalt strike c2 profiles")
 			es "installing cobalt strike c2 profiles"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t csc2 --scopes all | cut -d" " -f 6)
 			cobalt_strike_c2_profiles="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/Cobalt-Strike/Malleable-C2-Profiles.git\", \"description\": \"Cobalt Strike Malleable C2 Profiles\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_malleable-c2\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_c2_profiles
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_malleable-c2" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs c2 profiles</a>' ${install_path}/website/index.html
@@ -1362,7 +1362,7 @@ install_package() {
 			;;
 		"cobalt strike arsenal")
 			es "installing cobalt strike arsenal"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t arsenal --scopes all | cut -d" " -f 6)
 			cobalt_strike_arsenal="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/mgeeky/cobalt-arsenal.git\", \"description\": \"Cobalt Strike Battle Tested Arsenal\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"cobalt_strike_arsenal\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $cobalt_strike_arsenal
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/cobalt_strike_arsenal" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cs arsenal</a>' ${install_path}/website/index.html
@@ -1402,7 +1402,7 @@ install_package() {
 			;;
 		"sliver")
 			es "installing sliver C2 locally and in gitea, no webpage link"
-			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t sliver --scopes all | cut -d" " -f 6)
 			sliver="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/BishopFox/sliver.git\", \"description\": \"Sliver C2 Framework\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"sliver c2 framework\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 			eval $sliver
 			sleep 3
@@ -1521,11 +1521,13 @@ install() {
             chown -R rts:adm ${install_path} | slog
         fi
 		# sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
-		sudo -u rts cp -R ${initial_working_dir}/covenant ${install_path} | slog
-		sudo -u rts cp -R ${initial_working_dir}/hastebin ${install_path} | slog
+		sudo cp -R ${initial_working_dir}/covenant ${install_path} | slog
+		sudo cp -R ${initial_working_dir}/hastebin ${install_path} | slog
 		if [ -d "${install_path}/lolbas" ]; then rm -rf ${install_path}/lolbas && mkdir ${install_path}/lolbas && sudo chown rts:adm ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
-		sudo -u rts cp ${initial_working_dir}/{.env,config.json,watchdog.sh,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh,attacknav-Dockerfile,lolbas-Dockerfile,ivre.conf} ${install_path} | slog
-		sudo -u rts mv ${install_path}/lolbas-Dockerfile ${install_path}/lolbas/
+		sudo cp ${initial_working_dir}/{.env,config.json,watchdog.sh,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh,attacknav-Dockerfile,lolbas-Dockerfile,ivre.conf} ${install_path} | slog
+		sudo mv ${install_path}/lolbas-Dockerfile ${install_path}/lolbas/
+		sudo chown -R rts /opt/rts/*
+
 		es "changing working directory to ${install_path}"
     	cd ${install_path}
         pwd
@@ -1550,7 +1552,8 @@ install() {
 	sleep 1.5; clear_menu "3"
 	es "setting up file system structure"
 	### Need to add functionality to check and see if directory exists
-    sudo -u rts cp -R ${initial_working_dir}/website  ${install_path}/ | slog
+    sudo cp -R ${initial_working_dir}/website  ${install_path}/ | slog
+    sudo chown -R rts ${install_path}/
 	if [ ! -d "${install_path}/red-share" ]; then sudo -u rts mkdir ${install_path}/red-share | slog; fi
 	if [ ! -d "${install_path}/red-share/ivre" ]; then sudo -u rts mkdir ${install_path}/red-share/ivre | slog; fi
 	sudo -u rts chmod -R 777 ${install_path}/red-share | slog
@@ -1671,7 +1674,7 @@ post_install() {
 	sleep 3
 	# installing privesc toolage
 	es "Mirroring PEASS-ng"
-	static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts --scopes all | cut -d" " -f 6)
+	static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t peass --scopes all | cut -d" " -f 6)
 	peassng="curl -s -X 'POST' 'http://gitea.rts.lan/api/v1/repos/migrate' -H 'Authorization: token ${static_auth_token}' -H 'accept: application/json' -H 'Content-Type: application/json' -d '{ \"clone_addr\": \"https://github.com/carlospolop/PEASS-ng.git\", \"description\": \"PEASS-NG\", \"issues\": false, \"labels\": false, \"lfs\": false, \"milestones\": false, \"mirror\": false, \"private\": false, \"pull_requests\": false, \"releases\": false, \"repo_name\": \"PEASS-NG\", \"repo_owner\": \"rts\", \"service\": \"git\", \"uid\": 0, \"wiki\": false }' | tee -a $log > /dev/null"
 	eval $peassng
 	sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/PEASS-NG" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PEASS-NG</a>' ${install_path}/website/index.html
