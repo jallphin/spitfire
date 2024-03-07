@@ -1,7 +1,4 @@
-<p align="center">
-![spitfire](https://github.com/jallphin/red-team-server/blob/main/spitfire.png?raw=true)
-
-</p>
+![spitfire](spitfire.png)
 
 # Spitfire 
 Deployable Nerve Center for Pentest Engagements 
