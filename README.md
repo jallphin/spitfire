@@ -1,8 +1,8 @@
 <p align="center">
-<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
+![spitfire](https://github.com/jallphin/red-team-server/assets/19333606/d5d93d1b-4045-414f-8841-8cdab29e04e2)
 </p>
 
-# Red Team Server (RTS)
+# Spitfire 
 Deployable Nerve Center for Pentest Engagements 
 
 Overview:
