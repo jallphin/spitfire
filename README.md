@@ -1,5 +1,5 @@
 <p align="center">
-![spitfire](https://github.com/jallphin/red-team-server/spitfire.png)
+![spitfire](./spitfire.png)
 
 </p>
 
