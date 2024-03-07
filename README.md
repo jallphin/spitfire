@@ -1,5 +1,5 @@
 <p align="center">
-![spitfire](https://github.com/jallphin/red-team-server/assets/19333606/d5d93d1b-4045-414f-8841-8cdab29e04e2)
+[spitfire](https://github.com/jallphin/red-team-server/assets/19333606/d5d93d1b-4045-414f-8841-8cdab29e04e2)
 </p>
 
 # Spitfire 
