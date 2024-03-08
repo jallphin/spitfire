@@ -23,19 +23,19 @@ What if you could bring along a small, portable server that had:
 9. Convienent "pastebin" functionality for working and collaborting on the fly
 10. Command shortcut script to help redteams remember proper syntax
 
-# Welcome to RTS
+# Welcome to _Spitfire_
 
-At it's heart RTS is just a culmination of others people hard work and ingenunity which has been curated, automated, and made easy to install.
-RTS is meant to be installed on a portable computing device that you can take with you to pentest engagements. 
+At it's heart Spitfire is just a culmination of others people hard work and ingenunity which has been curated, automated, and made easy to install.
+Spitfire is meant to be installed on a portable computing device that you can take with you to pentest engagements. 
 The way we use this guy:
 1. ASUS Vivomini (https://www.asus.com/us/Displays-Desktops/Mini-PCs/VivoMini/)
 2. ESXI 6.5 installed (the ESXi 6.5 image actually needs to modified with proper LAN drivers to work)
 3. Kali as a virtual machine running inside ESXI 6.5
 4. Each service running a docker micro-service utilizing docker-compose and a master bash script for automation. 
 
-The culmination of the all four steps above results in something we call RTS. 
+The culmination of the all four steps above results in something we call Spitfire. 
 
-When RTS is deployed this way, it provides a convienent, deployable nerve center for any pentest engagement. 
+When Spitfire is deployed this way, it provides a convienent, deployable nerve center for any pentest engagement. 
 
 # Composition
 1. Kali Linux (https://www.kali.org/)
@@ -63,13 +63,13 @@ When RTS is deployed this way, it provides a convienent, deployable nerve center
 23. Automated scanning and enumeration script using IVRE (with screenshots and collaborative scratchpad), nuclei and auto imports them into PCF for collaboration. 
 
 # Get Started
-While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
+While the above description of Spitfire is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
 
-Other than that, you clone this repository into a blank kali linux install, ```chmod +x ./rts-setup``` and execute. 
+Other than that, you clone this repository into a blank kali linux install, ```chmod +x ./spitfire-setup``` and execute. 
 
 # Using
 
-As mentioned above, you'll need to edit your testing system (defined as the the system you will be using to conduct penetration tests against a target) host file. The ```rts-setup.sh``` script will tell you all the relevant hostnames and IP's so it should just be a simple copy + paste operation. 
+As mentioned above, you'll need to edit your testing system (defined as the the system you will be using to conduct penetration tests against a target) host file. The ```spitfire-setup.sh``` script will tell you all the relevant hostnames and IP's so it should just be a simple copy + paste operation. 
 
 Once done, everything *should* be setup and installed. Just navigate to any of the URL's and use as the author of that software intended. 
 
