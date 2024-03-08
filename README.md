@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" src="spitfire-logo2.png">
+  <img src="spitfire-logo2.png">
 </p>
 # Spitfire 
 Deployable Nerve Center for Pentest Engagements 
