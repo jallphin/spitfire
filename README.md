@@ -1,4 +1,4 @@
-![spitfire](spitfire.png)
+![spitfire](spitfire-logo2.png)
 
 # Spitfire 
 Deployable Nerve Center for Pentest Engagements 
