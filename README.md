@@ -2,7 +2,7 @@
   <img src="spitfire-logo2.png">
 </p>
 
-# Spitfire 
+# _Spitfire_ 
 
 Deployable Nerve Center for Pentest Engagements 
 
