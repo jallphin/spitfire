@@ -1,14 +1,13 @@
 <p align="center">
-<img width="600" height="650" src="https://github.com/jallphin/red-team-server/blob/main/setup/website/RTS_logo.png?raw=true">
+  <img src="spitfire-logo2.png">
 </p>
 
-<p alight="left">
-# Red Team Server (RTS)
+# _Spitfire_ 
 Deployable Nerve Center for Pentest Engagements 
 
 Overview:
 
-Red Team Server is a unified stack of applications and installations to support collaborative Red Team Engagements using a docker-compose. 
+_Spitfire_ is a unified stack of applications and installations to support collaborative Red Team Engagements using a docker-compose. 
 It consists of:
 - Rich Text/Modern Collaboration Tools (via NextCloud)
 - Unified Group & Team Communication (web based & client based using Matrix)
@@ -24,55 +23,55 @@ It consists of:
 - Apache Guacamole access (via Apache Guacamole)
 
 # Screenshots
-## RTS Setup Script
-<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-1.png?raw=true">
+## _Spitfire_ Setup Script
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/spitfire-menu-1.png?raw=true">
 
-## RTS Setup Script (Menus)
-<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-menu-2.png?raw=true">
+## _Spitfire_ Setup Script (Menus)
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/spitfire-menu-2.png?raw=true">
 
-## RTS Homepage
-<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/rts-web-page-1.png?raw=true">
+## _Spitfire_ Homepage
+<img src="https://github.com/jallphin/red-team-server/blob/development/setup/website/spitfire-web-page-1.png?raw=true">
 
 ## Getting Started
-While the above description of RTS is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
+While the above description of _Spitfire_ is how it's *intended* to deploy, you can also deploy it in a standard Virtual Machine as well. The one gotcha (for now) is that all the services domain names must be locally mapped into each accessing systems ```host``` file in order for the reverse proxy to function. 
 
 Other than that, you clone this repository into a blank kali linux install, 
 
-> ```chmod +x ./rts.sh``` 
+> ```chmod +x ./spitfire.sh``` 
 
 and execute
 
- > ```rts.sh```
+ > ```spitfire.sh```
 
-During installation you can watch the install logs by using ```tail -f /tmp/rts.log```
+During installation you can watch the install logs by using ```tail -f /tmp/spitfire.log```
 
 ## Using
 
-As mentioned above, you'll need to edit your testing system (defined as the the system you will be using to conduct penetration tests against a target) host file. The ```rts.sh``` script will tell you all the relevant hostnames and IP's so it should just be a simple copy + paste operation. 
+As mentioned above, you'll need to edit your testing system (defined as the the system you will be using to conduct penetration tests against a target) host file. The ```spitfire.sh``` script will tell you all the relevant hostnames and IP's so it should just be a simple copy + paste operation. 
 
 Once done, everything *should* be setup and installed. Just navigate to any of the URL's and use as the author of that software intended. 
 
-# RTS Deployment Configurations
+# _Spitfire_ Deployment Configurations
 ## As a standalone mini server
-At it's heart RTS is just a culmination of others people hard work and ingenunity which has been curated, automated, and made easy to install.
-RTS is meant to be installed on a portable computing device that you can take with you to pentest engagements. 
-How our team deploys RTS:
+At it's heart _Spitfire_ is just a culmination of others people hard work and ingenunity which has been curated, automated, and made easy to install.
+_Spitfire_ is meant to be installed on a portable computing device that you can take with you to pentest engagements. 
+How our team deploys _Spitfire_:
 1. ASUS Vivomini (https://www.asus.com/us/Displays-Desktops/Mini-PCs/VivoMini/)
 2. ESXI 6.5 installed (the ESXi 6.5 image actually needs to modified with proper LAN drivers to work)
 3. Kali as a virtual machine running inside ESXI 6.5
 4. Each service running a docker micro-service utilizing docker-compose and a master bash script for automation. 
 
-The above setup allows us to deploy a small RTS system to a target network for local usage.
-When RTS is deployed this way, it provides a convienent, deployable nerve center for any pentest engagement. 
+The above setup allows us to deploy a small _Spitfire_ system to a target network for local usage.
+When _Spitfire_ is deployed this way, it provides a convienent, deployable nerve center for any pentest engagement. 
 
 ## As a virtual machine
-RTS can also be deployed as a virtual machine for easier deployments:
+_Spitfire_ can also be deployed as a virtual machine for easier deployments:
 1. Install kali linux
 2. Clone this repository
 3. Install
-4. Ensure RTS's network adapter in the virtual machine is set to 'bridged' 
+4. Ensure _Spitfire_'s network adapter in the virtual machine is set to 'bridged' 
 
-# RTS Components
+# _Spitfire_ Components
 
 ## Main Packages:
 1. Kali Linux (https://www.kali.org/)
@@ -126,7 +125,7 @@ RTS can also be deployed as a virtual machine for easier deployments:
 ## Environment does not come up (docker problems)
 Typically, if an install fails its because one of the upstream packages has changed and I haven't had time to update it yet.
 If this happens, especially with something in docker-compose.yml the easiest fix is to just not install it in the menu, and add it in later with your custom fixes.
-You can do this by simply re-running ```rts.sh``` and de-selecting the offending packages. The setup script should not stomp on a previous installation, so it should just adjust it.
+You can do this by simply re-running ```spitfire.sh``` and de-selecting the offending packages. The setup script should not stomp on a previous installation, so it should just adjust it.
 The script dynamically updates ```docker-compose.yml``` at runtime, so deselecting the package from the script menu will simply remove it from ```docker-compose.yml```
 ## Gitea Mirroring
 The second largest issue is with the Gitea package - as they often update the API and this breaks a number of things with the installation. This is the first thing you should check if nothing is being mirrored to Gitea.
