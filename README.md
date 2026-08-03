@@ -13,7 +13,7 @@ It consists of:
 - Unified Group & Team Communication (web based & client based using Matrix)
 - A web-enabled git repository containing curated tools you and your team needs on the regular (via Gitea)
 - Automated Reconnaissance, Scanning and Enumeration- Screenshots included (via IVRE)
-- Centralized C2 Infrastructure (via Sliver, MITRE Caldera, Powershell Empire and Covenant)
+- Centralized C2 Infrastructure (via Sliver, Mythic, and Powershell Empire)
 - At your fingertips references, despite connectivity issues (MITRE Att&ck Navigator & References, Payload All the Things, Hacktricks, etc.)
 - Centralized Vulnerability Management and Reporting (via Penetration Collaboration Framework)
 - Cloud based artifact storage and later retrieval (via NextCloud)
@@ -109,10 +109,9 @@ _Spitfire_ can also be deployed as a virtual machine for easier deployments:
 7. Opensource Penetration Testing Standards
 
 ## C2 Frameworks:
-1. Convenant C2 Framework (https://github.com/cobbr/Covenant)
-2. Sliver (https://github.com/BishopFox/sliver)
-3. MITRE Caldera (https://github.com/mitre/caldera)
-4. Powershell Empire & Starkiller (https://github.com/EmpireProject/Empire)
+1. Sliver (https://github.com/BishopFox/sliver)
+2. Mythic (https://github.com/its-a-feature/Mythic)
+3. Powershell Empire & Starkiller (https://github.com/BC-SECURITY/Empire)
 
 ## Additional toolage:
 1. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
