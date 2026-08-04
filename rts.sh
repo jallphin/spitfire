@@ -546,31 +546,33 @@ static_auth_token=""
 # Second, you have to add it into the relevant menu function so you can toggle it
 # Third, in the install packages function, add the code to actually install it (in the huge case test)
 
-declare -A packages=( [matrix server]=1 [matrix web]=1 [IVRE]=1 [gitea]=1 [nextcloud]=1 [cyberchef]=1 [portainer.io]=1 [pentest collab framework]=1 [hastebin]=1 [guacamole]=0 )
-declare -A references=( [lolbas/gtfobins]=1 [hacktricks]=1 [payload all the things]=1 [cheatsheets]=1 [pentest standards]=1 [MITRE att&ck navigator]=0 [MITRE att&ck reference]=0 )
+declare -A packages=( [matrix server]=1 [matrix web]=1 [IVRE]=1 [gitea]=1 [nextcloud]=1 [cyberchef]=1 [portainer.io]=1 [pentest collab framework]=1 [pastebin]=1 [guacamole]=0 )
+declare -A references=( [lolbas/gtfobins]=1 [hacktricks]=1 [payload all the things]=1 [cheatsheets]=1 [pentest standards]=1 [MITRE att&ck navigator]=1 [MITRE att&ck reference]=0 )
 declare -A auxiliary=( [cobalt strike community kit]=1 [seclists]=1 [hatecrack]=1 [slowloris]=1 [ghostpack]=1 [veil]=1 [cobalt strike elevate kit]=1 [cobalt strike c2 profiles]=1 [cobalt strike arsenal]=1 )
-declare -A c2frameworks=( [covenant]=1 [MITRE caldera]=0 [sliver]=1 [powershell empire/starkiller]=1 )
+declare -A c2frameworks=( [sliver]=1 [mythic]=1 [powershell empire/starkiller]=1 )
 
 ip_address=$(ip route get 1 | awk '{print $(NF-2);exit}')
 
-docker_compose_preamble="IyAzMzA2ICAgLSBybWFwLXNxbAojIDUwMDAgICAtIFBDRiAoUGVuZXRyYXRpb24gVGVzdGluZyBGcmFtZXdvcmspCiMgNTUxMCAgIC0gcm1hcC1hZ2VudAojIDYzNzkgICAtIHJtYXAtcmVkaXMKIyA3NDQzICAgLSBjb3ZlbmFudAojIDgwODAgICAtIGNvdmVuYW50CiMgOTAwMCAgIC0gdGhlLWhpdmU0IGRpc2FibGVkCiMgOTAwMSAgIC0gY29ydGV4IChwYXJ0IG9mIHRoZSBoaXZlKSBkaXNhYmxlZAojIDkwMDAgICAtIHBvcnRhaW5lcgojIDg4ODggICAtIGNhbGRlcmEKIyA4NDQzICAgLSBjYWxkZXJhCiMgNzAxMCAgIC0gY2FsZGVyYQojIDcwMTEgICAtIGNhbGRlcmEKIyA3MDEyICAgLSBjYWxkZXJhCiMgODg1MyAgIC0gY2FsZGVyYQojIDgwMjIgICAtIGNhbGRlcmEKIyAyMjIyICAgLSBjYWxkZXJhCiMgNTQzMiAgIC0gbWV0YXNwbG9pdCAvIHBvc3RncmVxbCBpbnRlZ3JhdGlvbgoKCnZlcnNpb246ICczJwoKdm9sdW1lczoKICBuZXh0Y2xvdWQ6CiAgbmV4dGNsb3VkX2RiOgogIHN5bmFwc2UtZGF0YToKICBwb3N0Z3Jlcy1kYXRhOgoKc2VydmljZXM6CiMjIyMgUlRTIE1haW4gV2Vic2l0ZSAjIyMjCiAgcnRzLXdlYjoKICAgIGNvbnRhaW5lcl9uYW1lOiBydHMtd2ViCiAgICBpbWFnZTogdHJhZmV4L3BocC1uZ2lueAogICAgdm9sdW1lczoKICAgICAtIC4vd2Vic2l0ZTovdmFyL3d3dy9odG1sOnJvCiAgICAgLSAvdmFyL3J1bi9kb2NrZXIuc29jazovdmFyL3J1bi9kb2NrZXIuc29jawogICAgZXhwb3NlOgogICAgICAtIDgwODAgIyBUaGlzIHBvcnQgaXMgcHJveGllZCBieSBuZ2lueC1wcm94eSBjb250YWluZXIuCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9d3d3LnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODA4MAo="
+docker_compose_preamble="dmVyc2lvbjogJzMnCgp2b2x1bWVzOgogIG5leHRjbG91ZDoKICBuZXh0Y2xvdWRfZGI6CiAgc3luYXBzZS1kYXRhOgogIHBvc3RncmVzLWRhdGE6CgpzZXJ2aWNlczoKIyMjIyBSVFMgTWFpbiBXZWJzaXRlICMjIyMKICBydHMtd2ViOgogICAgY29udGFpbmVyX25hbWU6IHJ0cy13ZWIKICAgIGltYWdlOiBuZ2lueDphbHBpbmUKICAgIHZvbHVtZXM6CiAgICAgLSAuL3dlYnNpdGU6L3Vzci9zaGFyZS9uZ2lueC9odG1sOnJvCiAgICAgLSAvdmFyL3J1bi9kb2NrZXIuc29jazovdmFyL3J1bi9kb2NrZXIuc29jawogICAgZXhwb3NlOgogICAgICAtIDgwCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9d3d3LnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODAK"
 docker_compose_nginx_proxy="IyMjIyMgTmdpbngtUHJveHkgZm9yIERvY2tlciAjIyMjIwogIG5naW54LXByb3h5OgogICAgaW1hZ2U6IG5naW54cHJveHkvbmdpbngtcHJveHkKICAgIGNvbnRhaW5lcl9uYW1lOiBuZ2lueC1wcm94eQogICAgcG9ydHM6CiAgICAgIC0gIjgwOjgwIgogICAgdm9sdW1lczoKICAgICAgLSAvdmFyL3J1bi9kb2NrZXIuc29jazovdG1wL2RvY2tlci5zb2NrOnJvCg=="
-docker_compose_nextcloud="IyMjIyMgTmV4dGNsb3VkICMjIyMjCiAgbmV4dGNsb3VkX2RiOgogICAgaW1hZ2U6IG1hcmlhZGIKICAgIGNvbnRhaW5lcl9uYW1lOiBuZXh0Y2xvdWRfZGIKICAgIGNvbW1hbmQ6IC0tdHJhbnNhY3Rpb24taXNvbGF0aW9uPVJFQUQtQ09NTUlUVEVEIC0tYmlubG9nLWZvcm1hdD1ST1cgLS1pbm5vZGItZmlsZS1wZXItdGFibGU9MSAtLXNraXAtaW5ub2RiLXJlYWQtb25seS1jb21wcmVzc2VkCiAgICByZXN0YXJ0OiBhbHdheXMKICAgIHZvbHVtZXM6CiAgICAgIC0gbmV4dGNsb3VkX2RiOi92YXIvbGliL215c3FsCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBNWVNRTF9ST09UX1BBU1NXT1JEPXJ0c19wYXNzdzByZAogICAgICAtIE1ZU1FMX1BBU1NXT1JEPXJ0c19wYXNzdzByZAogICAgICAtIE1ZU1FMX0RBVEFCQVNFPW5leHRjbG91ZAogICAgICAtIE1ZU1FMX1VTRVI9bmV4dGNsb3VkCiAgbmV4dGNsb3VkX2FwcDoKICAgIGltYWdlOiBuZXh0Y2xvdWQKICAgIGNvbnRhaW5lcl9uYW1lOiBuZXh0Y2xvdWRfYXBwCiAgICBsaW5rczoKICAgICAgLSBuZXh0Y2xvdWRfZGIKICAgIHZvbHVtZXM6CiAgICAgIC0gbmV4dGNsb3VkOi92YXIvd3d3L2h0bWwKICAgICAgLSAuL3JlZC1zaGFyZTovcmVkLXNoYXJlCiAgICByZXN0YXJ0OiBhbHdheXMKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1uZXh0Y2xvdWQucnRzLmxhbgo="
-docker_compose_matrix_chat="IyMjIyMgU3luYXBzZSBNYXRyaXggU2VydmVyICMjIyMjCiAgc3luYXBzZToKICAgIGNvbnRhaW5lcl9uYW1lOiBzeW5hcHNlCiAgICBob3N0bmFtZTogbWF0cml4LnJ0cy5sYW4KICAgIGltYWdlOiBkb2NrZXIuaW8vbWF0cml4ZG90b3JnL3N5bmFwc2U6bGF0ZXN0CiAgICByZXN0YXJ0OiB1bmxlc3Mtc3RvcHBlZAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gU1lOQVBTRV9TRVJWRVJfTkFNRT1tYXRyaXgucnRzLmxhbgogICAgICAtIFNZTkFQU0VfUkVQT1JUX1NUQVRTPXllcwogICAgICAtIFNZTkFQU0VfTk9fVExTPTEKICAgICAgLSBTWU5BUFNFX1JFR0lTVFJBVElPTl9TSEFSRURfU0VDUkVUPTEyMzQ1NgogICAgICAtIFBPU1RHUkVTX0RCPXN5bmFwc2UKICAgICAgLSBQT1NUR1JFU19IT1NUPXN5bmFwc2UtZGIKICAgICAgLSBQT1NUR1JFU19VU0VSPXN5bmFwc2UKICAgICAgLSBQT1NUR1JFU19QQVNTV09SRD1zeW5hcHNlX3Bhc3N3MHJkCiAgICAgIC0gVklSVFVBTF9IT1NUPW1hdHJpeC5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTgwMDgKICAgIHZvbHVtZXM6CiAgICAgIC0gc3luYXBzZS1kYXRhOi9kYXRhCiAgICAgIC0gIi4vaG9tZXNlcnZlci55YW1sOi9kYXRhL2hvbWVzZXJ2ZXIueWFtbCIKICAgIGRlcGVuZHNfb246CiAgICAgIC0gc3luYXBzZS1kYgogICAgZXhwb3NlOgogICAgICAtIDgwMDgKICBzeW5hcHNlLWRiOgogICAgY29udGFpbmVyX25hbWU6IHN5bmFwc2UtZGIKICAgIGltYWdlOiBkb2NrZXIuaW8vcG9zdGdyZXM6MTAtYWxwaW5lCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBQT1NUR1JFU19EQj1zeW5hcHNlCiAgICAgIC0gUE9TVEdSRVNfVVNFUj1zeW5hcHNlCiAgICAgIC0gUE9TVEdSRVNfUEFTU1dPUkQ9c3luYXBzZV9wYXNzdzByZAogICAgdm9sdW1lczoKICAgICAgLSBwb3N0Z3Jlcy1kYXRhOi92YXIvbGliL3Bvc3RncmVzcWwvZGF0YQo="
-docker_compose_gitea="IyMjIyMgR2l0ZWEgR0lUIFNlcnZlciAjIyMjIwogIGdpdGVhLXNlcnZlcjoKICAgIGltYWdlOiBnaXRlYS9naXRlYTpsYXRlc3QKICAgIGNvbnRhaW5lcl9uYW1lOiBnaXRlYS1zZXJ2ZXIKICAgIGVudmlyb25tZW50OgogICAgICAtIFVTRVJfVUlEPTEwMDAKICAgICAgLSBVU0VSX0dJRD0xMDAwCiAgICAgIC0gREJfVFlQRT1wb3N0Z3JlcwogICAgICAtIERCX0hPU1Q9Z2l0ZWEtZGI6NTQzMgogICAgICAtIERCX05BTUU9Z2l0ZWEKICAgICAgLSBEQl9VU0VSPWdpdGVhCiAgICAgIC0gREJfUEFTU1dEPWdpdGVhCiAgICAgIC0gVklSVFVBTF9IT1NUPWdpdGVhLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9MzAwMAogICAgcmVzdGFydDogYWx3YXlzCiAgICB2b2x1bWVzOgogICAgICAtIC4vZ2l0ZWEvZ2l0ZWE6L2RhdGEKICAgICAgLSAvZXRjL3RpbWV6b25lOi9ldGMvdGltZXpvbmU6cm8KICAgICAgLSAvZXRjL2xvY2FsdGltZTovZXRjL2xvY2FsdGltZTpybwogICAgcG9ydHM6CiAgICAgIC0gIjIyMjoyMiIKICAgIGV4cG9zZToKICAgICAgLSAzMDAwCiAgICBkZXBlbmRzX29uOgogICAgICAtIGdpdGVhLWRiCiAgZ2l0ZWEtZGI6CiAgICBpbWFnZTogcG9zdGdyZXM6OS42CiAgICBjb250YWluZXJfbmFtZTogZ2l0ZWEtZGIKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gUE9TVEdSRVNfVVNFUj1naXRlYQogICAgICAtIFBPU1RHUkVTX1BBU1NXT1JEPWdpdGVhCiAgICAgIC0gUE9TVEdSRVNfREI9Z2l0ZWEKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9naXRlYS9wb3N0Z3JlczovdmFyL2xpYi9wb3N0Z3Jlc3FsL2RhdGEK"
+docker_compose_nextcloud="IyMjIyMgTmV4dGNsb3VkICMjIyMjCiAgbmV4dGNsb3VkX2RiOgogICAgaW1hZ2U6IG1hcmlhZGI6MTAuMTEKICAgIGNvbnRhaW5lcl9uYW1lOiBuZXh0Y2xvdWRfZGIKICAgIGNvbW1hbmQ6IC0tdHJhbnNhY3Rpb24taXNvbGF0aW9uPVJFQUQtQ09NTUlUVEVEIC0tYmlubG9nLWZvcm1hdD1ST1cgLS1pbm5vZGItZmlsZS1wZXItdGFibGU9MQogICAgcmVzdGFydDogYWx3YXlzCiAgICB2b2x1bWVzOgogICAgICAtIG5leHRjbG91ZF9kYjovdmFyL2xpYi9teXNxbAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gTVlTUUxfUk9PVF9QQVNTV09SRD1ydHNfcGFzc3cwcmQKICAgICAgLSBNWVNRTF9QQVNTV09SRD1ydHNfcGFzc3cwcmQKICAgICAgLSBNWVNRTF9EQVRBQkFTRT1uZXh0Y2xvdWQKICAgICAgLSBNWVNRTF9VU0VSPW5leHRjbG91ZAogIG5leHRjbG91ZF9hcHA6CiAgICBpbWFnZTogbmV4dGNsb3VkOjI4CiAgICBjb250YWluZXJfbmFtZTogbmV4dGNsb3VkX2FwcAogICAgbGlua3M6CiAgICAgIC0gbmV4dGNsb3VkX2RiCiAgICB2b2x1bWVzOgogICAgICAtIG5leHRjbG91ZDovdmFyL3d3dy9odG1sCiAgICAgIC0gLi9yZWQtc2hhcmU6L3JlZC1zaGFyZQogICAgcmVzdGFydDogYWx3YXlzCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9bmV4dGNsb3VkLnJ0cy5sYW4K"
+docker_compose_matrix_chat="IyMjIyMgU3luYXBzZSBNYXRyaXggU2VydmVyICMjIyMjCiAgc3luYXBzZToKICAgIGNvbnRhaW5lcl9uYW1lOiBzeW5hcHNlCiAgICBob3N0bmFtZTogbWF0cml4LnJ0cy5sYW4KICAgIGltYWdlOiBkb2NrZXIuaW8vbWF0cml4ZG90b3JnL3N5bmFwc2U6djEuMTU3CiAgICByZXN0YXJ0OiB1bmxlc3Mtc3RvcHBlZAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gU1lOQVBTRV9TRVJWRVJfTkFNRT1tYXRyaXgucnRzLmxhbgogICAgICAtIFNZTkFQU0VfUkVQT1JUX1NUQVRTPXllcwogICAgICAtIFNZTkFQU0VfTk9fVExTPTEKICAgICAgLSBTWU5BUFNFX1JFR0lTVFJBVElPTl9TSEFSRURfU0VDUkVUPTEyMzQ1NgogICAgICAtIFBPU1RHUkVTX0RCPXN5bmFwc2UKICAgICAgLSBQT1NUR1JFU19IT1NUPXN5bmFwc2UtZGIKICAgICAgLSBQT1NUR1JFU19VU0VSPXN5bmFwc2UKICAgICAgLSBQT1NUR1JFU19QQVNTV09SRD1zeW5hcHNlX3Bhc3N3MHJkCiAgICAgIC0gVklSVFVBTF9IT1NUPW1hdHJpeC5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTgwMDgKICAgIHZvbHVtZXM6CiAgICAgIC0gc3luYXBzZS1kYXRhOi9kYXRhCiAgICAgIC0gIi4vaG9tZXNlcnZlci55YW1sOi9kYXRhL2hvbWVzZXJ2ZXIueWFtbCIKICAgIGRlcGVuZHNfb246CiAgICAgIC0gc3luYXBzZS1kYgogICAgZXhwb3NlOgogICAgICAtIDgwMDgKICBzeW5hcHNlLWRiOgogICAgY29udGFpbmVyX25hbWU6IHN5bmFwc2UtZGIKICAgIGltYWdlOiBkb2NrZXIuaW8vcG9zdGdyZXM6MTYtYWxwaW5lCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBQT1NUR1JFU19EQj1zeW5hcHNlCiAgICAgIC0gUE9TVEdSRVNfVVNFUj1zeW5hcHNlCiAgICAgIC0gUE9TVEdSRVNfUEFTU1dPUkQ9c3luYXBzZV9wYXNzdzByZAogICAgdm9sdW1lczoKICAgICAgLSBwb3N0Z3Jlcy1kYXRhOi92YXIvbGliL3Bvc3RncmVzcWwvZGF0YQo="
+docker_compose_gitea="IyMjIyMgR2l0ZWEgR0lUIFNlcnZlciAjIyMjIwogIGdpdGVhLXNlcnZlcjoKICAgIGltYWdlOiBnaXRlYS9naXRlYToxLjI3CiAgICBjb250YWluZXJfbmFtZTogZ2l0ZWEtc2VydmVyCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBVU0VSX1VJRD0xMDAwCiAgICAgIC0gVVNFUl9HSUQ9MTAwMAogICAgICAtIERCX1RZUEU9cG9zdGdyZXMKICAgICAgLSBEQl9IT1NUPWdpdGVhLWRiOjU0MzIKICAgICAgLSBEQl9OQU1FPWdpdGVhCiAgICAgIC0gREJfVVNFUj1naXRlYQogICAgICAtIERCX1BBU1NXRD1naXRlYQogICAgICAtIFZJUlRVQUxfSE9TVD1naXRlYS5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTMwMDAKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgdm9sdW1lczoKICAgICAgLSAuL2dpdGVhL2dpdGVhOi9kYXRhCiAgICAgIC0gL2V0Yy90aW1lem9uZTovZXRjL3RpbWV6b25lOnJvCiAgICAgIC0gL2V0Yy9sb2NhbHRpbWU6L2V0Yy9sb2NhbHRpbWU6cm8KICAgIHBvcnRzOgogICAgICAtICIyMjI6MjIiCiAgICBleHBvc2U6CiAgICAgIC0gMzAwMAogICAgZGVwZW5kc19vbjoKICAgICAgLSBnaXRlYS1kYgogIGdpdGVhLWRiOgogICAgaW1hZ2U6IHBvc3RncmVzOjE2CiAgICBjb250YWluZXJfbmFtZTogZ2l0ZWEtZGIKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gUE9TVEdSRVNfVVNFUj1naXRlYQogICAgICAtIFBPU1RHUkVTX1BBU1NXT1JEPWdpdGVhCiAgICAgIC0gUE9TVEdSRVNfREI9Z2l0ZWEKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9naXRlYS9wb3N0Z3JlczovdmFyL2xpYi9wb3N0Z3Jlc3FsL2RhdGEK"
 docker_compose_ivre="IyMjIyMgSVZSRSBSZWNvbiBTY2FubmVyICMjIyMjCiAgaXZyZWRiOgogICAgaW1hZ2U6IGl2cmUvZGIKICAgIGNvbnRhaW5lcl9uYW1lOiBpdnJlZGIKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9pdnJlL3Zhcl9saWJfbW9uZ29kYjovdmFyL2xpYi9tb25nb2RiCiAgICAgIC0gLi9pdnJlL3Zhcl9sb2dfbW9uZ29kYjovdmFyL2xvZy9tb25nb2RiCiAgICByZXN0YXJ0OiBhbHdheXMKICBpdnJldXdzZ2k6CiAgICBpbWFnZTogaXZyZS93ZWItdXdzZ2kKICAgIGNvbnRhaW5lcl9uYW1lOiBpdnJldXdzZ2kKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgZGVwZW5kc19vbjoKICAgICAgIC0gaXZyZWRiCiAgICB2b2x1bWVzOgogICAgICAtIC4vZG9rdXdpa2lfZGF0YTovdmFyL3d3dy9kb2t1d2lraS9kYXRhCiAgaXZyZWRva3U6CiAgICBpbWFnZTogaXZyZS93ZWItZG9rdQogICAgY29udGFpbmVyX25hbWU6IGl2cmVkb2t1CiAgICByZXN0YXJ0OiBhbHdheXMKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9kb2t1d2lraV9kYXRhOi92YXIvd3d3L2Rva3V3aWtpL2RhdGEKICBpdnJld2ViOgogICAgaW1hZ2U6IGl2cmUvd2ViCiAgICBjb250YWluZXJfbmFtZTogaXZyZXdlYgogICAgcmVzdGFydDogYWx3YXlzCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9aXZyZS5ydHMubGFuCiAgICBleHBvc2U6CiAgICAgIC0gODAKICAgIGRlcGVuZHNfb246CiAgICAgIC0gaXZyZXV3c2dpCiAgICAgIC0gaXZyZWRva3UKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9kb2t1d2lraV9kYXRhOi92YXIvd3d3L2Rva3V3aWtpL2RhdGEKICBpdnJlY2xpZW50OgogICAgaW1hZ2U6IGl2cmUvY2xpZW50CiAgICBjb250YWluZXJfbmFtZTogaXZyZWNsaWVudAogICAgY29tbWFuZDogdGFpbCAtRiBhbnl0aGluZwogICAgdm9sdW1lczoKICAgICAgLSAuL3JlZC1zaGFyZTovcmVkLXNoYXJlCiAgICAgIC0gLi9pdnJlLmNvbmY6L2V0Yy9pdnJlLmNvbmYKICAgIGRlcGVuZHNfb246CiAgICAgIC0gaXZyZWRiCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBPUEVOU1NMX0NPTkY9L2Rldi9udWxsCiAgaXZyZWFnZW50OgogICAgaW1hZ2U6IGl2cmUvYWdlbnQKICAgIGNvbnRhaW5lcl9uYW1lOiBpdnJlYWdlbnQKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgZGVwZW5kc19vbjoKICAgICAgLSBpdnJlZGIK"
-docker_compose_hastebin="IyMjIyMgSGFzdGViaW4gIyMjIyMKICBoYXN0ZWJpbndlYjoKICAgIGNvbnRhaW5lcl9uYW1lOiBoYXN0ZWJpbgogICAgYnVpbGQ6IC4vaGFzdGViaW4vLgogICAgZXhwb3NlOgogICAgICAtIDc3NzcKICAgIHJlc3RhcnQ6IGFsd2F5cwogICAgdm9sdW1lczoKICAgICAgLSAuL2hhc3RlYmluL2RhdGE6L29wdC9oYXN0ZS9kYXRhCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9aGFzdGViaW4ucnRzLmxhbgo="
-docker_compose_caldera="IyMjIyMgTUlUUkUgQ2FsZGVyYSAjIyMjIwogIGNhbGRlcmE6CiAgICBjb250YWluZXJfbmFtZTogY2FsZGVyYQogICAgYnVpbGQ6CiAgICAgIGNvbnRleHQ6IC4vY2FsZGVyYS8KICAgICAgZG9ja2VyZmlsZTogRG9ja2VyZmlsZQogICAgICBhcmdzOgogICAgICAgIFRaOiAiVVRDIiAjVFogc2V0cyB0aW1lem9uZSBmb3IgdWJ1bnR1IHNldHVwCiAgICAgICAgV0lOX0JVSUxEOiAidHJ1ZSIgI1dJTl9CVUlMRCBpcyB1c2VkIHRvIGVuYWJsZSB3aW5kb3dzIGJ1aWxkIGluIHNhbmRjYXQgcGx1Z2luCiAgICBpbWFnZTogY2FsZGVyYTpsYXRlc3QKICAgIHBvcnRzOgogICAgICAtICI4ODg4Ojg4ODgiCiAgICAgIC0gIjg0NDM6ODQ0MyIKICAgICAgLSAiNzAxMDo3MDEwIgogICAgICAtICI3MDExOjcwMTEvdWRwIgogICAgICAtICI3MDEyOjcwMTIiCiAgICAgIC0gIjg4NTM6ODg1MyIKICAgICAgLSAiODAyMjo4MDIyIgogICAgICAtICIyMjIyOjIyMjIiCiAgICB2b2x1bWVzOgogICAgICAtIC4vY2FsZGVyYTovdXNyL3NyYy9hcHAKICAgIGNvbW1hbmQ6IC0taW5zZWN1cmUgLS1sb2cgREVCVUcKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1jYWxkZXJhLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODg4OAo="
-docker_compose_element="IyMjIyMgRWxlbWVudCBXZWIgQ2xpZW50IGZvciBTeW5hcHNlICMjIyMjCiAgZWxlbWVudC13ZWI6CiAgICBjb250YWluZXJfbmFtZTogZWxlbWVudC13ZWIKICAgIGltYWdlOiBnaGNyLmlvL2J1YnVudHV4L2VsZW1lbnQtd2ViCiAgICBleHBvc2U6CiAgICAgIC0gODAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1lbGVtZW50LnJ0cy5sYW4K"
+docker_compose_rustypaste="IyBydXN0eXBhc3RlIChvcmh1bnAvcnVzdHlwYXN0ZSkgLSBzZWxmLWhvc3RlZCBmaWxlIHBhc3RlYmluCiMgQ29uZmlnIGZpbGUgbGl2ZXMgYXQgL2V0Yy9ydXN0eXBhc3RlLnRvbWw7IHVwbG9hZHMgYXJlIHN0b3JlZCB1bmRlciAvZGF0YS4KICBydXN0eXBhc3RlOgogICAgaW1hZ2U6IG9yaHVucC9ydXN0eXBhc3RlOmxhdGVzdAogICAgY29udGFpbmVyX25hbWU6IHJ1c3R5cGFzdGUKICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCiAgICBwb3J0czoKICAgICAgLSA4MDAwOjgwMDAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1ydXN0eXBhc3RlLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODAwMAogICAgdm9sdW1lczoKICAgICAgLSAuL3J1c3R5cGFzdGUtZGF0YTovZGF0YQogICAgICAtIC4vcnVzdHlwYXN0ZS50b21sOi9ldGMvcnVzdHlwYXN0ZS50b21sOnJvCg=="
+docker_compose_element="IyMjIyMgRWxlbWVudCBXZWIgQ2xpZW50IGZvciBTeW5hcHNlICMjIyMjCiAgZWxlbWVudC13ZWI6CiAgICBjb250YWluZXJfbmFtZTogZWxlbWVudC13ZWIKICAgIGltYWdlOiB2ZWN0b3JpbS9lbGVtZW50LXdlYjpsYXRlc3QKICAgIGV4cG9zZToKICAgICAgLSA4MAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPWVsZW1lbnQucnRzLmxhbgo="
 docker_compose_wetty="IyMjIyMgd2V0dHkgLSB0ZXJtaW5hbCBiYXNlZCBzc2ggIyMjIyMgIAogIHdldHR5OgogICAgZXhwb3NlOgogICAgICAtIDgwCiAgICBpbWFnZTogd2V0dHlvc3Mvd2V0dHkKICAgIGNvbW1hbmQ6IC0tc3NoLWhvc3Q9IiR7cnRzX2lwX2FkZHJlc3N9IiAtLXNzaC11c2VyPXJ0cwogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPXNzaC5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTMwMDAK"
-docker_compose_portainer="IyMjIyMgUG9ydGFpbmVyLmlvIENvbnRhaW5lciBNYWludGVuYW5jZSAjIyMjIwogIHBvcnRhaW5lcjoKICAgIGltYWdlOiBwb3J0YWluZXIvcG9ydGFpbmVyLWNlOmxhdGVzdAogICAgY29udGFpbmVyX25hbWU6IHBvcnRhaW5lcgogICAgcmVzdGFydDogdW5sZXNzLXN0b3BwZWQKICAgIHNlY3VyaXR5X29wdDoKICAgICAgLSBuby1uZXctcHJpdmlsZWdlczp0cnVlCiAgICB2b2x1bWVzOgogICAgICAtIC9ldGMvbG9jYWx0aW1lOi9ldGMvbG9jYWx0aW1lOnJvCiAgICAgIC0gL3Zhci9ydW4vZG9ja2VyLnNvY2s6L3Zhci9ydW4vZG9ja2VyLnNvY2s6cm8KICAgICAgLSAuL3BvcnRhaW5lci1kYXRhOi9kYXRhCiAgICBleHBvc2U6CiAgICAgIC0gOTAwMAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPXBvcnRhaW5lci5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTkwMDAK"
+docker_compose_portainer="IyMjIyMgUG9ydGFpbmVyLmlvIENvbnRhaW5lciBNYWludGVuYW5jZSAjIyMjIwogIHBvcnRhaW5lcjoKICAgIGltYWdlOiBwb3J0YWluZXIvcG9ydGFpbmVyLWNlOjIuMzkuMwogICAgY29udGFpbmVyX25hbWU6IHBvcnRhaW5lcgogICAgcmVzdGFydDogdW5sZXNzLXN0b3BwZWQKICAgIHNlY3VyaXR5X29wdDoKICAgICAgLSBuby1uZXctcHJpdmlsZWdlczp0cnVlCiAgICB2b2x1bWVzOgogICAgICAtIC9ldGMvbG9jYWx0aW1lOi9ldGMvbG9jYWx0aW1lOnJvCiAgICAgIC0gL3Zhci9ydW4vZG9ja2VyLnNvY2s6L3Zhci9ydW4vZG9ja2VyLnNvY2s6cm8KICAgICAgLSAuL3BvcnRhaW5lci1kYXRhOi9kYXRhCiAgICBleHBvc2U6CiAgICAgIC0gOTAwMAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPXBvcnRhaW5lci5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTkwMDAK"
 docker_compose_pcf="IyMjIyMgUGVuZXRyYXRpb24gVGVzdGluZyBDb2xsYWJvcmF0aW9uIEZyYW1ld29yayAjIyMjIwogIHBjZjoKICAgICBidWlsZDogLi9wY2YvLgogICAgIGNvbnRhaW5lcl9uYW1lOiBwY2YKICAgICBleHBvc2U6CiAgICAgICAtIDUwMDAKICAgICB2b2x1bWVzOgogICAgICAgLSAuL3BjZjovcGNmCiAgICAgZW52aXJvbm1lbnQ6CiAgICAgICAtIFZJUlRVQUxfSE9TVD1wY2YucnRzLmxhbgogICAgICAgLSBWSVJUVUFMX1BPUlQ9NTAwMAo="
 docker_compose_attacknav="IyMjIyMgTUlUUkUgQXR0JmNrIE5hdmlnYXRvciAjIyMjIwogIGF0dGFjay1uYXYtbm9kZToKICAgIGNvbnRhaW5lcl9uYW1lOiBhdHRhY2stbmF2LW5vZGUKICAgIGJ1aWxkOgogICAgICBjb250ZXh0OiAuL2F0dGFjay1uYXZpZ2F0b3IKICAgICAgZG9ja2VyZmlsZTogRG9ja2VyZmlsZQogICAgZXhwb3NlOgogICAgICAtIDQyMDAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1hdHRhY2stbmF2LnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9NDIwMAo="
 docker_compose_attackweb="IyMjIyBNSVRSRSBBVFRBQ0sgV0VCIFNJVEUgIyMjIwogIGF0dGFjay13ZWI6CiAgICBjb250YWluZXJfbmFtZTogYXR0YWNrLXdlYgogICAgYnVpbGQ6IC4vYXR0YWNrLXdlYnNpdGUKICAgIGV4cG9zZToKICAgICAgLSA4MAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPWF0dGFjay5ydHMubGFuCg=="
-docker_compose_cyberchef="IyMjIyMgQ3liZXJDaGVmICMjIyMjCiAgY3liZXJjaGVmOgogICAgaW1hZ2U6IG1wZXBwaW5nL2N5YmVyY2hlZjpsYXRlc3QKICAgIGNvbnRhaW5lcl9uYW1lOiBjeWJlcmNoZWYKICAgIHBvcnRzOgogICAgICAtIDgwMDAKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1jeWJlcmNoZWYucnRzLmxhbgogICAgICAtIFZJUlRVQUxfUE9SVD04MDAwCg=="
+docker_compose_cyberchef="IyMjIyMgQ3liZXJDaGVmICMjIyMjCiAgY3liZXJjaGVmOgogICAgaW1hZ2U6IGdoY3IuaW8vZ2NocS9jeWJlcmNoZWY6bGF0ZXN0CiAgICBjb250YWluZXJfbmFtZTogY3liZXJjaGVmCiAgICBwb3J0czoKICAgICAgLSA4MDAwCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9Y3liZXJjaGVmLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODAwMAo="
 docker_compose_lolbas="IyMjIyMgTE9MQkFTIGFuZCBHVEZPYmlucyBSZWZlcmVuY2VzIFdlYnNlcnZlciAjIyMjIwogIGxvbGJhczoKICAgIGNvbnRhaW5lcl9uYW1lOiBsb2xiYXMtZ3RmbwogICAgYnVpbGQ6CiAgICAgIGNvbnRleHQ6IC4vbG9sYmFzCiAgICAgIGRvY2tlcmZpbGU6IGxvbGJhcy1Eb2NrZXJmaWxlCiAgICBwb3J0czoKICAgICAgLSAnMTAwNTA6MTAwNTAnCiAgICAgIC0gJzEwMDYwOjEwMDYwJwogICAgY29tbWFuZDogPgogICAgICAvYmluL3NoIC1jICdjZCAvb3B0L0xPTEJBUyAmJgogICAgICAoIGJ1bmRsZSBleGVjIGpla3lsbCBzZXJ2ZSAtLWhvc3QgMC4wLjAuMCAtUCAxMDA1MCAmKSAmJgogICAgICBjZCAvb3B0L2d0Zm9iaW5zICYmCiAgICAgIGJ1bmRsZSBleGVjIGpla3lsbCBzZXJ2ZSAtLWhvc3QgMC4wLjAuMCAtUCAxMDA2MCcK"
 docker_compose_empire="IyMjIyMgQkMtU2VjdXJpdGllcyBQb3dlcnNoZWxsIEVtcGlyZSAjIyMjIwogIGVtcGlyZToKICAgIGNvbnRhaW5lcl9uYW1lOiBlbXBpcmUKICAgIGltYWdlOiBiY3NlY3VyaXR5L2VtcGlyZTpsYXRlc3QKICAgIHBvcnRzOgogICAgICAtIDEzMzc6MTMzNwogICAgICAtIDUwMDA6NTAwMAogICAgdm9sdW1lczoKICAgICAgLSAuL2VtcGlyZTovZGF0YQogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPWVtcGlyZS5ydHMubGFuCiAgICAgIC0gVklSVFVBTF9QT1JUPTEzMzcKCg=="
-docker_compose_covenant="IyMjIyMgQ29udmVuYW50IEMyICMjIyMjIw0KICBjb3ZlbmFudDoNCiAgICBidWlsZDogLi9jb3ZlbmFudC8uDQogICAgY29udGFpbmVyX25hbWU6IGNvdmVuYW50DQogICAgZW52aXJvbm1lbnQ6DQogICAgICAtIFRaPVBhY2lmaWMvTG9zX0FuZ2VsZXMNCiAgICBwb3J0czoNCiAgICAgIC0gNzQ0Mzo3NDQzDQogICAgICAtIDQ0Mzo0NDMNCiAgICAgIC0gODA4MDo4MA0KICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCgo="
+docker_compose_mythic="IyBNeXRoaWMgQzIgKGl0cy1hLWZlYXR1cmUvTXl0aGljKQojIE9mZmljaWFsIGRlcGxveW1lbnQgaXMgdmlhIGBteXRoaWMtY2xpYCAvIGl0cyBidW5kbGVkIGRvY2tlci1jb21wb3NlLCB3aGljaAojIHdpcmVzIHVwIHRoZSBtYWluIE15dGhpYyBzZXJ2ZXIgcGx1cyBNeVNRTCwgUmFiYml0TVEsIGFuZCBNb25nbyBjb250YWluZXJzLgojIFRoZSBzbmlwcGV0IGJlbG93IGlzIGEgbWluaW1hbCBzdGFuZGFsb25lIHNlcnZpY2UgdXNpbmcgdGhlIG9mZmljaWFsIGltYWdlIHNvCiMgaXQgY2FuIGNvZXhpc3QgaW4gdGhlIGxhcmdlciBSVFMgc3RhY2suIFByZWZlciB0aGUgcHJvamVjdCdzIG93bgojIGRvY2tlci1jb21wb3NlIChpdHNhZmVhdHVyZS9teXRoaWMgb24gcG9ydCA3NDQzKSBmb3IgcHJvZHVjdGlvbi4KIyBOT1RFOiBPbiBmaXJzdCBydW4gTXl0aGljIGF1dG8tcHJvdmlzaW9ucyB0aGUgREIgc2NoZW1hOyB0aGUgZGVmYXVsdCBhZG1pbgojIGxvZ2luIGlzIGBteXRoaWNfYWRtaW5gIHdpdGggdGhlIHBhc3N3b3JkIHlvdSBzZXQgdmlhIE1ZVEhJQ19BRE1JTl9QQVNTV09SRAojIChkZWZhdWx0cyB0byBgbXl0aGljX3Bhc3N3b3JkYCBpZiB1bnNldCkuCiAgbXl0aGljOgogICAgaW1hZ2U6IGl0c2FmZWF0dXJlL215dGhpYzpsYXRlc3QKICAgIGNvbnRhaW5lcl9uYW1lOiBteXRoaWMKICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCiAgICBwb3J0czoKICAgICAgLSA3NDQzOjc0NDMKICAgIGVudmlyb25tZW50OgogICAgICAtIFZJUlRVQUxfSE9TVD1teXRoaWMucnRzLmxhbgogICAgICAtIFZJUlRVQUxfUE9SVD03NDQzCiAgICAgICMgLS0tIE15dGhpYyBpbWFnZSBlbnZpcm9ubWVudCAoYmVzdC1lZmZvcnQgLyBtaW5pbWFsKSAtLS0KICAgICAgLSBNWVRISUNfQURNSU5fUEFTU1dPUkQ9bXl0aGljX3Bhc3N3b3JkCiAgICAgIC0gTVlUSElDX1NFUlZFUl9IT1NUPW15dGhpYy5ydHMubGFuCiAgICAgIC0gTVlUSElDX1NFUlZFUl9QT1JUPTc0NDMKICAgICMgTk9URTogVGhlIG9mZmljaWFsIE15dGhpYyBpbWFnZSBleHBlY3RzIGl0cyBvd24gTXlTUUwvUG9zdGdyZXMgYmFja2luZwogICAgIyBzdG9yZXMgKHByb3Zpc2lvbmVkIGJ5IG15dGhpYy1jbGkgYXMgc2VwYXJhdGUgY29udGFpbmVycykuIEEgbmFtZWQgdm9sdW1lCiAgICAjIGNhbm5vdCBiZSBkZWNsYXJlZCBoZXJlIGJlY2F1c2UgdGhpcyBzbmlwcGV0IGlzIGFwcGVuZGVkIHRvIGEgc2hhcmVkCiAgICAjIGNvbXBvc2UgZmlsZTsgYWRkIGEgYG15dGhpYy1kYXRhYCB2b2x1bWUgdG8gdGhlIHBhcmVudCdzIHRvcC1sZXZlbAogICAgIyBgdm9sdW1lczpgIHNlY3Rpb24gaWYgeW91IG1vdW50IG9uZSwgZS5nLgogICAgIyAgIHZvbHVtZXM6CiAgICAjICAgICAtIG15dGhpYy1kYXRhOi92YXIvbGliL215c3FsCg=="
+docker_compose_pwndoc="IyBQd25Eb2MgKHB3bmRvYy9wd25kb2MpIC0gcGVudGVzdCByZXBvcnRpbmcgcGxhdGZvcm0KIyBOZXh0LmpzIGFwcCBiYWNrZWQgYnkgTW9uZ29EQiBhbmQgUmVkaXMuIFRoZSBwcm9qZWN0J3Mgb3duIGRvY2tlci1jb21wb3NlCiMgd2lyZXMgdGhlc2UgdG9nZXRoZXI7IHRoaXMgc25pcHBldCBwcm92aWRlcyB0aGUgYXBwIHBsdXMgaXRzIE1vbmdvIGFuZCBSZWRpcwojIGRlcGVuZGVuY2llcyBzbyB0aGV5IGNhbiBydW4gaW4gdGhlIHNoYXJlZCBSVFMgc3RhY2suCiAgcHduZG9jOgogICAgaW1hZ2U6IHB3bmRvYy9wd25kb2M6bGF0ZXN0CiAgICBjb250YWluZXJfbmFtZTogcHduZG9jCiAgICByZXN0YXJ0OiB1bmxlc3Mtc3RvcHBlZAogICAgZGVwZW5kc19vbjoKICAgICAgLSBwd25kb2MtbW9uZ28KICAgIGV4cG9zZToKICAgICAgLSAzMDAwCiAgICBlbnZpcm9ubWVudDoKICAgICAgLSBWSVJUVUFMX0hPU1Q9cHduZG9jLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9MzAwMAogICAgICAjIC0tLSBQd25Eb2MgZW52aXJvbm1lbnQgKGJlc3QtZWZmb3J0OyB0aGUgcHJvamVjdCB1c2VzIGEgLmVudiBmaWxlKSAtLS0KICAgICAgLSBQV05DT0RPQ19NT05HT0RCX1VSST1tb25nb2RiOi8vcHduZG9jLW1vbmdvOjI3MDE3L3B3bmRvYwogICAgICAtIEpXVF9TRUNSRVQ9Y2hhbmdlLW1lCiAgICAgICMgTk9URTogRXhhY3QgdmFyaWFibGUgbmFtZXMgdmFyeSBieSByZWxlYXNlOyB0aGUgcHJvamVjdCBwcmltYXJpbHkgcmVsaWVzCiAgICAgICMgb24gaXRzIGJ1bmRsZWQgLmVudiAvIC5lbnYuZXhhbXBsZSByYXRoZXIgdGhhbiBoYXJkY29kZWQgY29tcG9zZSB2YXJzLgogICAgICAjIFB3bkRvYyBhbHNvIHVzZXMgYSBSZWRpcyBjYWNoZSBmb3Igc29tZSBmZWF0dXJlczsgaWYgcmVxdWlyZWQsIGFkZCBhCiAgICAgICMgYHB3bmRvYy1yZWRpc2Agc2VydmljZSAoaW1hZ2UgcmVkaXM6NykgYW5kIGEgUFdOQ09ET0NfUkVESVNfVVJJIGVudiB2YXIuCiAgICB2b2x1bWVzOgogICAgICAtIC4vcHduZG9jLWRhdGE6L2FwcC9kYXRhCiAgcHduZG9jLW1vbmdvOgogICAgaW1hZ2U6IG1vbmdvOjcKICAgIGNvbnRhaW5lcl9uYW1lOiBwd25kb2MtbW9uZ28KICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCiAgICB2b2x1bWVzOgogICAgICAtIC4vcHduZG9jLW1vbmdvLWRhdGE6L2RhdGEvZGIK"
+docker_compose_ghostwriter="IyBHaG9zdHdyaXRlciAoR2hvc3RNYW5hZ2VyL0dob3N0d3JpdGVyKSAtIFNwZWN0ZXJPcHMgcmVkLXRlYW0gcmVwb3J0aW5nCiMgcGxhdGZvcm0uIEl0IHNoaXBzIHdpdGggaXRzIG93biBkb2NrZXItY29tcG9zZSBhbmQgcmVxdWlyZXMgUG9zdGdyZVNRTDsgdGhpcwojIHNuaXBwZXQgcHJvdmlkZXMgdGhlIGFwcCBwbHVzIGEgcG9zdGdyZXMgYmFja2luZyBzdG9yZSBmb3IgdGhlIHNoYXJlZCBzdGFjay4KIyBOT1RFOiBUaGUgYXBwIGNvbnRhaW5lciBydW5zIG1pZ3JhdGlvbnMgb24gc3RhcnR1cCwgc28gaXQgbmVlZHMgREIgY3JlZGVudGlhbHMKIyB0aGF0IG1hdGNoIHdoYXQgdGhlIERCIHNlcnZpY2UgZXhwb3Nlcy4KICBnaG9zdHdyaXRlcjoKICAgIGltYWdlOiBnaG9zdG1hbmFnZXIvZ2hvc3R3cml0ZXI6bGF0ZXN0CiAgICBjb250YWluZXJfbmFtZTogZ2hvc3R3cml0ZXIKICAgIHJlc3RhcnQ6IHVubGVzcy1zdG9wcGVkCiAgICBkZXBlbmRzX29uOgogICAgICAtIGdob3N0d3JpdGVyLWRiCiAgICBleHBvc2U6CiAgICAgIC0gODAwMAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gVklSVFVBTF9IT1NUPWdob3N0d3JpdGVyLnJ0cy5sYW4KICAgICAgLSBWSVJUVUFMX1BPUlQ9ODAwMAogICAgICAjIC0tLSBHaG9zdHdyaXRlciByZXF1aXJlZCBlbnYgKGZyb20gdGhlIHByb2plY3QncyBkb2NrZXItY29tcG9zZSkgLS0tCiAgICAgIC0gU0VDUkVUX0tFWT1jaGFuZ2UtbWUtcGxlYXNlCiAgICAgIC0gREJfRU5HSU5FPWRqYW5nby5kYi5iYWNrZW5kcy5wb3N0Z3Jlc3FsCiAgICAgIC0gREJfTkFNRT1naG9zdHdyaXRlcgogICAgICAtIERCX1VTRVI9Z2hvc3R3cml0ZXIKICAgICAgLSBEQl9QQVNTV09SRD1naG9zdHdyaXRlcgogICAgICAtIERCX0hPU1Q9Z2hvc3R3cml0ZXItZGIKICAgICAgLSBEQl9QT1JUPTU0MzIKICAgICAgIyBOT1RFOiBUaGUgZnVsbCBwcm9qZWN0IGFsc28gd2lyZXMgaW4gUmVkaXMgKGZvciBDZWxlcnkvY2FjaGluZykgYW5kIHVzZXMKICAgICAgIyBhIERqYW5nbyBBTExPV0VEX0hPU1RTIC8gZG9tYWluIHNldHRpbmcgKGUuZy4gR0hPU1RXUklURVJfRE9NQUlOKS4KICAgICAgIyBBZGp1c3QgQUxMT1dFRF9IT1NUUyB0byBtYXRjaCBnaG9zdHdyaXRlci5ydHMubGFuIGlmIG5lZWRlZC4KICAgICAgLSBBTExPV0VEX0hPU1RTPWdob3N0d3JpdGVyLnJ0cy5sYW4KICBnaG9zdHdyaXRlci1kYjoKICAgIGltYWdlOiBwb3N0Z3JlczoxNgogICAgY29udGFpbmVyX25hbWU6IGdob3N0d3JpdGVyLWRiCiAgICByZXN0YXJ0OiB1bmxlc3Mtc3RvcHBlZAogICAgZW52aXJvbm1lbnQ6CiAgICAgIC0gUE9TVEdSRVNfREI9Z2hvc3R3cml0ZXIKICAgICAgLSBQT1NUR1JFU19VU0VSPWdob3N0d3JpdGVyCiAgICAgIC0gUE9TVEdSRVNfUEFTU1dPUkQ9Z2hvc3R3cml0ZXIKICAgIHZvbHVtZXM6CiAgICAgIC0gLi9naG9zdHdyaXRlci1kYi1kYXRhOi92YXIvbGliL3Bvc3RncmVzcWwvZGF0YQo="
+
 
 # Cobalt Strike Community kit has its own setup script, which we'll need to replicate for our local gitea instance. Best way is probably to download the tracked_repos.txt from gitea, and then use a for loop to clone those bad boys. Thing is, they are tracked...
 # so mirroring is good to keep the list up to date, but how to pull the rest of the repos? something to ponder later, I guess.
@@ -647,7 +649,8 @@ check_installed() {
     	ec "${1} is installed."
 	else
     	ew "${1} is not installed, installing from repo."
-    	DEBIAN_FRONTEND=noninteractive apt install ${1} -y 2>&1 | slog
+    	if [[ -z $apt_updated ]]; then DEBIAN_FRONTEND=noninteractive apt-get update 2>&1 | slog; apt_updated=1; fi
+	DEBIAN_FRONTEND=noninteractive apt install ${1} -y 2>&1 | slog
     	# Verify package is now installe
     	dpkg -s ${1} 2>&1 | slog
     		if [ $? -ne 0 ]; then
@@ -1072,7 +1075,7 @@ install_package() {
 	# this is our main install function 
 	# check to make sure key isn't blank
 	if [[ -z "$1" ]]; then print "Error"; return; fi ;
-	# This is where the main install instructions go for each package enabled. This includes docker-compose echoing
+	# This is where the main install instructions go for each package enabled. This includes docker compose echoing
 	# any additional set up that must occur. I need to include logic to check to make sure gitea is enabled if any references are enabled, probably before we get here.
 	# As we can't clone anything if gitea is not enabled. 
 	# Also, need to add additional logic to make sure we get the gitea auth token. 
@@ -1087,8 +1090,8 @@ install_package() {
 		"matrix server")
 			es "installing matrix synapse server"
 			sudo -u rts echo $docker_compose_matrix_chat | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull synapse synapse-db 2>&1 | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull synapse synapse-db 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml run --rm -e SYNAPSE_SERVER_NAME=matrix.rts.lan synapse generate 2>&1 | slog
 			check_exit_code "$?" "matrix synapse server" | slog
 			add_hosts "matrix.rts.lan"
 			sleep 5
@@ -1097,7 +1100,7 @@ install_package() {
 		"matrix web")
 			es "installing matrix web client"
 			sudo -u rts echo $docker_compose_element | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull element-web 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull element-web 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://element.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">matrix chat</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "matrix web client" | slog
 			add_hosts "element.rts.lan"
@@ -1107,31 +1110,21 @@ install_package() {
 		"IVRE")
 			es "installing IVRE"
 			sudo -u rts echo $docker_compose_ivre | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent ivreuwsgi ivredoku 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull ivredb ivreweb ivreclient ivreagent ivreuwsgi ivredoku 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://ivre.rts.lan" class="w3-button w3-bar-item w3-center" target="_blank" rel="noopener noreferrer">IVRE</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "IVRE" | slog
 			add_hosts "ivre.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
-		"covenant")
-			es "installing covenant" 
-			sudo -u rts echo $docker_compose_covenant | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build covenant 2>&1 | slog
-			sed -i '/<!-- mainsed -->/a <a href="https://rts.lan:7443" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">covenant</a>' ${install_path}/website/index.html
-			check_exit_code "$?" "covenant" | slog
-			add_hosts "covenant.rts.lan"
-			sleep 5
-			clear_menu "2"
-			;;
 		"gitea")
 			es "installing gitea"
 			sudo -u rts echo $docker_compose_gitea | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull gitea-server gitea-db 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull gitea-server gitea-db 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://gitea.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">gitea</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "gitea" | slog
 			add_hosts "gitea.rts.lan"
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d gitea-db gitea-server 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml up -d gitea-db gitea-server 2>&1 | slog
 			es "configuring gitea"
 			sleep 30 # 30 seconds to initialize
 			curl -s 'http://gitea.rts.lan/' \
@@ -1156,18 +1149,18 @@ install_package() {
 			sleep 30 # 30 seconds to allow configuration above to kick in before we request user token. 
 			static_auth_token=$(sudo -u rts docker exec -u git gitea-server gitea admin user generate-access-token -u rts -t rts1 --scopes all | cut -d" " -f 6)
 			sleep 5
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml restart gitea-server gitea-db 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml restart gitea-server gitea-db 2>&1 | slog
 			sleep 1
 			clear_menu "4"
 			;;
 		"nextcloud")
 			es "installing nextcloud"
 			sudo -u rts echo $docker_compose_nextcloud | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull nextcloud_db nextcloud_app 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull nextcloud_db nextcloud_app 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://nextcloud.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">nextcloud</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "nextcloud" | slog
 			add_hosts "nextcloud.rts.lan"
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d nextcloud_db nextcloud_app 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml up -d nextcloud_db nextcloud_app 2>&1 | slog
 			es "configuring nextcloud - sleeping 30 seconds to allow init"
 			sleep 30 # this is to allow nextcloud docker container to init - if it's too fast it won't roger up over curl. 
 			# the below creates an admin user, to get around the skeleton crap. So we'll create our rts user after setup is complete.
@@ -1208,7 +1201,7 @@ install_package() {
 		"cyberchef")
 			es "installing cyberchef"
 			sudo -u rts echo $docker_compose_cyberchef | base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull cyberchef 2>&1 | slog 
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull cyberchef 2>&1 | slog 
 			sed -i '/<!-- mainsed -->/a <a href="http://cyberchef.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">cyberchef</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "cyberchef" | slog
 			add_hosts "cyberchef.rts.lan"
@@ -1218,39 +1211,31 @@ install_package() {
 		"portainer.io")
 			es "installing portainer.io"
 			sudo -u rts echo $docker_compose_portainer| base64 -d >> ${install_path}/docker-compose.yml | slog
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull portainer 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull portainer 2>&1 | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://portainer.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">portainer</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "portainer.io" | slog
 			add_hosts "portainer.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
-		"MITRE caldera")
-			es "installing MITRE caldera (long install)" 
-			sudo -u rts echo $docker_compose_caldera | base64 -d >> ${install_path}/docker-compose.yml | slog
-			if [ -d "${install_path}/caldera" ]; then sudo -u rts git -C ${install_path}/caldera/ pull 2>&1 | slog; else sudo -u rts git clone https://github.com/mitre/caldera.git --recursive ${install_path}/caldera 2>&1 | slog; fi
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build caldera 2>&1 | slog
-			sed -i '/<!-- mainsed -->/a <a href="http://caldera.rts.lan" class="w3-button w3-bar-item w3-center" target="_blank" rel="noopener noreferrer">caldera</a>' ${install_path}/website/index.html
-			check_exit_code "$?" "caldera" | slog
-			add_hosts "caldera.rts.lan"
-			sleep 5
-			clear_menu "2"
-			;;
 		"pentest collab framework")
-			es "installing pentest collaboration framework (long install)"
-			sudo -u rts echo $docker_compose_pcf | base64 -d >> ${install_path}/docker-compose.yml
-			if [ -d "${install_path}/pcf" ]; then sudo -u rts git -C ${install_path}/pcf/ pull 2>&1 | slog; else sudo -u rts git clone https://gitlab.com/invuls/pentest-projects/pcf.git ${install_path}/pcf 2>&1 | slog; fi
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build pcf 2>&1 | slog
-			sed -i '/<!-- mainsed -->/a <a href="http://pcf.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">PCF</a>' ${install_path}/website/index.html
-			check_exit_code "$?" "pcf" | slog
-			add_hosts "pcf.rts.lan"
+			es "installing pentest collaboration tools (PwnDoc + Ghostwriter)"
+			sudo -u rts echo $docker_compose_pwndoc | base64 -d >> ${install_path}/docker-compose.yml
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull pwndoc pwndoc-mongo 2>&1 | slog
+			sudo -u rts echo $docker_compose_ghostwriter | base64 -d >> ${install_path}/docker-compose.yml
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull ghostwriter ghostwriter-db 2>&1 | slog
+			sed -i '/<!-- mainsed -->/a <a href="http://pwndoc.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">pwndoc</a>' ${install_path}/website/index.html
+			sed -i '/<!-- mainsed -->/a <a href="http://ghostwriter.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">ghostwriter</a>' ${install_path}/website/index.html
+			check_exit_code "$?" "pentest collab framework" | slog
+			add_hosts "pwndoc.rts.lan"
+			add_hosts "ghostwriter.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
 		"lolbas/gtfobins")
 			es "installing lolbas/gtfobins"
 			sudo -u rts echo $docker_compose_lolbas | base64 -d >> ${install_path}/docker-compose.yml
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build lolbas 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml build lolbas 2>&1 | slog
 			sed -i '/<!-- refsed -->/a <a href="http://rts.lan:10050/" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">lolbas</a>' ${install_path}/website/index.html
 			sed -i '/<!-- refsed -->/a <a href="http://rts.lan:10060" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">gtfobins</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "lolbas/gtfobins" | slog
@@ -1302,13 +1287,13 @@ install_package() {
 			sed -i '/<!-- auxsed -->/a <a href="http://gitea.rts.lan/rts/seclists" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">seclists</a>' ${install_path}/website/index.html
 			clear_menu "1"
 			;;
-		"hastebin")
-			es "installing hastebin"
-			sudo -u rts echo $docker_compose_hastebin | base64 -d >> ${install_path}/docker-compose.yml
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build hastebinweb 2>&1 | slog
-			sed -i '/<!-- mainsed -->/a <a href="http://hastebin.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">hastebin</a>' ${install_path}/website/index.html
-			check_exit_code "$?" "hastebin" | slog
-			add_hosts "hastebin.rts.lan"
+		"pastebin")
+			es "installing pastebin (rustypaste)"
+			sudo -u rts echo $docker_compose_rustypaste | base64 -d >> ${install_path}/docker-compose.yml
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull rustypaste 2>&1 | slog
+			sed -i '/<!-- mainsed -->/a <a href="http://rustypaste.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">pastebin</a>' ${install_path}/website/index.html
+			check_exit_code "$?" "pastebin" | slog
+			add_hosts "rustypaste.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
@@ -1373,7 +1358,7 @@ install_package() {
 			sudo -u rts echo $docker_compose_attacknav | base64 -d >> ${install_path}/docker-compose.yml
 			if [ -d "${install_path}/attack-navigator" ]; then sudo -u rts git -C ${install_path}/attack-navigator/ pull 2>&1 | slog; else sudo -u rts git clone https://github.com/mitre-attack/attack-navigator.git ${install_path}/attack-navigator 2>&1 | slog; fi
 			sudo -u rts mv ${install_path}/attacknav-Dockerfile ${install_path}/attack-navigator/Dockerfile
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build attack-nav-node 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml build attack-nav-node 2>&1 | slog
 			sed -i '/<!-- refsed -->/a <a href="http://attack-nav.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">att&ck navigator</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "mitre attack navigator" | slog
 			add_hosts "attack-nav.rts.lan"
@@ -1383,7 +1368,7 @@ install_package() {
 		"MITRE att&ck reference")
 			es "installing MITRE att&ck ref (long install)"
 			if [ -d "${install_path}/attack-website" ]; then sudo -u rts git -C ${install_path}/attack-website/ pull 2>&1 | slog; else sudo -u rts git clone https://github.com/mitre-attack/attack-website.git ${install_path}/attack-website 2>&1 | slog; fi
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build attack-web 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml build attack-web 2>&1 | slog
 			sed -i '/<!-- refsed -->/a <a href="http://attack.rts.lan" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">att&ck reference</a>' ${install_path}/website/index.html
 			check_exit_code "$?" "mitre attack ref" | slog
 			add_hosts "attack.rts.lan"
@@ -1393,10 +1378,20 @@ install_package() {
 	    "powershell empire/starkiller")
 			es "installing Powershell Empire"
 			sudo -u rts echo $docker_compose_empire | base64 -d >> ${install_path}/docker-compose.yml
-			sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull empire 2>&1 | slog
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull empire 2>&1 | slog
 			check_exit_code "$?" "empire" | slog
 			sed -i '/<!-- mainsed -->/a <a href="http://empire.rts.lan/index.html" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">EMPIRE</a>' ${install_path}/website/index.html
 			add_hosts "empire.rts.lan"
+			sleep 5
+			clear_menu "2"
+			;;
+		"mythic")
+			es "installing mythic C2"
+			sudo -u rts echo $docker_compose_mythic | base64 -d >> ${install_path}/docker-compose.yml
+			sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull mythic 2>&1 | slog
+			check_exit_code "$?" "mythic" | slog
+			sed -i '/<!-- mainsed -->/a <a href="https://mythic.rts.lan:7443" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">mythic</a>' ${install_path}/website/index.html
+			add_hosts "mythic.rts.lan"
 			sleep 5
 			clear_menu "2"
 			;;
@@ -1474,7 +1469,11 @@ install() {
 	check_installed docker.io
 	check_installed golang
 	check_installed golang-go
-	check_installed docker-compose
+	if ! docker compose version &>/dev/null; then
+		ew "docker compose v2 plugin not found, installing docker-compose-plugin"
+		if [[ -z $apt_updated ]]; then DEBIAN_FRONTEND=noninteractive apt-get update 2>&1 | slog; apt_updated=1; fi
+		DEBIAN_FRONTEND=noninteractive apt install -y docker-compose-plugin 2>&1 | slog
+	fi
 	check_installed jq
 	check_installed metasploit-framework
 	#clear_menu "14"
@@ -1521,8 +1520,6 @@ install() {
             chown -R rts:adm ${install_path} | slog
         fi
 		# sudo -u rts cp -R ${initial_working_dir}/. ${install_path}
-		sudo cp -R ${initial_working_dir}/covenant ${install_path} | slog
-		sudo cp -R ${initial_working_dir}/hastebin ${install_path} | slog
 		if [ -d "${install_path}/lolbas" ]; then rm -rf ${install_path}/lolbas && mkdir ${install_path}/lolbas && sudo chown rts:adm ${install_path}/lolbas; else mkdir ${install_path}/lolbas; chown rts:adm ${install_path}/lolbas; fi
 		sudo cp ${initial_working_dir}/{.env,config.json,watchdog.sh,environment.js,homeserver.yaml,nuke-docker.sh,scan.sh,nuke-ivre.sh,nuke.sh,attacknav-Dockerfile,lolbas-Dockerfile,ivre.conf} ${install_path} | slog
 		sudo mv ${install_path}/lolbas-Dockerfile ${install_path}/lolbas/
@@ -1562,15 +1559,15 @@ install() {
 	ew "start crack-a-lackin"
 	sleep 1.5; clear_menu "1"
 	# Now we need to check the associaitive array to determine which packages are installed.
-	# Populate docker-compose preamble
+	# Populate docker compose preamble
 	echo $docker_compose_preamble | base64 -d > ${install_path}/docker-compose.yml
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull rts-web 2>/dev/null
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull rts-web 2>/dev/null
 	add_hosts "www.rts.lan"
 	sleep 1.5; clear_menu "1"
 	echo $docker_compose_nginx_proxy | base64 -d >> ${install_path}/docker-compose.yml
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml pull nginx-proxy 2>/dev/null
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull nginx-proxy 2>/dev/null
 	sleep 1.5
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d nginx-proxy rts-web 2>/dev/null
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml up -d nginx-proxy rts-web 2>/dev/null
 	# iterate through first assoc array
     print_line
 	ew "installing main packages"
@@ -1700,7 +1697,7 @@ post_install() {
 	## Installing wetty as a service:
 	es "installing wetty SSH service"
 	sudo -u rts echo $docker_compose_wetty | base64 -d >> ${install_path}/docker-compose.yml
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml build wetty 2>&1 | slog
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml pull wetty 2>&1 | slog
 	check_exit_code "$?" "wetty" | slog
 	sed -i '/<!-- mainsed -->/a <a href="http://ssh.rts.lan/wetty" class="w3-button w3-bar-item" target="_blank" rel="noopener noreferrer">SSH</a>' ${install_path}/website/index.html
 	add_hosts "ssh.rts.lan"
@@ -1722,27 +1719,34 @@ post_install() {
     #clear_menu "2"
 	sleep 3
 	ew "configuring metasploit database for shared connectivity"
-    msfdb init 2>&1 | slog
-    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
-    sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             all            scram-sha-256/g" /etc/postgresql/14/main/pg_hba.conf
-    sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';" &>/dev/null
-    sudo systemctl enable postgresql &>/dev/null
-	sudo systemctl restart postgresql &>/dev/null
-	mv /usr/share/metaspoit-framework/config/database.yml /usr/share/metasploit-framework/config/database.orig 
-	echo "production:" > /usr/share/metasploit-framework/config/database.yml
-	echo "  adapter: postgresql" >> /usr/share/metasploit-framework/config/database.yml
-	echo "  database: msf" >> /usr/share/metasploit-framework/config/database.yml
-	echo "  username: msf" >> /usr/share/metasploit-framework/config/database.yml
-	echo "  password: ${rts_password}" >> /usr/share/metasploit-framework/config/database.yml
-	echo "  host: rts.lan" >> /usr/share/metasploit-framework/config/database.yml
-	echo "  port: 5432" >> /usr/share/metasploit-framework/config/database.yml 
-	echo "  pool: 5" >> /usr/share/metasploit-framework/config/database.yml 
-	echo "  timeout: 5" >> /usr/share/metasploit-framework/config/database.yml
+	if command -v msfdb &>/dev/null && ! grep -q "database: msf" /usr/share/metasploit-framework/config/database.yml 2>/dev/null; then
+		if msfdb init 2>&1 | slog; then
+			sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
+			sed -i "s/host    all             all             127.0.0.1\/32            scram-sha-256/host    all             all             all            scram-sha-256/g" /etc/postgresql/14/main/pg_hba.conf
+			sudo -u postgres psql -c "ALTER USER msf PASSWORD '${rts_password}';" &>/dev/null
+			sudo systemctl enable postgresql &>/dev/null
+			sudo systemctl restart postgresql &>/dev/null
+			mv /usr/share/metaspoit-framework/config/database.yml /usr/share/metasploit-framework/config/database.orig 
+			echo "production:" > /usr/share/metasploit-framework/config/database.yml
+			echo "  adapter: postgresql" >> /usr/share/metasploit-framework/config/database.yml
+			echo "  database: msf" >> /usr/share/metasploit-framework/config/database.yml
+			echo "  username: msf" >> /usr/share/metasploit-framework/config/database.yml
+			echo "  password: ${rts_password}" >> /usr/share/metasploit-framework/config/database.yml
+			echo "  host: rts.lan" >> /usr/share/metasploit-framework/config/database.yml
+			echo "  port: 5432" >> /usr/share/metasploit-framework/config/database.yml 
+			echo "  pool: 5" >> /usr/share/metasploit-framework/config/database.yml 
+			echo "  timeout: 5" >> /usr/share/metasploit-framework/config/database.yml
+		else
+			ew "warning: msfdb init failed; skipping metasploit database configuration"
+		fi
+	else
+		ew "warning: metasploit database already configured or msfdb not present; skipping"
+	fi
     ec "metasploit database configuration complete. Use: db_connect msf:${rts_password}@rts.lan:5432/msf when inside Metasploit Framework to connect to RTS's database."
 
 	ew "bringing up the environment for initialization"
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml down --remove-orphans 2>&1 | slog
-	sudo -u rts docker-compose -f ${install_path}/docker-compose.yml up -d 2>&1 | slog
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml down --remove-orphans 2>&1 | slog
+	sudo -u rts docker compose -f ${install_path}/docker-compose.yml up -d 2>&1 | slog
 	sleep 30
 	clear
 	if [[ -f "${install_path}/red-share/rts.txt" ]]; then rm ${install_path}/red-share/rts.txt; fi

@@ -1,0 +1,17 @@
+# --- Local environment & secrets (generated per-deployment at install time) ---
+.env
+.env.local
+
+# --- Runtime data / state that should never be committed ---
+splunkd
+red-share/
+portainer-data/
+*/data/
+**/var_lib_mongodb/
+**/var_log_mongodb/
+
+# --- Editor / OS junk ---
+*.swp
+*~
+*.backup
+.DS_Store

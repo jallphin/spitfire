@@ -13,11 +13,11 @@ It consists of:
 - Unified Group & Team Communication (web based & client based using Matrix)
 - A web-enabled git repository containing curated tools you and your team needs on the regular (via Gitea)
 - Automated Reconnaissance, Scanning and Enumeration- Screenshots included (via IVRE)
-- Centralized C2 Infrastructure (via Sliver, MITRE Caldera, Powershell Empire and Covenant)
+- Centralized C2 Infrastructure (via Sliver, Mythic, and Powershell Empire)
 - At your fingertips references, despite connectivity issues (MITRE Att&ck Navigator & References, Payload All the Things, Hacktricks, etc.)
-- Centralized Vulnerability Management and Reporting (via Penetration Collaboration Framework)
+- Centralized Vulnerability Management and Reporting (via PwnDoc & Ghostwriter)
 - Cloud based artifact storage and later retrieval (via NextCloud)
-- Convienent "pastebin" functionality for working and collaborting on the fly (via Hastebin)
+- Convenient "pastebin" functionality for working and collaborating on the fly (via rustypaste)
 - Command shortcut script to help redteams remember proper syntax (Orange Cyber Defense Arsenal)
 - Web based SSH access (via wetty)
 - Apache Guacamole access (via Apache Guacamole)
@@ -79,14 +79,15 @@ _Spitfire_ can also be deployed as a virtual machine for easier deployments:
 3. Element Web Client (https://github.com/vector-im/element-web)
 4. IVRE Recon Framework (https://github.com/ivre/ivre)
 5. Reconmap Framework (https://github.com/reconmap) **Disabled until further notice due to app breakage**
-6. Penetration Testing Collaboration Framework - PCF (https://gitlab.com/invuls/pentest-projects/pcf)
-7. Nextcloud (https://github.com/nextcloud)
-8. Gitea (https://github.com/go-gitea/gitea)
-9. CyberChef (https://github.com/gchq/CyberChef) 
-10. Hastebin (https://github.com/toptal/haste-server)
-11. Nginx (https://github.com/nginx)
-12. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
-13. Portainer.io (https://github.com/portainer/portainer) - For managing the containers and stack. 
+6. PwnDoc (https://github.com/pwndoc/pwndoc) - Pentest reporting platform
+7. Ghostwriter (https://github.com/GhostManager/Ghostwriter) - Red-team reporting platform
+8. Nextcloud (https://github.com/nextcloud)
+9. Gitea (https://github.com/go-gitea/gitea)
+10. CyberChef (https://github.com/gchq/CyberChef) 
+11. rustypaste (https://github.com/orhun/rustypaste) - Self-hosted pastebin
+12. Nginx (https://github.com/nginx)
+13. Nginx-proxy (https://github.com/nginx-proxy/nginx-proxy)
+14. Portainer.io (https://github.com/portainer/portainer) - For managing the containers and stack. 
 
 ## Auxilliary Modules:
 1. Cobalt Strike Community Kit (https://github.com/Cobalt-Strike/community_kit)
@@ -95,9 +96,9 @@ _Spitfire_ can also be deployed as a virtual machine for easier deployments:
 4. Slowloris (https://github.com/gkbrk/slowloris)
 5. Ghostpack Compiled Binaries (https://github.com/r3motecontrol/Ghostpack-CompiledBinaries)
 6. Veil Evasion Framework (https://github.com/Veil-Framework/Veil)
-7. Cobalt Strike Elevation Kit (https://github.com/Cobalt-Strike/ElevateKit.git)
-8. Cobalt Strike C2 Profiles (https://github.com/Cobalt-Strike/Malleable-C2-Profiles.git)
-9. Cobalt Strike Arsenal (https://github.com/mgeeky/cobalt-arsenal.git)
+8. Cobalt Strike Elevation Kit (https://github.com/Cobalt-Strike/ElevateKit.git)
+9. Cobalt Strike C2 Profiles (https://github.com/Cobalt-Strike/Malleable-C2-Profiles.git)
+10. Cobalt Strike Arsenal (https://github.com/mgeeky/cobalt-arsenal.git)
  
 ## References:
 1. LOLBins (https://lolbas-project.github.io/)
@@ -106,13 +107,12 @@ _Spitfire_ can also be deployed as a virtual machine for easier deployments:
 4. Payload All The Things (https://github.com/swisskyrepo/PayloadsAllTheThings)
 5. MITRE ATT&CK Navigator (https://github.com/mitre-attack/attack-navigator)
 6. MITRE ATT&CK Reference (https://github.com/mitre-attack/attack-website.git)
-7. Opensource Penetration Testing Standards
+8. Opensource Penetration Testing Standards
 
 ## C2 Frameworks:
-1. Convenant C2 Framework (https://github.com/cobbr/Covenant)
-2. Sliver (https://github.com/BishopFox/sliver)
-3. MITRE Caldera (https://github.com/mitre/caldera)
-4. Powershell Empire & Starkiller (https://github.com/EmpireProject/Empire)
+1. Sliver (https://github.com/BishopFox/sliver)
+2. Mythic (https://github.com/its-a-feature/Mythic)
+3. Powershell Empire & Starkiller (https://github.com/BC-SECURITY/Empire)
 
 ## Additional toolage:
 1. Orange Cyberdefense's Arsenal shortcut script (https://github.com/Orange-Cyberdefense/arsenal)
