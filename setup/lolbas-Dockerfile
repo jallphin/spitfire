@@ -1,4 +1,4 @@
-FROM ruby:3.1.2
+FROM ruby:3.3
 #RUN apk add alpine-sdk gcc git libressl-dev make ruby ruby-bigdecimal ruby-dev ruby-etc ruby-json ruby-webrick linux-headers bash
 RUN apt update
 RUN apt install -y gcc git make
@@ -13,7 +13,6 @@ RUN bundle update kramdown
 RUN bundle update
 RUN make bundle
 #RUN make serve-public
-RUN bundle exec jekyll serve --host 0.0.0.0 -P 10050 &
 #RUN llolbas server -P 10050 &
 
 RUN git clone https://github.com/gtfobins/gtfobins.github.io /opt/gtfobins
@@ -23,5 +22,25 @@ RUN bundle update --bundler || echo "continue"
 RUN bundle update kramdown
 #RUN bundle update 
 RUN make bundle
-RUN bundle exec jekyll serve --host 0.0.0.0 -P 10060 &
+
+# Startup wrapper: runs both jekyll servers at container start, keeping the
+# container alive. LOLBAS is backgrounded and GTFOBins is run in the
+# foreground; the loop keeps the process alive while both are running.
+RUN cat > /usr/local/bin/start-lolbas.sh <<'EOF'
+#!/bin/sh
+set -e
+cd /opt/LOLBAS
+bundle exec jekyll serve --host 0.0.0.0 -P 10050 &
+LOLBAS_PID=$!
+cd /opt/gtfobins
+bundle exec jekyll serve --host 0.0.0.0 -P 10060 &
+GTFO_PID=$!
+
+while kill -0 "$LOLBAS_PID" 2>/dev/null && kill -0 "$GTFO_PID" 2>/dev/null; do
+    sleep 1
+done
+EOF
+RUN chmod +x /usr/local/bin/start-lolbas.sh
+
+CMD ["/usr/local/bin/start-lolbas.sh"]
 
